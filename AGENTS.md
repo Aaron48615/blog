@@ -30,4 +30,4 @@
 5. 已定决策不允许私自推翻；要改，先在 DECISIONS.md 提新条目并等人确认
 
 ## Gotchas（踩坑记录，所有 AI 完工后必须补充）
-（暂无）
+- pnpm 11 的 `allowBuilds` 必须写在根目录 `pnpm-workspace.yaml`；旧版 `onlyBuiltDependencies` 与 `package.json` 里的 `allowScripts` 已失效。esbuild 等带 native binary 的包若被忽略构建脚本，会触发 `ERR_PNPM_IGNORED_BUILDS`。
