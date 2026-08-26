@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1"
+  },
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-astro"
+    ],
+    "overrides": [
+      {
+        "files": "*.astro",
+        "options": {
+          "parser": "astro"
+        }
+      }
+    ]
+  }
+}

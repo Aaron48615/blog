@@ -1,13 +1,11 @@
 node_modules/
 dist/
+.astro/
 .vercel/
 .output/
-.DS_Store
-*.log
-.env
-.env.local
-.omo/
 .pnpm-store/
+pnpm-lock.yaml
 .agents/
 .claude/skills/
+.omo/
 .opencode/
