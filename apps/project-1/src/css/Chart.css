@@ -1,0 +1,203 @@
+.chart-management-page {
+    --chart-accent: #4c6ef5;
+    --chart-border: rgba(129, 140, 165, 0.18);
+    min-height: 100%;
+    color: inherit;
+}
+
+.chart-page-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 2px 2px 22px;
+}
+
+.chart-page-heading .ant-typography {
+    margin: 0;
+}
+
+.chart-page-heading h3.ant-typography {
+    margin-bottom: 5px;
+    font-size: 22px;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+}
+
+.chart-total-badge {
+    flex: none;
+    padding: 6px 11px;
+    border: 1px solid rgba(76, 110, 245, 0.18);
+    border-radius: 999px;
+    color: var(--chart-accent);
+    background: rgba(76, 110, 245, 0.07);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.chart-toolbar {
+    padding: 16px;
+    border: 1px solid var(--chart-border);
+    border-bottom: 0;
+    border-radius: 10px 10px 0 0;
+    background: color-mix(in srgb, var(--chart-surface) 96%, var(--chart-accent) 4%);
+}
+
+.chart-toolbar .dashboard-filter {
+    width: 220px;
+}
+
+.chart-toolbar .ant-btn,
+.chart-toolbar .ant-select-selector {
+    border-radius: 6px;
+}
+
+.chart-toolbar .ant-btn-primary {
+    box-shadow: 0 5px 14px rgba(76, 110, 245, 0.2);
+}
+
+.chart-table-shell {
+    overflow: hidden;
+    border: 1px solid var(--chart-border);
+    border-radius: 0 0 10px 10px;
+}
+
+.chart-table-shell .ant-table {
+    font-size: 13px;
+}
+
+.chart-table-shell .ant-table-container table > thead > tr:first-child > *:first-child {
+    border-start-start-radius: 0;
+}
+
+.chart-table-shell .ant-table-container table > thead > tr:first-child > *:last-child {
+    border-start-end-radius: 0;
+}
+
+.chart-table-shell .ant-table-thead > tr > th {
+    height: 52px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    color: color-mix(in srgb, var(--chart-text) 88%, transparent);
+    font-weight: 650;
+    background: var(--chart-surface-muted);
+}
+
+.chart-table-shell .ant-table-tbody > tr > td {
+    height: 62px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+.chart-table-shell .ant-table-tbody > tr:hover > td {
+    background: rgba(76, 110, 245, 0.035) !important;
+}
+
+.chart-table-shell .ant-table-cell-fix-right {
+    background: var(--chart-surface);
+}
+
+.chart-table-shell .ant-table-tbody > tr:hover .ant-table-cell-fix-right {
+    background: color-mix(in srgb, var(--chart-surface) 96.5%, var(--chart-accent) 3.5%) !important;
+}
+
+.chart-name {
+    font-weight: 560;
+}
+
+.source-cell {
+    display: inline-block;
+    max-width: 150px;
+    line-height: 1.55;
+}
+
+.chart-table-shell .ant-tag {
+    min-width: 50px;
+    margin-inline-end: 0;
+    border: 0;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.chart-table-shell .ant-btn-sm {
+    height: 27px;
+    padding-inline: 8px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.chart-table-shell .ant-pagination {
+    margin: 18px 16px;
+}
+
+.chart-preview-modal .ant-modal-content {
+    overflow: hidden;
+    padding: 0;
+    border-radius: 12px;
+    box-shadow: 0 26px 80px rgba(22, 29, 50, 0.22);
+}
+
+.chart-preview-modal .ant-modal-header {
+    margin: 0;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--chart-border);
+}
+
+.chart-preview-modal .ant-modal-close {
+    top: 14px;
+    inset-inline-end: 14px;
+}
+
+.chart-preview-content {
+    padding: 18px 24px 24px;
+}
+
+.chart-preview-state {
+    display: grid;
+    min-height: 380px;
+    place-items: center;
+}
+
+.chart-preview-content h4.ant-typography {
+    margin: 0 0 6px;
+    text-align: center;
+    font-size: 16px;
+}
+
+@media (max-width: 720px) {
+    .chart-page-heading {
+        align-items: flex-start;
+        margin-bottom: 16px;
+    }
+
+    .chart-page-heading h3.ant-typography {
+        font-size: 19px;
+    }
+
+    .chart-page-heading .ant-typography-secondary {
+        display: none;
+    }
+
+    .chart-toolbar {
+        padding: 12px;
+    }
+
+    .chart-toolbar .ant-flex {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+
+    .chart-toolbar .dashboard-filter {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .chart-toolbar .ant-btn {
+        width: 100%;
+    }
+
+    .chart-preview-content {
+        padding: 14px 12px 18px;
+    }
+}

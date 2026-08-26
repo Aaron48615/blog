@@ -1,0 +1,29 @@
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.dashboard-head-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: fit-content;
+}
+
+.dashboard-head-right {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.dashboard-head-right button {
+    height: 24px;
+}
+
+.barChart {
+    width: 500px;
+    height: 500px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}

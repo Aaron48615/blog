@@ -1,0 +1,84 @@
+:root {
+  font-family: 'Avenir Next', 'PingFang SC', sans-serif;
+  /* color: #eef2ff; */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --muted-text: #7f89aa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.dashboard-page,
+.error-page {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  min-height: 100svh;
+  place-items: center;
+  overflow: hidden;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(86, 71, 218, 0.18), transparent 30%),
+    #080b1d;
+}
+
+.dashboard-glow {
+  position: absolute;
+  width: 560px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(103, 81, 235, 0.1);
+  filter: blur(100px);
+}
+
+.dashboard-card.ant-card {
+  width: min(560px, 100%);
+  border: 1px solid rgba(126, 111, 255, 0.18);
+  background: rgba(18, 21, 52, 0.86);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(16px);
+}
+
+.dashboard-card .ant-typography {
+  margin-bottom: 0;
+  color: #eef0ff;
+}
+
+.error-page .ant-result {
+  width: min(620px, 100%);
+  padding: 56px 32px;
+  border: 1px solid rgba(126, 111, 255, 0.16);
+  border-radius: 24px;
+  background: rgba(17, 20, 48, 0.78);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(16px);
+}
+
+.error-page .ant-result-title {
+  color: #eef0ff;
+}
+
+.error-page .ant-result-subtitle {
+  color: var(--muted-text);
+}

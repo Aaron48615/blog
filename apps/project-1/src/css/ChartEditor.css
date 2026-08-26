@@ -1,0 +1,177 @@
+.chart-editor-page {
+    min-height: 100%;
+}
+
+.chart-editor-title {
+    margin-bottom: 18px;
+}
+
+.chart-editor-title h3.ant-typography {
+    margin: 0 0 4px;
+    font-size: 20px;
+}
+
+.chart-editor-alert {
+    margin-bottom: 16px;
+}
+
+.chart-editor-steps {
+    margin-bottom: 24px;
+    padding: 0 2px;
+}
+
+.chart-editor-card {
+    border-color: rgba(129, 140, 165, 0.22);
+    border-radius: 8px;
+}
+
+.chart-editor-card .ant-card-head {
+    min-height: 50px;
+}
+
+.chart-editor-dashboard-select {
+    width: min(360px, 100%);
+}
+
+.chart-editor-help {
+    margin: 12px 0 18px !important;
+    font-size: 13px;
+}
+
+.chart-editor-source {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+    color: rgba(0, 0, 0, 0.48);
+    font-size: 13px;
+}
+
+.chart-table-options {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+    margin: 10px 0 20px;
+}
+
+.chart-table-option,
+.chart-type-option {
+    border: 1px solid rgba(129, 140, 165, 0.26);
+    color: inherit;
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.chart-table-option {
+    min-height: 82px;
+    padding: 12px;
+    border-radius: 7px;
+    text-align: left;
+}
+
+.chart-table-option:hover,
+.chart-table-option.is-selected,
+.chart-type-option:hover,
+.chart-type-option.is-selected {
+    border-color: #498fff;
+    background: rgba(73, 143, 255, 0.08);
+    box-shadow: 0 0 0 2px rgba(73, 143, 255, 0.06);
+}
+
+.chart-table-option strong,
+.chart-table-option code,
+.chart-table-option small {
+    display: block;
+}
+
+.chart-table-option code {
+    margin: 3px 0 9px;
+    color: #8c8c8c;
+    font-size: 11px;
+}
+
+.chart-table-option small {
+    color: #b0b0b0;
+}
+
+.chart-fields-panel {
+    display: grid;
+    gap: 10px;
+}
+
+.chart-fields-panel label {
+    display: block;
+    margin: 10px 0 6px;
+    color: #8c8c8c;
+    font-size: 12px;
+}
+
+.chart-fields-panel .ant-select {
+    width: 100%;
+}
+
+.chart-editor-field-label {
+    display: block;
+    margin: 0 0 8px;
+    font-weight: 600;
+}
+
+.chart-editor-field-label + .ant-input {
+    width: min(360px, 100%);
+    margin-bottom: 18px;
+}
+
+.chart-type-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.chart-type-option {
+    display: grid;
+    width: 108px;
+    height: 86px;
+    place-items: center;
+    align-content: center;
+    gap: 7px;
+    border-radius: 8px;
+}
+
+.chart-type-option span {
+    font-size: 25px;
+    line-height: 1;
+}
+
+.chart-editor-actions {
+    margin-top: 20px;
+}
+
+.chart-preview-card .ant-card-body {
+    min-height: 490px;
+}
+
+.chart-editor-loading {
+    display: grid;
+    min-height: 420px;
+    place-items: center;
+}
+
+@media (max-width: 1050px) {
+    .chart-table-options {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .chart-editor-steps .ant-steps-item-title {
+        font-size: 12px;
+    }
+
+    .chart-table-options {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .chart-type-option {
+        flex: 1 1 calc(50% - 10px);
+    }
+}
