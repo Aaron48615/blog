@@ -1,0 +1,101 @@
+---
+const highlights = [
+  {
+    icon: "⚡️",
+    title: "Astro 零 JS 优先",
+    desc: "全静态 HTML/CSS 直出，无冗余运行时，秒级首屏渲染与极高 Lighthouse 表现。",
+  },
+  {
+    icon: "🍱",
+    title: "pnpm Monorepo",
+    desc: "统一管理个人门户与多个独立技术栈工程（React / Vue 3），保持依赖与架构整洁。",
+  },
+  {
+    icon: "🎨",
+    title: "纯 CSS 动效美学",
+    desc: "微光渐变、玻璃拟态与硬件加速关键帧动效，兼顾优雅视觉与系统无障碍体验。",
+  },
+];
+---
+
+<section class="highlights-section">
+  <h2 class="section-title">
+    设计与工程理念 <span class="title-sub">/ Principles</span>
+  </h2>
+  <div class="highlights-grid">
+    {
+      highlights.map((item) => (
+        <div class="highlight-card">
+          <div class="card-icon">{item.icon}</div>
+          <h3 class="card-title">{item.title}</h3>
+          <p class="card-desc">{item.desc}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .highlights-section {
+    padding: 2.5rem 0 1rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .section-title {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .title-sub {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .highlights-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .highlight-card {
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    background: rgba(15, 21, 35, 0.4);
+    border: 1px solid var(--border-subtle);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .highlight-card:hover {
+    background: var(--bg-card);
+    border-color: var(--border-medium);
+    transform: translateY(-2px);
+  }
+
+  .card-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .card-title {
+    font-size: 1.05rem;
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .card-desc {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+</style>

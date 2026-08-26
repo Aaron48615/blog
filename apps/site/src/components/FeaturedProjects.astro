@@ -1,0 +1,267 @@
+---
+const featuredProjects = [
+  {
+    id: "project-1",
+    name: "Data Pilot",
+    tagline: "React 高阶数据大屏与分析看板",
+    description:
+      "具备多维度指标监控、图表联动与实时交互能力的分析中台，纯前端架构适配第三方 API。",
+    stack: ["React 18", "TypeScript", "ECharts", "RESTful API"],
+    status: "准备迁移",
+    gradient:
+      "linear-gradient(135deg, rgba(45, 212, 191, 0.12) 0%, rgba(56, 189, 248, 0.05) 100%)",
+    accent: "var(--accent-teal)",
+  },
+  {
+    id: "project-2",
+    name: "Mobile Shop",
+    tagline: "Vue 3 现代化移动端商城应用",
+    description:
+      "专注轻量化与流畅操作体验的移动电商应用，包含商品流、购物车与状态持久化交互。",
+    stack: ["Vue 3", "Vite", "Pinia", "Mobile UI"],
+    status: "准备迁移",
+    gradient:
+      "linear-gradient(135deg, rgba(129, 140, 248, 0.12) 0%, rgba(56, 189, 248, 0.05) 100%)",
+    accent: "var(--accent-indigo)",
+  },
+];
+---
+
+<section class="featured-section">
+  <div class="section-head">
+    <div>
+      <h2 class="section-title">
+        精选项目 <span class="title-sub">/ Projects</span>
+      </h2>
+      <p class="section-desc">已规划纳入个人 Hub 的代表性工程与前端实践。</p>
+    </div>
+    <a href="/projects" class="all-link">
+      查看全部
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M5 12h14"></path>
+        <path d="m12 5 7 7-7 7"></path>
+      </svg>
+    </a>
+  </div>
+
+  <div class="projects-grid">
+    {
+      featuredProjects.map((project) => (
+        <a href="/projects" class="project-card-link">
+          <article
+            class="project-card"
+            style={`--card-glow: ${project.accent}`}
+          >
+            <div class="card-top">
+              <span class="project-tagline">{project.tagline}</span>
+              <span class="status-pill">{project.status}</span>
+            </div>
+
+            <h3 class="project-name">
+              {project.name}
+              <span class="arrow-icon">→</span>
+            </h3>
+
+            <p class="project-desc">{project.description}</p>
+
+            <div class="stack-list">
+              {project.stack.map((item) => (
+                <span class="stack-item">{item}</span>
+              ))}
+            </div>
+          </article>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .featured-section {
+    padding: 2.5rem 0 3.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+    gap: 1rem;
+  }
+
+  .section-title {
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .title-sub {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .section-desc {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+
+  .all-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-teal);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-full);
+    background: rgba(45, 212, 191, 0.08);
+    border: 1px solid rgba(45, 212, 191, 0.2);
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+
+  .all-link:hover {
+    background: rgba(45, 212, 191, 0.18);
+    border-color: var(--accent-teal);
+    transform: translateX(2px);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .project-card-link {
+    display: block;
+    height: 100%;
+  }
+
+  .project-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1.6rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--card-glow);
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+  }
+
+  .project-card:hover {
+    border-color: var(--border-medium);
+    transform: translateY(-4px);
+    box-shadow:
+      0 14px 30px -10px rgba(0, 0, 0, 0.5),
+      0 0 20px -5px var(--card-glow);
+  }
+
+  .project-card:hover::before {
+    opacity: 1;
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .project-tagline {
+    font-size: 0.775rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .status-pill {
+    font-size: 0.725rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+  }
+
+  .project-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 0.65rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .arrow-icon {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    transition:
+      transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+      color 0.2s ease;
+  }
+
+  .project-card:hover .arrow-icon {
+    transform: translateX(4px);
+    color: var(--text-primary);
+  }
+
+  .project-desc {
+    font-size: 0.925rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0 0 1.5rem;
+    flex-grow: 1;
+  }
+
+  .stack-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+  }
+
+  .stack-item {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+</style>

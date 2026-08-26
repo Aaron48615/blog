@@ -1,15 +1,21 @@
 ---
+import "../styles/global.css";
+
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = "个人网站与项目作品集" } = Astro.props;
+const {
+  title,
+  description = "Aaron - 个人空间 · 前端工程、全栈探索与交互美学",
+} = Astro.props;
+
 const currentPath = Astro.url.pathname;
 const navItems = [
   { href: "/", label: "首页" },
-  { href: "/about", label: "关于" },
   { href: "/projects", label: "项目" },
+  { href: "/about", label: "关于" },
 ];
 ---
 
@@ -22,97 +28,157 @@ const navItems = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#080b11" />
     <title>{title}</title>
     <style>
-      :root {
-        --bg: #0b0d10;
-        --surface: #15181e;
-        --text: #e8eaf0;
-        --muted: #9aa2b2;
-        --accent: #5eead4;
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        background: var(--bg-glass);
+        border-bottom: 1px solid var(--border-subtle);
+        transition: border-color 0.2s ease;
       }
-      * {
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        font-family:
-          system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        line-height: 1.6;
-      }
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-      .container {
-        max-width: 72ch;
-        margin: 0 auto;
-        padding: 0 1.5rem;
-      }
-      header {
-        padding: 1.5rem 0;
-        border-bottom: 1px solid var(--surface);
-      }
-      header .container {
+
+      .header-inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 1rem;
+        padding: 1.1rem 0;
       }
+
       .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
         font-weight: 700;
-        letter-spacing: 0.02em;
+        font-size: 1.15rem;
+        letter-spacing: -0.02em;
+        color: var(--text-primary);
       }
-      nav ul {
+
+      .brand-logo {
+        width: 28px;
+        height: 28px;
+        border-radius: var(--radius-sm);
+        background: linear-gradient(
+          135deg,
+          var(--accent-teal),
+          var(--accent-indigo)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #080b11;
+        font-weight: 800;
+        font-size: 0.85rem;
+        box-shadow: 0 0 12px -2px rgba(45, 212, 191, 0.5);
+      }
+
+      .nav-list {
         list-style: none;
         margin: 0;
-        padding: 0;
+        padding: 0.25rem;
+        display: flex;
+        gap: 0.35rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-full);
+      }
+
+      .nav-link {
+        display: inline-block;
+        padding: 0.4rem 0.95rem;
+        border-radius: var(--radius-full);
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .nav-link:hover {
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .nav-link[aria-current="page"] {
+        color: #ffffff;
+        background: rgba(45, 212, 191, 0.16);
+        border: 1px solid rgba(45, 212, 191, 0.28);
+        box-shadow: 0 0 10px -2px rgba(45, 212, 191, 0.25);
+      }
+
+      .site-main {
+        flex: 1;
+        padding: 3.5rem 0 5rem;
+      }
+
+      .site-footer {
+        border-top: 1px solid var(--border-subtle);
+        background: rgba(8, 11, 17, 0.8);
+        padding: 2.25rem 0;
+        color: var(--text-muted);
+        font-size: 0.875rem;
+      }
+
+      .footer-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      @media (min-width: 640px) {
+        .footer-inner {
+          flex-direction: row;
+          text-align: left;
+        }
+      }
+
+      .footer-links {
         display: flex;
         gap: 1.25rem;
       }
-      nav a {
-        color: var(--muted);
+
+      .footer-link {
+        color: var(--text-muted);
         transition: color 0.2s ease;
       }
-      nav a:hover,
-      nav a[aria-current="page"] {
-        color: var(--accent);
+
+      .footer-link:hover {
+        color: var(--accent-teal);
       }
-      main {
-        padding: 3rem 0 5rem;
-      }
-      footer {
-        padding: 1.5rem 0;
-        border-top: 1px solid var(--surface);
-        color: var(--muted);
-        font-size: 0.875rem;
-        text-align: center;
+
+      .footer-tag {
+        font-size: 0.8rem;
+        color: var(--text-muted);
       }
     </style>
   </head>
   <body>
-    <header>
-      <div class="container">
-        <a class="brand" href="/">Aaron</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="Aaron 个人主页">
+          <span class="brand-logo">A</span>
+          <span>Aaron<span class="text-gradient">.</span></span>
+        </a>
         <nav aria-label="主导航">
-          <ul>
+          <ul class="nav-list">
             {
               navItems.map((item) => (
                 <li>
                   <a
+                    class="nav-link"
                     href={item.href}
                     aria-current={
-                      currentPath === item.href ? "page" : undefined
+                      currentPath === item.href ||
+                      (item.href !== "/" && currentPath.startsWith(item.href))
+                        ? "page"
+                        : undefined
                     }
                   >
                     {item.label}
@@ -124,14 +190,28 @@ const navItems = [
         </nav>
       </div>
     </header>
-    <main>
+
+    <main class="site-main">
       <div class="container">
         <slot />
       </div>
     </main>
-    <footer>
-      <div class="container">
-        © {new Date().getFullYear()} Aaron. All rights reserved.
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-copy">
+          © {new Date().getFullYear()} Aaron. Crafted with Astro & Modern CSS.
+        </div>
+        <div class="footer-links">
+          <a class="footer-link" href="/projects">项目</a>
+          <a class="footer-link" href="/about">关于</a>
+          <a
+            class="footer-link"
+            href="https://github.com/Aaron48615"
+            target="_blank"
+            rel="noopener noreferrer">GitHub</a
+          >
+        </div>
       </div>
     </footer>
   </body>
