@@ -82,6 +82,11 @@ git push -u origin feature/<任务名>
    ```
 4. 合并后删除已合并的 feature 分支。
 
+## Skill 使用规则
+
+- **ponytail**：仅当用户明确说出触发词时才调用。触发词包括 `ponytail`、`lazy mode`、`be lazy`、`simplest solution`、`minimal solution`、`yagni`、`do less`、`shortest path`，或用户明确抱怨 over-engineering / bloat / boilerplate / unnecessary dependencies。
+- 默认编码任务**不主动使用 ponytail**。如果用户没有给出上述任何信号，按正常工程化方式实现。
+
 ## 记忆文档体系（所有 AI 共同维护）
 
 本项目采用“一总纲 + 多分册”的正式记忆文档结构：
