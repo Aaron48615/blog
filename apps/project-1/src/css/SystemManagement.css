@@ -1,0 +1,91 @@
+.system-management-page {
+    min-height: 100%;
+}
+
+.system-management-page > h1 {
+    margin: 0 0 16px;
+    font-size: 20px;
+    font-weight: 650;
+}
+
+.role-management-page > h1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.system-filter-form {
+    margin-bottom: 14px;
+}
+
+.system-filter-form .ant-input {
+    width: 140px;
+}
+
+.system-filter-form .ant-select {
+    width: 118px;
+}
+
+.system-primary-action {
+    margin-bottom: 14px;
+}
+
+.system-table-shell {
+    overflow: hidden;
+    border: 1px solid rgba(129, 140, 165, 0.18);
+    border-radius: 8px;
+}
+
+.system-table-shell .ant-table-thead > tr > th {
+    height: 50px;
+    font-weight: 650;
+    background: rgba(129, 140, 165, 0.07);
+}
+
+.system-table-shell .ant-table-tbody > tr > td {
+    height: 58px;
+}
+
+.system-table-shell .ant-table-cell-fix-right {
+    background: var(--ant-color-bg-container, #fff);
+}
+
+.system-table-shell .ant-pagination {
+    margin-inline: 16px;
+}
+
+.system-modal-form {
+    padding-top: 12px;
+}
+
+.password-result {
+    display: grid;
+    gap: 12px;
+    padding-top: 6px;
+}
+
+.password-result p {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.56);
+}
+
+.permission-tree-shell {
+    max-height: 420px;
+    margin-top: 14px;
+    overflow: auto;
+    border: 1px solid rgba(129, 140, 165, 0.18);
+    border-radius: 8px;
+    padding: 10px 8px;
+}
+
+@media (max-width: 720px) {
+    .system-filter-form .ant-form-item {
+        width: calc(50% - 8px);
+        margin-inline-end: 8px;
+    }
+
+    .system-filter-form .ant-input,
+    .system-filter-form .ant-select {
+        width: 100%;
+    }
+}

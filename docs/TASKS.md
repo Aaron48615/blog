@@ -16,9 +16,9 @@
 ## Phase 2 — 旧项目迁移
 
 - [x] 旧项目迁移评估（技术栈/依赖/第三方 API/迁移步骤/环境变量） | owner: OpenCode Go | 验收: `docs/MIGRATION_PLAN.md` 已包含全部信息
-- [ ] 旧项目 1 迁入 `apps/project-1`（来源：`/Users/aaron/LoveCoding/21_React/高阶/data-pilot`） | owner: 待认领 | 依赖: docs/MIGRATION_PLAN.md、API 路由方案确认 | 验收: build 通过，预览环境可访问，第三方 API 调用正常
+- [x] 旧项目 1 迁入 `apps/project-1`（来源：`/Users/aaron/LoveCoding/21_React/高阶/data-pilot`） | owner: Codex | 依赖: docs/MIGRATION_PLAN.md、API 路由方案确认（方案 B：Vercel rewrites） | 验收: build/test/lint 通过，Vercel 预览首页与深层路由可访问，`/api/auth/captcha` 调用正常
 - [ ] 旧项目 2 迁入 `apps/project-2`（来源：`/Users/aaron/LoveCoding/20_Vue3/mobile-shop`） | owner: 待认领 | 依赖: docs/MIGRATION_PLAN.md、project-1 迁移验证通过 | 验收: 同上
-- [ ] 两个项目各自的 Vercel project 绑定 | owner: 用户 | 验收: push main 自动部署
+- [~] 两个项目各自的 Vercel project 绑定 | owner: 用户 | 进度: project-1 已绑定，project-2 待迁移 | 验收: push main 自动部署
 
 ## Phase 3 — 个人站内容施工
 

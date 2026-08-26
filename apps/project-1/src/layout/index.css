@@ -1,0 +1,27 @@
+.sider{
+    height: 100vh;
+}
+
+.sider-brand {
+    overflow: hidden;
+    margin: 20px 8px 18px;
+    color: #498fff;
+    font-family: "Avenir Next", "PingFang SC", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    text-align: center;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+.sider-brand.is-collapsed {
+    margin-inline: 4px;
+    font-size: 18px;
+    letter-spacing: 0.08em;
+}
+
+.breadcrumb{
+    margin-left: 16px;
+}

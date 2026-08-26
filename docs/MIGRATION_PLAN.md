@@ -69,7 +69,8 @@
 ### 3.1 project-1
 
 - **代理目标（开发）**：`http://116.62.230.90`
-- **实际后端（据 AGENTS.md）**：`http://116.62.230.90:9999/`
+- **实际业务 API**：`http://116.62.230.90/api/*`
+- **API 文档服务**：`http://116.62.230.90:9999/`（不可作为业务 API rewrite 目标）
 - **调用方式**：`axios.create({ baseURL: '/api' })`，开发时由 Vite `server.proxy` 转发。
 - **主要接口域**：
   - `/auth/*`：登录、注册、验证码、刷新 Token
@@ -103,7 +104,7 @@
 ### 3.3 部署层面的关键问题
 
 - **两个项目的 `/api` 代理都是 Vite dev-server 功能，构建后失效**。Vercel 纯静态托管默认无法代理到外部 HTTP 后端。
-- project-1 后端为 `http://116.62.230.90:9999`（HTTP），从 HTTPS 的 Vercel 页面调用会触发浏览器**混合内容拦截**。
+- project-1 业务 API 为 `http://116.62.230.90/api/*`（HTTP）；生产环境采用 Vercel 服务端 rewrite，避免浏览器直接请求 HTTP 导致混合内容拦截。
 - project-2 主后端为 `http://shop-api.edu.koobietech.com/`，同样存在混合内容与 CORS 风险。
 - **必须在迁移前确定 API 路由方案**：
   - 方案 A：后端开启 HTTPS 与 CORS，生产环境直接调用真实域名。
@@ -179,7 +180,7 @@
    这是 SPA 路由回退所必需。
 2. 根据第 3 节确定的 API 方案，配置生产环境 API 基地址：
    - 若直接调用后端：新增 `VITE_API_BASE` / `VITE_APP_URL` 环境变量，并在 axios 实例中使用 `import.meta.env`。
-   - 若用 Vercel rewrite：在 `vercel.json` 中追加 `/api/:path*` → 后端地址的规则。
+   - 若用 Vercel rewrite：在 `vercel.json` 中追加 `/api/:path*` → `http://116.62.230.90/api/:path*`；不要指向仅提供文档的 `:9999`。
 3. 分别在 Vercel dashboard 为两个项目设置环境变量，并绑定 Root Directory 为 `apps/project-1`、`apps/project-2`。
 
 ### 5.4 验证

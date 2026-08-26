@@ -1,0 +1,185 @@
+.map-page {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--map-text);
+}
+
+.map-toolbar {
+    display: flex;
+    min-height: 34px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.map-toolbar__hint {
+    color: var(--map-muted);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.map-stat-grid {
+    flex: none;
+}
+
+.map-stat-card.ant-card {
+    height: 100%;
+    border-color: var(--map-border);
+    box-shadow: 0 5px 16px color-mix(in srgb, var(--map-shadow), transparent 48%);
+}
+
+.map-stat-card .ant-card-body {
+    padding: 11px 14px;
+}
+
+.map-stat-card .ant-statistic-title {
+    margin-bottom: 3px;
+    color: var(--map-muted);
+    font-size: 12px;
+}
+
+.map-stat-card .ant-statistic-content {
+    font-family: "DIN Alternate", "Avenir Next Condensed", "PingFang SC", sans-serif;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.map-partial-alert.ant-alert {
+    flex: none;
+    padding-block: 7px;
+}
+
+.map-stage.ant-card {
+    position: relative;
+    min-height: 480px;
+    flex: 1 1 auto;
+    overflow: hidden;
+    border-color: var(--map-border);
+    border-radius: 14px;
+    background: var(--map-panel);
+    box-shadow: 0 10px 30px color-mix(in srgb, var(--map-shadow), transparent 30%);
+}
+
+.map-stage__canvas {
+    width: 100%;
+    height: clamp(480px, calc(100vh - 305px), 720px);
+    min-height: 100%;
+    background: #f4f7fa;
+}
+
+.map-stage__state {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    padding: 28px;
+    background: rgba(247, 249, 252, 0.88);
+    backdrop-filter: blur(5px);
+}
+
+.map-stage__state .ant-alert {
+    width: min(560px, 100%);
+}
+
+.map-state-loading {
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+    color: #65758a;
+    font-size: 13px;
+}
+
+.map-city-label {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 7px;
+    border: 1px solid rgba(22, 119, 255, 0.2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 3px 10px rgba(26, 55, 89, 0.13);
+    color: #24425f;
+    font-family: "Avenir Next", "PingFang SC", sans-serif;
+    font-size: 11px;
+    font-weight: 650;
+    line-height: 18px;
+    white-space: nowrap;
+}
+
+.map-info-window {
+    width: max-content;
+    max-width: min(320px, calc(100vw - 64px));
+    padding: 2px 0;
+    color: #1e2b3a;
+    font-family: "Avenir Next", "PingFang SC", sans-serif;
+    text-align: left;
+}
+
+.map-info-window__heading {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #edf0f4;
+}
+
+.map-info-window__heading strong {
+    overflow: hidden;
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.map-info-window__badge {
+    flex: none;
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.map-info-window__details {
+    display: grid;
+    gap: 7px;
+    justify-items: start;
+}
+
+.map-info-window__details p {
+    margin: 0;
+    color: #243449;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: left;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .map-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .map-toolbar__hint {
+        white-space: normal;
+    }
+
+    .map-stage.ant-card,
+    .map-stage__canvas {
+        min-height: 520px;
+    }
+
+    .map-stage__canvas {
+        height: 520px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .map-city-label {
+        transition: none;
+    }
+}
