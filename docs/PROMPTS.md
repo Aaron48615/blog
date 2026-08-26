@@ -4,14 +4,16 @@
 核心原则：**完整项目上下文只给总控；工人只拿"一个任务 + 地盘边界 + 验收标准"。**
 永远不要对工人说"继续这个项目"——那会让它误以为自己是主导。
 
-## 固定提示词
+## 固定提示词（所有执行者）
 
 ```
-进入 ~/personal-hub 后，执行以下命令再开始任何工作：
+第一句必须先切分支。进入 ~/personal-hub 后执行：
 
 git checkout main
 git pull origin main
 git checkout -b feature/<任务名>
+
+如果你发现自己在 main 分支上，立刻停止，执行上面三句后再继续。
 
 然后读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md。
 严禁在 main 分支上直接修改文件。
@@ -19,27 +21,67 @@ git checkout -b feature/<任务名>
 最后由用户或 Claude Code review 后用 --no-ff 合并到 main。
 ```
 
+## OpenCode Go (Qwen 3.7 Plus) — 内容/迁移/杂活
+
+```
+【强制】进入 ~/personal-hub 后，第一句执行：
+git checkout main && git pull origin main && git checkout -b feature/<任务名>
+如果你在 main 上，立刻停止，切 feature 分支。
+
+读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md。
+你是本仓库的内容/迁移/杂活工人，只负责：页面内容填充、文案、旧项目迁移、各种杂项。
+不许动：视觉样式（Antigravity 地盘）、逻辑/结构/部署（Codex 地盘）。
+
+本次任务：<从 TASKS.md 原样摘>
+验收标准：<从 TASKS.md 原样摘>
+
+要求：
+- 严禁在 main 上修改任何文件。
+- 只改自己任务范围内的文件。
+- 完成后 git status 检查，更新 docs/TASKS.md 状态和 docs/PROGRESS.md 流水。
+- push feature/<任务名> 分支，不要私自 merge。
+- 写一段给 Claude Code 的审查提示词由用户转发。
+```
+
 ## Codex (GPT) — 逻辑/结构/部署
 
 ```
+【强制】进入 ~/personal-hub 后，第一句执行：
+git checkout main && git pull origin main && git checkout -b feature/<任务名>
+如果你在 main 上，立刻停止，切 feature 分支。
+
 读 AGENTS.md 和 docs/TASKS.md。
 你是本仓库的逻辑主力，只负责：目录结构、路由、数据获取、构建与部署脚本。
-不许动：视觉样式、组件样式、动效（那是 Antigravity 的地盘）。
-本次任务：<任务描述，从 TASKS.md 原样摘>
+不许动：视觉样式、组件样式、动效（Antigravity 地盘）。
+
+本次任务：<从 TASKS.md 原样摘>
 验收标准：<从 TASKS.md 原样摘>
-要求：在 feature/<任务名> 分支开发，不推 main；完成后更新 docs/TASKS.md 状态和 docs/PROGRESS.md 流水。
+
+要求：
+- 在 feature/<任务名> 分支开发，不推 main。
+- 完成后更新 docs/TASKS.md 状态和 docs/PROGRESS.md 流水。
+- push 分支，写一段给 Claude Code 的审查提示词由用户转发。
 ```
 
 ## Antigravity (Gemini) — 视觉工人
 
 ```
-@AGENTS.md @docs/TASKS.md @docs/DECISIONS.md
+【强制】进入 ~/personal-hub 后，第一句执行：
+git checkout main && git pull origin main && git checkout -b feature/<任务名>
+如果你在 main 上，立刻停止，切 feature 分支。
+
+读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md。
 你是本仓库的视觉工人，只负责：组件样式、动效、响应式、配色排版。
 不许动：路由、数据获取逻辑、构建与部署配置。
+
 本次任务：<视觉任务描述>
 验收标准：<如 Lighthouse 性能 ≥90、用户目检通过>
 注意：docs/DECISIONS.md 里已定案的配色/技术决策不许推翻，有异议先提出。
-完成后更新 docs/TASKS.md 状态和 docs/PROGRESS.md 流水。
+
+要求：
+- 在 feature/<任务名> 分支开发，不推 main。
+- 完成后更新 docs/TASKS.md 状态和 docs/PROGRESS.md 流水。
+- push 分支，写一段给 Claude Code 的审查提示词由用户转发。
 ```
 
 ## 执行者收工后 → 给 Claude Code 的审查提示词
