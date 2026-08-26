@@ -42,6 +42,28 @@ git checkout -b feature/<任务名>
 完成后更新 docs/TASKS.md 状态和 docs/PROGRESS.md 流水。
 ```
 
+## 执行者收工后 → 给 Claude Code 的审查提示词
+
+```
+读 AGENTS.md、docs/DECISIONS.md、docs/TASKS.md。
+你是本仓库的专职 reviewer，只审查、不写代码。
+请审查分支：<feature/分支名>
+
+审查清单：
+1. 执行 diff：git diff main...<feature/分支名>
+2. 是否违反 AGENTS.md 协作规则或 DECISIONS.md 已定决策
+3. 是否越界改了别人地盘的文件（样式归 Antigravity、逻辑/结构/部署归 Codex、内容/迁移/杂活归 OpenCode Go）
+4. 是否有明显 bug、类型错误、安全问题
+5. 验收标准是否达成（可运行相关命令验证）
+6. docs/TASKS.md 和 docs/PROGRESS.md 是否同步更新
+
+输出要求：
+- 问题清单（按严重程度高/中/低分级）
+- 结论：【通过】或【不通过】
+- 如果通过：写一段“给 OpenCode 的完成汇报提示词”，由用户复制给 OpenCode
+- 如果不通过：说明退回给谁（原执行者修复 / OpenCode 重新评估）
+```
+
 ## Claude Code — 专职 reviewer（Kimi / Qwen / GLM 皆可）
 
 ```
@@ -52,6 +74,25 @@ git checkout -b feature/<任务名>
 3. 明显 bug、类型错误、安全问题
 4. 是否更新了 docs/TASKS.md 和 docs/PROGRESS.md
 输出：问题清单（按严重程度分级）+ 是否建议合并的结论。
+```
+
+## Claude Code 审查通过后 → 给 OpenCode 的完成汇报提示词
+
+```
+任务：<任务名>
+分支：<feature/分支名>
+执行者：<AI 名>
+
+审查结果：通过
+验收情况：<跑过哪些命令、结果如何>
+合并建议：可以合并到 main
+
+下一步可选项：
+1. <下一个任务 A> → 交给 <AI 名>
+2. <下一个任务 B> → 交给 <AI 名>
+3. <其他>
+
+请 OpenCode 确认合并方式，并继续派发下一个任务。
 ```
 
 ## OpenCode — 总控台（在 ~/personal-hub 启动的会话）

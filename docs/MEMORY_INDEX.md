@@ -15,6 +15,8 @@
 | 记忆文档体系  | AGENTS.md 为总纲，docs/ 下为分册，所有 AI 共同维护                                     | `AGENTS.md` > 记忆文档体系                |
 | 防 AI 冲突    | 必须一人一分支：开工先 `git checkout -b feature/<任务名>`，禁止在 main 上直接改文件    | `AGENTS.md` > 防 AI 冲突工作流            |
 | 合并规则      | 用户或 reviewer 检查 diff 并验收后，用 `--no-ff` 合并到 main                           | `AGENTS.md` > 防 AI 冲突工作流 > 合并规则 |
+| 四 AI 主流程  | OpenCode 派发 → 执行者开发 → Claude Code 审查 → OpenCode 合并 → 继续派发               | `AGENTS.md` > 四 AI 协作主流程            |
+| 并发规则      | 同一时刻尽量只让一个 AI 工作、一个 AI 审查                                             | `AGENTS.md` > 四 AI 协作主流程 > 并发规则 |
 | ponytail 使用 | 默认编码任务不主动调用；仅用户明确说触发词时才使用                                     | `AGENTS.md` > Skill 使用规则              |
 | 踩坑记录      | pnpm 11 的 `allowBuilds` 必须写在根目录 `pnpm-workspace.yaml`                          | `AGENTS.md` > Gotchas                     |
 | 锁文件格式化  | `pnpm-lock.yaml` 交给 pnpm 序列化，不由 Prettier 格式化                                | `AGENTS.md` > Gotchas                     |

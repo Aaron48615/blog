@@ -87,6 +87,63 @@ git push -u origin feature/<任务名>
 - **ponytail**：仅当用户明确说出触发词时才调用。触发词包括 `ponytail`、`lazy mode`、`be lazy`、`simplest solution`、`minimal solution`、`yagni`、`do less`、`shortest path`，或用户明确抱怨 over-engineering / bloat / boilerplate / unnecessary dependencies。
 - 默认编码任务**不主动使用 ponytail**。如果用户没有给出上述任何信号，按正常工程化方式实现。
 
+## 四 AI 协作主流程（OpenCode 总控）
+
+本流程用于把“谁该干什么、谁审查、谁合并”规范化，避免多 AI 同时乱改同一个 working tree。
+
+### 角色
+
+- **OpenCode（总控）**：查看进度、审查状态、写派活提示词，由用户转发给执行者。
+- **Codex / Antigravity / OpenCode Go（执行者）**：各自在独立 feature 分支上完成任务。
+- **Claude Code（审查员）**：只 review，不写新功能；审查通过后代为汇报给 OpenCode。
+- **用户（决策者）**：在每个关键节点确认或转发提示词。
+
+### 流程
+
+1. **OpenCode 派发**
+   - OpenCode 读取 `docs/TASKS.md`、`docs/PROGRESS.md` 和分支状态。
+   - OpenCode 写一段派活提示词，用户复制给对应的执行者。
+
+2. **执行者开工**
+   - 执行者收到提示词后，第一句执行：
+     ```bash
+     git checkout main
+     git pull origin main
+     git checkout -b feature/<任务名>
+     ```
+   - 执行者读 `AGENTS.md`、`docs/TASKS.md`，开始工作。
+
+3. **执行者收工并推送**
+   - 完成任务后，执行者更新 `docs/TASKS.md` 和 `docs/PROGRESS.md`。
+   - 执行者 commit、push feature 分支。
+   - 执行者写一段**给 Claude Code 的审查提示词**，用户复制给 Claude Code。
+
+4. **Claude Code 审查**
+   - 同一时刻只审查一个 feature 分支。
+   - 审查内容：代码质量、是否改了不该改的文件、验收是否通过、记忆文档是否同步。
+   - **通过**：Claude Code 写一段**给 OpenCode 的完成汇报提示词**，用户复制给 OpenCode。
+   - **不通过**：小问题退回原执行者修复；大方向问题由 OpenCode 重新评估。
+
+5. **合并到 main**
+   - OpenCode 收到完成汇报后，执行合并（或告诉用户如何合并）：
+     ```bash
+     git checkout main
+     git pull origin main
+     git merge --no-ff feature/<任务名>
+     git push
+     git branch -d feature/<任务名>
+     git push origin --delete feature/<任务名>
+     ```
+
+6. **继续派发**
+   - OpenCode 更新总进度，继续派发下一个任务。
+
+### 并发规则
+
+- **同一时刻尽量只让一个 AI 工作、一个 AI 审查**。
+- 例如：Antigravity 在 `feature/site-visual` 工作时，Codex 不要同时开工新分支；等 Antigravity 分支进入 Claude Code 审查阶段，再派 Codex 做下一个任务。
+- 如果必须并行，必须确保两个任务修改的文件完全不重叠，且各自独立分支。
+
 ## 记忆文档体系（所有 AI 共同维护）
 
 本项目采用“一总纲 + 多分册”的正式记忆文档结构：
