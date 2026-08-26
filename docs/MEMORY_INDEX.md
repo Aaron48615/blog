@@ -5,18 +5,19 @@
 
 ## 项目总纲
 
-| 主题         | 一句话摘要                                                                             | 详细位置                                  |
-| ------------ | -------------------------------------------------------------------------------------- | ----------------------------------------- |
-| 项目是什么   | 个人站 + 两个旧项目的 pnpm monorepo                                                    | `AGENTS.md` > 这是什么                    |
-| 技术栈与命令 | pnpm workspace、Astro、纯静态构建                                                      | `AGENTS.md` > 技术栈与命令                |
-| 部署方式     | Vercel，每个 app 一个 project，Root Directory 指向 `apps/<app名>`                      | `AGENTS.md` > 部署                        |
-| 四 AI 分工   | Codex=逻辑/结构/部署，Antigravity=视觉，OpenCode Go=内容/迁移/杂活，Claude Code=review | `AGENTS.md` > 协作规则                    |
-| 收工汇报格式 | 必须口头汇报：完成了什么、下一步可做什么、建议交给谁做                                 | `AGENTS.md` > 协作规则第 6 条             |
-| 记忆文档体系 | AGENTS.md 为总纲，docs/ 下为分册，所有 AI 共同维护                                     | `AGENTS.md` > 记忆文档体系                |
-| 防 AI 冲突   | 必须一人一分支：开工先 `git checkout -b feature/<任务名>`，禁止在 main 上直接改文件    | `AGENTS.md` > 防 AI 冲突工作流            |
-| 合并规则     | 用户或 reviewer 检查 diff 并验收后，用 `--no-ff` 合并到 main                           | `AGENTS.md` > 防 AI 冲突工作流 > 合并规则 |
-| 踩坑记录     | pnpm 11 的 `allowBuilds` 必须写在根目录 `pnpm-workspace.yaml`                          | `AGENTS.md` > Gotchas                     |
-| 锁文件格式化 | `pnpm-lock.yaml` 交给 pnpm 序列化，不由 Prettier 格式化                                | `AGENTS.md` > Gotchas                     |
+| 主题          | 一句话摘要                                                                             | 详细位置                                  |
+| ------------- | -------------------------------------------------------------------------------------- | ----------------------------------------- |
+| 项目是什么    | 个人站 + 两个旧项目的 pnpm monorepo                                                    | `AGENTS.md` > 这是什么                    |
+| 技术栈与命令  | pnpm workspace、Astro、纯静态构建                                                      | `AGENTS.md` > 技术栈与命令                |
+| 部署方式      | Vercel，每个 app 一个 project，Root Directory 指向 `apps/<app名>`                      | `AGENTS.md` > 部署                        |
+| 四 AI 分工    | Codex=逻辑/结构/部署，Antigravity=视觉，OpenCode Go=内容/迁移/杂活，Claude Code=review | `AGENTS.md` > 协作规则                    |
+| 收工汇报格式  | 必须口头汇报：完成了什么、下一步可做什么、建议交给谁做                                 | `AGENTS.md` > 协作规则第 6 条             |
+| 记忆文档体系  | AGENTS.md 为总纲，docs/ 下为分册，所有 AI 共同维护                                     | `AGENTS.md` > 记忆文档体系                |
+| 防 AI 冲突    | 必须一人一分支：开工先 `git checkout -b feature/<任务名>`，禁止在 main 上直接改文件    | `AGENTS.md` > 防 AI 冲突工作流            |
+| 合并规则      | 用户或 reviewer 检查 diff 并验收后，用 `--no-ff` 合并到 main                           | `AGENTS.md` > 防 AI 冲突工作流 > 合并规则 |
+| ponytail 使用 | 默认编码任务不主动调用；仅用户明确说触发词时才使用                                     | `AGENTS.md` > Skill 使用规则              |
+| 踩坑记录      | pnpm 11 的 `allowBuilds` 必须写在根目录 `pnpm-workspace.yaml`                          | `AGENTS.md` > Gotchas                     |
+| 锁文件格式化  | `pnpm-lock.yaml` 交给 pnpm 序列化，不由 Prettier 格式化                                | `AGENTS.md` > Gotchas                     |
 
 ## 决策记忆
 
