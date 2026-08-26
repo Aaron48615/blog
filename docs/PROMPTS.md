@@ -4,6 +4,21 @@
 核心原则：**完整项目上下文只给总控；工人只拿"一个任务 + 地盘边界 + 验收标准"。**
 永远不要对工人说"继续这个项目"——那会让它误以为自己是主导。
 
+## 固定提示词
+
+```
+进入 ~/personal-hub 后，执行以下命令再开始任何工作：
+
+git checkout main
+git pull origin main
+git checkout -b feature/<任务名>
+
+然后读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md。
+严禁在 main 分支上直接修改文件。
+收工前必须：git status 确认只提交了自己改的文件，更新 docs/TASKS.md 和 docs/PROGRESS.md，再 push 分支。
+最后由用户或 Claude Code review 后用 --no-ff 合并到 main。
+```
+
 ## Codex (GPT) — 逻辑/结构/部署
 
 ```
