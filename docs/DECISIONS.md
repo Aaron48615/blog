@@ -10,3 +10,4 @@
 - 2026-08-25 | 所有产物纯静态构建，仓库内不含服务端 | 两个旧项目的后端均为第三方 API | 用户
 - 2026-08-25 | apps/site 用 Astro | 内容型个人站首选，默认零 JS | 用户确认
 - 2026-08-26 | 旧项目源目录：project-1 来源 `/Users/aaron/LoveCoding/21_React/高阶/data-pilot`，project-2 来源 `/Users/aaron/LoveCoding/20_Vue3/mobile-shop` | 用户已提供，作为迁移来源 | 用户
+- 2026-08-26 | project-1 采用 Vercel rewrites：`/api/:path*` 转发至 `http://116.62.230.90/api/:path*`，SPA 路由回退至 `/index.html` | 实测 `:9999` 提供 API 文档且业务路径返回 404；端口 80 的 `/api/auth/captcha` 返回正常 JSON，并已在 Vercel 预览中验证 | 用户 + Codex

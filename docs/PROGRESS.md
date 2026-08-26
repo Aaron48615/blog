@@ -14,3 +14,4 @@
 - 2026-08-26 | OpenCode | 与用户确认旧项目迁移策略：先做 project-1 试点，采用 vercel.json rewrites 方案 B；project-2 待 project-1 预览环境验证通过后再认领 | feature/tasks-project1-pilot
 - 2026-08-26 | OpenCode | 用户叫停 OpenCode Go 的迁移工作；删除 feature/migrate-projects 分支及其进度；TASKS.md 中 project-1/project-2 回退为待认领，等待 API 方案最终确认后再派活 | main
 - 2026-08-26 | OpenCode Go | 填充 apps/site/src/pages/projects.astro：按 MIGRATION_PLAN 更新 Data Pilot / Mobile Shop 简介、技术栈、状态为迁移中，卡片整体可点击跳转 GitHub 源码占位链接；验证 site build/preview 通过 | feature/site-projects-content
+- 2026-08-27 | Codex | 将 data-pilot 复制迁入 apps/project-1，清理密钥与构建残留、修正 TS import 和依赖，配置 Vercel SPA/API rewrites；完成 build/test/lint/preview 与 Vercel 预览验收，并实测确认 `:9999` 是文档服务、业务 API 为端口 80 的 `/api` | feature/migrate-project-1@308f0f1
