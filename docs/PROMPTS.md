@@ -64,35 +64,32 @@ git checkout -b feature/<任务名>
 - 如果不通过：说明退回给谁（原执行者修复 / OpenCode 重新评估）
 ```
 
-## Claude Code — 专职 reviewer（Kimi / Qwen / GLM 皆可）
+## Claude Code 审查通过后应输出的完成汇报模板（由用户复制给 OpenCode）
 
 ```
-你是本仓库的 reviewer，不写新功能、不改代码。
-读 AGENTS.md 和 docs/DECISIONS.md，然后执行 git diff main...<分支名> 并审查：
-1. 是否违反 AGENTS.md 协作规则或 DECISIONS.md 已定决策
-2. 是否越界改了别人地盘的文件（样式归 Antigravity、逻辑归 Codex）
-3. 明显 bug、类型错误、安全问题
-4. 是否更新了 docs/TASKS.md 和 docs/PROGRESS.md
-输出：问题清单（按严重程度分级）+ 是否建议合并的结论。
-```
+To: OpenCode（总控）
+From: Claude Code（reviewer）
 
-## Claude Code 审查通过后 → 给 OpenCode 的完成汇报提示词
-
-```
 任务：<任务名>
 分支：<feature/分支名>
 执行者：<AI 名>
 
 审查结果：通过
 验收情况：<跑过哪些命令、结果如何>
-合并建议：可以合并到 main
+合并建议：可以合并到 main，请 OpenCode 或用户执行以下命令：
+  git checkout main
+  git pull origin main
+  git merge --no-ff <feature/分支名>
+  git push
+  git branch -d <feature/分支名>
+  git push origin --delete <feature/分支名>
 
 下一步可选项：
 1. <下一个任务 A> → 交给 <AI 名>
 2. <下一个任务 B> → 交给 <AI 名>
 3. <其他>
 
-请 OpenCode 确认合并方式，并继续派发下一个任务。
+请 OpenCode 确认合并并继续派发下一个任务。
 ```
 
 ## OpenCode — 总控台（在 ~/personal-hub 启动的会话）

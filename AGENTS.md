@@ -66,7 +66,7 @@ git commit -m "<type>: <中文描述>"
 git push -u origin feature/<任务名>
 ```
 
-- **不允许私自 merge 到 main**。必须由用户或 Claude Code review 后合并。
+- **不允许私自 merge 到 main**。分支必须由用户或 Claude Code review 通过，再由 OpenCode 或用户执行合并。
 - 如果任务涉及多个 app 或跨层改动，提交前先跑相关验收命令（如 `pnpm format`、`pnpm --filter <app> build`）。
 
 ### 合并规则
