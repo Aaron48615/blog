@@ -5,15 +5,13 @@
 
 ## 待用户确认（当前阻塞，新会话接手先看这里）
 
-1. 首次提交：骨架尚未 commit，待用户授权
-
-> 用户已确认 Astro、两个旧项目源目录，Phase 1 任务 1 正在执行。
+> 暂无阻塞。Phase 1 任务 2（Vercel 绑定）与 Phase 3 视觉打磨进行中。
 
 ## Phase 1 — 脚手架与部署管线
 
 - [x] apps/site Astro 脚手架 + 基础布局（首页/关于/项目列表） | owner: OpenCode Go | 验收: `pnpm --filter site dev` 可跑，三页可访问
 - [x] 根目录格式化与 lint 配置（Prettier + 各 app 自带 lint） | owner: Codex | 验收: 全仓库 `pnpm format` 通过
-- [ ] Vercel 绑定：site 先上线（Hello World 即可） | owner: 待认领 | 验收: push main 自动部署，域名可访问
+- [~] Vercel 绑定：site 先上线（Hello World 即可） | owner: Codex | 验收: push main 自动部署，域名可访问
 
 ## Phase 2 — 旧项目迁移
 
@@ -24,7 +22,7 @@
 
 ## Phase 3 — 个人站内容施工
 
-- [ ] 首页视觉打磨（Hero、动效、配色定案） | owner: antigravity | 验收: 用户目检通过，Lighthouse 性能 ≥ 90
+- [~] 首页视觉打磨（Hero、动效、配色定案） | owner: antigravity | 验收: 用户目检通过，Lighthouse 性能 ≥ 90
 - [ ] 项目展示页：嵌入 project-1 / project-2 的链接与介绍 | owner: 待认领 | 验收: 从个人站可跳转两个项目
 - [ ] 关于页 + 联系方式 | owner: 待认领 | 验收: 内容真实可发布
 
