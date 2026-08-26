@@ -5,7 +5,7 @@
 
 ## 待用户确认（当前阻塞，新会话接手先看这里）
 
-> 暂无阻塞。Phase 1 任务 2（Vercel 绑定）与 Phase 3 视觉打磨进行中。
+> 暂无阻塞。Phase 1 任务 2（Vercel 绑定）进行中；Phase 3 视觉打磨已由 Antigravity 完成并提交 feature/site-visual。
 
 ## Phase 1 — 脚手架与部署管线
 
@@ -22,7 +22,7 @@
 
 ## Phase 3 — 个人站内容施工
 
-- [~] 首页视觉打磨（Hero、动效、配色定案） | owner: antigravity | 验收: 用户目检通过，Lighthouse 性能 ≥ 90
+- [x] 首页视觉打磨（Hero、动效、配色定案） | owner: antigravity | 验收: 用户目检通过，Lighthouse 性能 ≥ 90
 - [ ] 项目展示页：嵌入 project-1 / project-2 的链接与介绍 | owner: 待认领 | 验收: 从个人站可跳转两个项目
 - [ ] 关于页 + 联系方式 | owner: 待认领 | 验收: 内容真实可发布
 

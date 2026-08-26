@@ -1,0 +1,139 @@
+---
+
+---
+
+<section class="hero animate-fade-in">
+  <div class="status-wrap animate-fade-in delay-1">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      <span>探索全栈 · 前端架构 · 交互美学</span>
+    </div>
+  </div>
+
+  <h1 class="hero-title animate-fade-in delay-2">
+    构建快速、精致且有<br />
+    <span class="text-gradient">温度的数字体验</span>。
+  </h1>
+
+  <p class="hero-desc animate-fade-in delay-3">
+    嗨，我是 <strong>Aaron</strong>。专注于现代 Web 架构、交互细节与高效开发流。
+    追求极简设计与极致性能，坚持 Astro 零运行时 JS 倾向。
+  </p>
+
+  <div class="hero-actions animate-fade-in delay-4">
+    <a href="/projects" class="btn btn-primary">
+      浏览项目作品
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M5 12h14"></path>
+        <path d="m12 5 7 7-7 7"></path>
+      </svg>
+    </a>
+    <a href="/about" class="btn btn-secondary"> 关于我 & 经历 </a>
+  </div>
+
+  <div class="stack-pills animate-fade-in delay-4">
+    <span class="pill-label">技术栈：</span>
+    <span class="pill">React</span>
+    <span class="pill">Vue 3</span>
+    <span class="pill">TypeScript</span>
+    <span class="pill">Astro</span>
+    <span class="pill">Modern CSS</span>
+    <span class="pill">pnpm monorepo</span>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: 2.5rem 0 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .status-wrap {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.3rem, 5.5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.35rem;
+  }
+
+  .hero-desc {
+    font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 44ch;
+    margin-bottom: 2.25rem;
+  }
+
+  .hero-desc strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .stack-pills {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.825rem;
+    color: var(--text-muted);
+  }
+
+  .pill-label {
+    margin-right: 0.25rem;
+    font-weight: 500;
+  }
+
+  .pill {
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.775rem;
+    transition: all 0.2s ease;
+  }
+
+  .pill:hover {
+    border-color: var(--border-medium);
+    color: var(--accent-teal);
+    background: rgba(45, 212, 191, 0.06);
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: 1.5rem 0 2.5rem;
+    }
+
+    .hero-actions {
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .hero-actions .btn {
+      width: 100%;
+    }
+  }
+</style>

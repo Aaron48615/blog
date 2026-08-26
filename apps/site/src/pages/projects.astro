@@ -5,73 +5,209 @@ const projects = [
   {
     id: "project-1",
     name: "Data Pilot",
-    description: "基于 React 的数据看板项目，待从原仓库迁移。",
-    stack: ["React", "第三方 API"],
+    tagline: "React 高阶数据大屏与分析看板",
+    description:
+      "基于 React 18 与 TypeScript 构建的高交互数据分析看板，支持丰富可视化图表联动、实时过滤筛选与指标监控。后端对接第三方统计 API。",
+    stack: ["React 18", "TypeScript", "ECharts", "CSS Modules", "第三方 API"],
     status: "待迁移",
+    sourcePath: "apps/project-1",
+    accent: "var(--accent-teal)",
   },
   {
     id: "project-2",
     name: "Mobile Shop",
-    description: "基于 Vue 3 的移动端商城项目，待从原仓库迁移。",
-    stack: ["Vue 3", "第三方 API"],
+    tagline: "Vue 3 移动端商城应用",
+    description:
+      "基于 Vue 3 Composition API 与 Pinia 打造的现代化移动电商平台，涵盖商品流瀑布流、分类检索、购物车状态管理与结算模拟交互。",
+    stack: ["Vue 3", "Vite", "Pinia", "Mobile UI", "第三方 API"],
     status: "待迁移",
+    sourcePath: "apps/project-2",
+    accent: "var(--accent-indigo)",
   },
 ];
 ---
 
-<BaseLayout title="项目列表 | Aaron">
-  <section>
-    <h1>项目列表</h1>
-    <p>
-      这里展示我的个人项目。当前为占位数据，Phase 2 迁移完成后会替换为真实入口。
-    </p>
-    <ul class="project-list">
+<BaseLayout
+  title="项目作品集 | Aaron"
+  description="Aaron 的精选前端与全栈工程项目展示，包含 React 数据中台与 Vue 3 移动电商等完整实践。"
+>
+  <div class="projects-page animate-fade-in">
+    <header class="page-header">
+      <div class="badge animate-fade-in delay-1">
+        <span class="badge-dot"></span>
+        <span>Portfolio & Works</span>
+      </div>
+      <h1 class="page-title animate-fade-in delay-2">
+        精选与迁移中的<span class="text-gradient">项目作品</span>
+      </h1>
+      <p class="page-subtitle animate-fade-in delay-3">
+        这里汇总了我在前端架构、数据可视化与全栈开发中的代表性项目。Phase 2
+        迁移完成后将提供独立的在线预览与源码导览。
+      </p>
+    </header>
+
+    <div class="projects-container">
       {
-        projects.map((project) => (
-          <li class="project-card">
-            <h2>{project.name}</h2>
-            <p>{project.description}</p>
-            <div class="meta">
-              <span class="status">{project.status}</span>
-              <span class="stack">{project.stack.join(" · ")}</span>
+        projects.map((project, idx) => (
+          <article
+            class={`project-item animate-fade-in delay-${idx + 2}`}
+            style={`--item-accent: ${project.accent}`}
+          >
+            <div class="project-header">
+              <div>
+                <span class="project-tagline">{project.tagline}</span>
+                <h2 class="project-name">{project.name}</h2>
+              </div>
+              <span class="status-badge">{project.status}</span>
             </div>
-          </li>
+
+            <p class="project-description">{project.description}</p>
+
+            <div class="project-footer">
+              <div class="stack-tags">
+                {project.stack.map((tech) => (
+                  <span class="tech-tag">{tech}</span>
+                ))}
+              </div>
+              <span class="location-tag">
+                <code>{project.sourcePath}</code>
+              </span>
+            </div>
+          </article>
         ))
       }
-    </ul>
-  </section>
-
-  <style>
-    .project-list {
-      list-style: none;
-      margin: 2rem 0 0;
-      padding: 0;
-      display: grid;
-      gap: 1rem;
-    }
-    .project-card {
-      padding: 1.25rem;
-      border-radius: 0.75rem;
-      background: var(--surface);
-    }
-    .project-card h2 {
-      margin: 0 0 0.5rem;
-      font-size: 1.25rem;
-    }
-    .project-card p {
-      margin: 0 0 1rem;
-      color: var(--muted);
-    }
-    .meta {
-      display: flex;
-      gap: 0.75rem;
-      font-size: 0.875rem;
-    }
-    .status {
-      color: var(--accent);
-    }
-    .stack {
-      color: var(--muted);
-    }
-  </style>
+    </div>
+  </div>
 </BaseLayout>
+
+<style>
+  .projects-page {
+    padding: 1rem 0 2rem;
+  }
+
+  .page-header {
+    margin-bottom: 3rem;
+  }
+
+  .page-title {
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+  }
+
+  .page-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 52ch;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .projects-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .project-item {
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--item-accent);
+    opacity: 0.7;
+  }
+
+  .project-item:hover {
+    border-color: var(--border-medium);
+    transform: translateY(-3px);
+    box-shadow:
+      0 16px 36px -12px rgba(0, 0, 0, 0.6),
+      0 0 24px -6px var(--item-accent);
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .project-tagline {
+    font-size: 0.825rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .project-name {
+    font-size: 1.5rem;
+    margin: 0.25rem 0 0;
+    font-weight: 700;
+  }
+
+  .status-badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .project-description {
+    font-size: 0.975rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 1.75rem;
+  }
+
+  .project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .stack-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .tech-tag {
+    font-size: 0.775rem;
+    font-family: var(--font-mono);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+  }
+
+  .location-tag code {
+    font-size: 0.775rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+  }
+</style>
