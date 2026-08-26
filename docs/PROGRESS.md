@@ -12,3 +12,4 @@
 - 2026-08-26 | Codex | 创建 Vercel 项目 `aaron-site`，绑定 `Aaron48615/blog` 的 `apps/site`，验证 Astro 纯静态构建、main 自动部署与生产域名 `aaron-site-chi.vercel.app` | feature/site-vercel-deploy（已合并到 main，commit 708917f）
 - 2026-08-26 | OpenCode | 经 Claude Code 审查通过后，执行 `--no-ff` 合并 `feature/site-vercel-deploy` 到 main，删除已合并分支 | main@708917f
 - 2026-08-26 | OpenCode | 与用户确认旧项目迁移策略：先做 project-1 试点，采用 vercel.json rewrites 方案 B；project-2 待 project-1 预览环境验证通过后再认领 | feature/tasks-project1-pilot
+- 2026-08-26 | OpenCode | 用户叫停 OpenCode Go 的迁移工作；删除 feature/migrate-projects 分支及其进度；TASKS.md 中 project-1/project-2 回退为待认领，等待 API 方案最终确认后再派活 | main
