@@ -1,6 +1,7 @@
 # 项目总规范（所有 AI 开工前必读）
 
 ## 这是什么
+
 个人网站 + 两个旧项目的 monorepo，pnpm workspace 管理。
 
 - `apps/site` — 个人网站（Astro，暂定）
@@ -8,6 +9,7 @@
 - `apps/project-2` — 旧项目 2（前端 + 第三方后端 API）
 
 ## 技术栈与命令
+
 - 包管理：**只用 pnpm**，不要用 npm/yarn
 - 安装依赖：`pnpm install`
 - 开发：`pnpm --filter <app名> dev`
@@ -15,10 +17,12 @@
 - 构建产物必须能纯静态部署（后端是第三方 API，本仓库不含服务端）
 
 ## 部署
+
 - 平台：Vercel。每个 app 对应一个 Vercel project，Root Directory 指向 `apps/<app名>`
 - main 分支 push 即部署生产环境；feature 分支自动生成预览环境
 
 ## 协作规则（违反 = 返工）
+
 1. 开工前必读 `docs/TASKS.md`（认领任务、标 owner）和 `docs/DECISIONS.md`（遵守已定决策）
 2. 一个任务一个分支：`feature/<任务名>`，不直接推 main
 3. 同一时间一个文件只允许一个 AI 修改。默认地盘划分：
@@ -31,6 +35,7 @@
 6. **收工汇报格式**：每个 AI 完成当前任务后，必须口头向用户汇报三件事——**完成了什么**、**下一步可以做什么**、**建议交给谁做**。不准只写“做完了”。
 
 ## 记忆文档体系（所有 AI 共同维护）
+
 本项目采用“一总纲 + 多分册”的正式记忆文档结构：
 
 - **AGENTS.md（本文档）**：项目记忆总纲。任何 AI 进入项目时首先读取此文件；它包含规范、分工、命令、踩坑记录，以及下方记忆分册的索引。
@@ -43,4 +48,6 @@
 所有 AI 在修改代码的同时，必须同步维护上述文档；代码改动与记忆文档不同步视为未完成。
 
 ## Gotchas（踩坑记录，所有 AI 完工后必须补充）
+
 - pnpm 11 的 `allowBuilds` 必须写在根目录 `pnpm-workspace.yaml`；旧版 `onlyBuiltDependencies` 与 `package.json` 里的 `allowScripts` 已失效。esbuild 等带 native binary 的包若被忽略构建脚本，会触发 `ERR_PNPM_IGNORED_BUILDS`。
+- `pnpm-lock.yaml` 应加入 `.prettierignore`，锁文件交给 pnpm 序列化；Prettier 会产生数千行无语义 diff。

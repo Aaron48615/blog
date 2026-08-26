@@ -1,129 +1,138 @@
 ---
 interface Props {
-	title: string;
-	description?: string;
+  title: string;
+  description?: string;
 }
 
-const { title, description = '个人网站与项目作品集' } = Astro.props;
+const { title, description = "个人网站与项目作品集" } = Astro.props;
 const currentPath = Astro.url.pathname;
 const navItems = [
-	{ href: '/', label: '首页' },
-	{ href: '/about', label: '关于' },
-	{ href: '/projects', label: '项目' },
+  { href: "/", label: "首页" },
+  { href: "/about", label: "关于" },
+  { href: "/projects", label: "项目" },
 ];
 ---
 
 <!doctype html>
 <html lang="zh-CN">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content={description} />
-		<title>{title}</title>
-		<style>
-			:root {
-				--bg: #0b0d10;
-				--surface: #15181e;
-				--text: #e8eaf0;
-				--muted: #9aa2b2;
-				--accent: #5eead4;
-			}
-			* {
-				box-sizing: border-box;
-			}
-			html,
-			body {
-				margin: 0;
-				padding: 0;
-			}
-			body {
-				font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-				background: var(--bg);
-				color: var(--text);
-				line-height: 1.6;
-			}
-			a {
-				color: inherit;
-				text-decoration: none;
-			}
-			.container {
-				max-width: 72ch;
-				margin: 0 auto;
-				padding: 0 1.5rem;
-			}
-			header {
-				padding: 1.5rem 0;
-				border-bottom: 1px solid var(--surface);
-			}
-			header .container {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				gap: 1rem;
-			}
-			.brand {
-				font-weight: 700;
-				letter-spacing: 0.02em;
-			}
-			nav ul {
-				list-style: none;
-				margin: 0;
-				padding: 0;
-				display: flex;
-				gap: 1.25rem;
-			}
-			nav a {
-				color: var(--muted);
-				transition: color 0.2s ease;
-			}
-			nav a:hover,
-			nav a[aria-current='page'] {
-				color: var(--accent);
-			}
-			main {
-				padding: 3rem 0 5rem;
-			}
-			footer {
-				padding: 1.5rem 0;
-				border-top: 1px solid var(--surface);
-				color: var(--muted);
-				font-size: 0.875rem;
-				text-align: center;
-			}
-		</style>
-	</head>
-	<body>
-		<header>
-			<div class="container">
-				<a class="brand" href="/">Aaron</a>
-				<nav aria-label="主导航">
-					<ul>
-						{
-							navItems.map((item) => (
-								<li>
-									<a
-										href={item.href}
-										aria-current={currentPath === item.href ? 'page' : undefined}
-									>
-										{item.label}
-									</a>
-								</li>
-							))
-						}
-					</ul>
-				</nav>
-			</div>
-		</header>
-		<main>
-			<div class="container">
-				<slot />
-			</div>
-		</main>
-		<footer>
-			<div class="container">© {new Date().getFullYear()} Aaron. All rights reserved.</div>
-		</footer>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <style>
+      :root {
+        --bg: #0b0d10;
+        --surface: #15181e;
+        --text: #e8eaf0;
+        --muted: #9aa2b2;
+        --accent: #5eead4;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .container {
+        max-width: 72ch;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      header {
+        padding: 1.5rem 0;
+        border-bottom: 1px solid var(--surface);
+      }
+      header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      .brand {
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 1.25rem;
+      }
+      nav a {
+        color: var(--muted);
+        transition: color 0.2s ease;
+      }
+      nav a:hover,
+      nav a[aria-current="page"] {
+        color: var(--accent);
+      }
+      main {
+        padding: 3rem 0 5rem;
+      }
+      footer {
+        padding: 1.5rem 0;
+        border-top: 1px solid var(--surface);
+        color: var(--muted);
+        font-size: 0.875rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <a class="brand" href="/">Aaron</a>
+        <nav aria-label="主导航">
+          <ul>
+            {
+              navItems.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    aria-current={
+                      currentPath === item.href ? "page" : undefined
+                    }
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <slot />
+      </div>
+    </main>
+    <footer>
+      <div class="container">
+        © {new Date().getFullYear()} Aaron. All rights reserved.
+      </div>
+    </footer>
+  </body>
 </html>

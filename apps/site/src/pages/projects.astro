@@ -1,75 +1,77 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const projects = [
-	{
-		id: 'project-1',
-		name: 'Data Pilot',
-		description: '基于 React 的数据看板项目，待从原仓库迁移。',
-		stack: ['React', '第三方 API'],
-		status: '待迁移',
-	},
-	{
-		id: 'project-2',
-		name: 'Mobile Shop',
-		description: '基于 Vue 3 的移动端商城项目，待从原仓库迁移。',
-		stack: ['Vue 3', '第三方 API'],
-		status: '待迁移',
-	},
+  {
+    id: "project-1",
+    name: "Data Pilot",
+    description: "基于 React 的数据看板项目，待从原仓库迁移。",
+    stack: ["React", "第三方 API"],
+    status: "待迁移",
+  },
+  {
+    id: "project-2",
+    name: "Mobile Shop",
+    description: "基于 Vue 3 的移动端商城项目，待从原仓库迁移。",
+    stack: ["Vue 3", "第三方 API"],
+    status: "待迁移",
+  },
 ];
 ---
 
 <BaseLayout title="项目列表 | Aaron">
-	<section>
-		<h1>项目列表</h1>
-		<p>这里展示我的个人项目。当前为占位数据，Phase 2 迁移完成后会替换为真实入口。</p>
-		<ul class="project-list">
-			{
-				projects.map((project) => (
-					<li class="project-card">
-						<h2>{project.name}</h2>
-						<p>{project.description}</p>
-						<div class="meta">
-							<span class="status">{project.status}</span>
-							<span class="stack">{project.stack.join(' · ')}</span>
-						</div>
-					</li>
-				))
-			}
-		</ul>
-	</section>
+  <section>
+    <h1>项目列表</h1>
+    <p>
+      这里展示我的个人项目。当前为占位数据，Phase 2 迁移完成后会替换为真实入口。
+    </p>
+    <ul class="project-list">
+      {
+        projects.map((project) => (
+          <li class="project-card">
+            <h2>{project.name}</h2>
+            <p>{project.description}</p>
+            <div class="meta">
+              <span class="status">{project.status}</span>
+              <span class="stack">{project.stack.join(" · ")}</span>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 
-	<style>
-		.project-list {
-			list-style: none;
-			margin: 2rem 0 0;
-			padding: 0;
-			display: grid;
-			gap: 1rem;
-		}
-		.project-card {
-			padding: 1.25rem;
-			border-radius: 0.75rem;
-			background: var(--surface);
-		}
-		.project-card h2 {
-			margin: 0 0 0.5rem;
-			font-size: 1.25rem;
-		}
-		.project-card p {
-			margin: 0 0 1rem;
-			color: var(--muted);
-		}
-		.meta {
-			display: flex;
-			gap: 0.75rem;
-			font-size: 0.875rem;
-		}
-		.status {
-			color: var(--accent);
-		}
-		.stack {
-			color: var(--muted);
-		}
-	</style>
+  <style>
+    .project-list {
+      list-style: none;
+      margin: 2rem 0 0;
+      padding: 0;
+      display: grid;
+      gap: 1rem;
+    }
+    .project-card {
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+      background: var(--surface);
+    }
+    .project-card h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.25rem;
+    }
+    .project-card p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+    }
+    .meta {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+    }
+    .status {
+      color: var(--accent);
+    }
+    .stack {
+      color: var(--muted);
+    }
+  </style>
 </BaseLayout>
