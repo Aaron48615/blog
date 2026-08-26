@@ -24,7 +24,7 @@
 
 - [x] 首页视觉打磨（Hero、动效、配色定案） | owner: antigravity | 验收: 用户目检通过，Lighthouse 性能 ≥ 90
 - [x] 项目展示页：嵌入 project-1 / project-2 的链接与介绍 | owner: OpenCode Go | 验收: 从个人站可跳转两个项目
-- [ ] 关于页 + 联系方式 | owner: 用户 | 验收: 内容真实可发布
+- [x] 关于页 + 联系方式 | owner: 用户 | 验收: 内容真实可发布
 
 ## Phase 4 — 收尾
 
