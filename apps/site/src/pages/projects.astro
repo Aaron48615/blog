@@ -5,23 +5,34 @@ const projects = [
   {
     id: "project-1",
     name: "Data Pilot",
-    tagline: "React 高阶数据大屏与分析看板",
+    tagline: "React 智慧城市数据平台",
     description:
-      "基于 React 18 与 TypeScript 构建的高交互数据分析看板，支持丰富可视化图表联动、实时过滤筛选与指标监控。后端对接第三方统计 API。",
-    stack: ["React 18", "TypeScript", "ECharts", "CSS Modules", "第三方 API"],
-    status: "待迁移",
+      "基于 React 19.2 与 TypeScript 6.0 构建的智慧城市数据平台，集成 Ant Design 6.5、ECharts 6.1、Three.js 0.185 + React Three Fiber 与高德 AMap JS API，支持数据看板、图表联动、3D 场景与 AI 对话 SSE。",
+    stack: [
+      "React 19",
+      "TypeScript 6",
+      "Vite 8",
+      "Ant Design 6",
+      "ECharts 6",
+      "Three.js",
+      "Redux Toolkit",
+      "高德地图",
+    ],
+    status: "迁移中",
     sourcePath: "apps/project-1",
+    link: "https://github.com/Aaron48615/blog/tree/main/apps/project-1",
     accent: "var(--accent-teal)",
   },
   {
     id: "project-2",
     name: "Mobile Shop",
-    tagline: "Vue 3 移动端商城应用",
+    tagline: "Vue 3 移动端商城",
     description:
-      "基于 Vue 3 Composition API 与 Pinia 打造的现代化移动电商平台，涵盖商品流瀑布流、分类检索、购物车状态管理与结算模拟交互。",
-    stack: ["Vue 3", "Vite", "Pinia", "Mobile UI", "第三方 API"],
-    status: "待迁移",
+      "基于 Vue 3.5 与 TypeScript 6.0 构建的现代化移动端商城，使用 Vant 4.10 组件库与 Pinia 3.0 状态管理，涵盖商品展示、分类检索、购物车、订单结算与 OpenAI 兼容 AI 客服。",
+    stack: ["Vue 3.5", "TypeScript 6", "Vite 8", "Vant 4", "Pinia 3", "axios"],
+    status: "迁移中",
     sourcePath: "apps/project-2",
+    link: "https://github.com/Aaron48615/blog/tree/main/apps/project-2",
     accent: "var(--accent-indigo)",
   },
 ];
@@ -49,31 +60,37 @@ const projects = [
     <div class="projects-container">
       {
         projects.map((project, idx) => (
-          <article
-            class={`project-item animate-fade-in delay-${idx + 2}`}
-            style={`--item-accent: ${project.accent}`}
+          <a
+            href={project.link}
+            class="project-card-link"
+            aria-label={`查看 ${project.name} 项目详情`}
           >
-            <div class="project-header">
-              <div>
-                <span class="project-tagline">{project.tagline}</span>
-                <h2 class="project-name">{project.name}</h2>
+            <article
+              class={`project-item animate-fade-in delay-${idx + 2}`}
+              style={`--item-accent: ${project.accent}`}
+            >
+              <div class="project-header">
+                <div>
+                  <span class="project-tagline">{project.tagline}</span>
+                  <h2 class="project-name">{project.name}</h2>
+                </div>
+                <span class="status-badge">{project.status}</span>
               </div>
-              <span class="status-badge">{project.status}</span>
-            </div>
 
-            <p class="project-description">{project.description}</p>
+              <p class="project-description">{project.description}</p>
 
-            <div class="project-footer">
-              <div class="stack-tags">
-                {project.stack.map((tech) => (
-                  <span class="tech-tag">{tech}</span>
-                ))}
+              <div class="project-footer">
+                <div class="stack-tags">
+                  {project.stack.map((tech) => (
+                    <span class="tech-tag">{tech}</span>
+                  ))}
+                </div>
+                <span class="location-tag">
+                  <code>{project.sourcePath}</code>
+                </span>
               </div>
-              <span class="location-tag">
-                <code>{project.sourcePath}</code>
-              </span>
-            </div>
-          </article>
+            </article>
+          </a>
         ))
       }
     </div>
@@ -108,6 +125,13 @@ const projects = [
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+  }
+
+  .project-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: var(--radius-md);
   }
 
   .project-item {
