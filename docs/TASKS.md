@@ -10,10 +10,11 @@
 
 ## Phase 1 — 脚手架与部署管线
 - [x] apps/site Astro 脚手架 + 基础布局（首页/关于/项目列表） | owner: OpenCode Go | 验收: `pnpm --filter site dev` 可跑，三页可访问
-- [ ] 根目录格式化与 lint 配置（Prettier + 各 app 自带 lint） | owner: 待认领 | 验收: 全仓库 `pnpm format` 通过
-- [ ] Vercel 绑定：site 先上线（Hello World 即可） | owner: 用户（需账号操作） | 验收: push main 自动部署，域名可访问
+- [~] 根目录格式化与 lint 配置（Prettier + 各 app 自带 lint） | owner: Codex | 验收: 全仓库 `pnpm format` 通过
+- [ ] Vercel 绑定：site 先上线（Hello World 即可） | owner: 待认领 | 验收: push main 自动部署，域名可访问
 
 ## Phase 2 — 旧项目迁移
+- [~] 旧项目迁移评估（技术栈/依赖/第三方 API/迁移步骤） | owner: OpenCode Go | 验收: docs/ 下形成可执行迁移方案文档
 - [ ] 旧项目 1 迁入 `apps/project-1`（来源：`/Users/aaron/LoveCoding/21_React/高阶/data-pilot`） | owner: 待认领 | 验收: build 通过，预览环境可访问，第三方 API 调用正常
 - [ ] 旧项目 2 迁入 `apps/project-2`（来源：`/Users/aaron/LoveCoding/20_Vue3/mobile-shop`） | owner: 待认领 | 验收: 同上
 - [ ] 两个项目各自的 Vercel project 绑定 | owner: 用户 | 验收: push main 自动部署
