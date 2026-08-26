@@ -34,6 +34,54 @@
 5. 已定决策不允许私自推翻；要改，先在 DECISIONS.md 提新条目并等人确认
 6. **收工汇报格式**：每个 AI 完成当前任务后，必须口头向用户汇报三件事——**完成了什么**、**下一步可以做什么**、**建议交给谁做**。不准只写“做完了”。
 
+## 防 AI 冲突工作流（必须严格执行）
+
+> 历史教训：多个 AI 同时在同一个 working tree 上直接改文件，会导致改动混在一起、作者不明、难以 review。以下流程用于避免这种情况。
+
+### 开工前（第一句就做）
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/<任务名>
+```
+
+- **必须先切分支，再读文件，再改代码**。顺序不能反。
+- 开工前先看 `docs/TASKS.md`，确认任务 owner 是自己、且目标文件没有被别的 AI 占用。
+- 如果发现自己的 working tree 里已经有未提交改动（`git status` 不干净），**立即停止**，先问用户这些改动属于谁，不要擅自提交。
+
+### 工作中
+
+- **只改自己任务范围内的文件**。
+- 不要改 `main` 分支，不要在 `main` 上直接 `git add && git commit`。
+- 如果需要改记忆文档（`docs/TASKS.md`、`docs/PROGRESS.md` 等），只改自己任务相关的条目。
+
+### 收工前
+
+```bash
+git status          # 确认只提交了自己改的文件
+git diff --stat     # 确认改动范围合理
+git add -A
+git commit -m "<type>: <中文描述>"
+git push -u origin feature/<任务名>
+```
+
+- **不允许私自 merge 到 main**。必须由用户或 Claude Code review 后合并。
+- 如果任务涉及多个 app 或跨层改动，提交前先跑相关验收命令（如 `pnpm format`、`pnpm --filter <app> build`）。
+
+### 合并规则
+
+1. 用户或指定 reviewer 检查分支 diff。
+2. 确认无冲突、验收通过。
+3. 使用 `--no-ff` 合并到 main，保留分支历史：
+   ```bash
+   git checkout main
+   git pull origin main
+   git merge --no-ff feature/<任务名>
+   git push
+   ```
+4. 合并后删除已合并的 feature 分支。
+
 ## 记忆文档体系（所有 AI 共同维护）
 
 本项目采用“一总纲 + 多分册”的正式记忆文档结构：
