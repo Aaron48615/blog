@@ -1,5 +1,21 @@
 # 项目总规范（所有 AI 开工前必读）
 
+## 核心红线（违反 = 返工）
+
+1. **第一句先切分支**。进入仓库后先执行：
+   ```bash
+   git checkout main && git pull origin main && git checkout -b feature/<任务名>
+   ```
+   然后才读文件、才改代码。顺序不能反。
+2. **严禁在 `main` 分支上直接改文件、提交、push。** 所有代码和文档改动必须在 feature 分支完成。
+3. **只改自己任务范围内的文件**。默认地盘：
+   - 视觉/样式/动效 → Antigravity (Gemini)
+   - 逻辑/结构/部署 → Codex (GPT)
+   - 内容页/迁移/杂活 → OpenCode Go（Qwen 3.7 Plus）
+   - 总控/派活/合并 → OpenCode（Kimi K2.7 code）
+   - 审查 → Claude Code（只 review，不写代码）
+4. **收工前必须更新 `docs/TASKS.md` 任务状态 + `docs/PROGRESS.md` 追加一行**（日期、AI 名、做了什么、分支/commit）。
+
 ## 这是什么
 
 个人网站 + 两个旧项目的 monorepo，pnpm workspace 管理。
@@ -23,22 +39,17 @@
 
 ## 协作规则（违反 = 返工）
 
-1. 开工前必读 `docs/TASKS.md`（认领任务、标 owner）和 `docs/DECISIONS.md`（遵守已定决策）
-2. 一个任务一个分支：`feature/<任务名>`，不直接推 main
-3. 同一时间一个文件只允许一个 AI 修改。默认地盘划分：
-   - 视觉/样式（components、styles、动效）→ Antigravity (Gemini)
-   - 逻辑/结构/部署 → Codex (GPT)
-   - 内容页/迁移/杂活 → OpenCode Go
-   - Claude Code 只做 review，不写新功能
-4. 收工前必须更新：`docs/TASKS.md` 任务状态 + `docs/PROGRESS.md` 追加一行（日期、AI 名、做了什么、分支/commit）
-5. 已定决策不允许私自推翻；要改，先在 DECISIONS.md 提新条目并等人确认
-6. **收工汇报格式**：每个 AI 完成当前任务后，必须口头向用户汇报三件事——**完成了什么**、**下一步可以做什么**、**建议交给谁做**。不准只写“做完了”。
+1. 开工前必读 `docs/TASKS.md`（认领任务、标 owner）和 `docs/DECISIONS.md`（遵守已定决策）。
+2. 一个任务一个分支：`feature/<任务名>`，不直接推 main。详细流程见下节。
+3. 同一时间一个文件只允许一个 AI 修改。地盘划分见【核心红线】第 3 条。
+4. 已定决策不允许私自推翻；要改，先在 `docs/DECISIONS.md` 提新条目并等人确认。
+5. **收工汇报格式**：每个 AI 完成当前任务后，必须口头向用户汇报三件事——**完成了什么**、**下一步可以做什么**、**建议交给谁做**。不准只写“做完了”。
 
 ## 防 AI 冲突工作流（必须严格执行）
 
 > 历史教训：多个 AI 同时在同一个 working tree 上直接改文件，会导致改动混在一起、作者不明、难以 review。以下流程用于避免这种情况。
 
-### 开工前（第一句就做）
+### 开工前（第一句就做，顺序不能反）
 
 ```bash
 git checkout main
@@ -46,14 +57,15 @@ git pull origin main
 git checkout -b feature/<任务名>
 ```
 
-- **必须先切分支，再读文件，再改代码**。顺序不能反。
+**如果你发现自己在 `main` 分支上，立刻停止，执行上面三句后再继续。**
+
 - 开工前先看 `docs/TASKS.md`，确认任务 owner 是自己、且目标文件没有被别的 AI 占用。
 - 如果发现自己的 working tree 里已经有未提交改动（`git status` 不干净），**立即停止**，先问用户这些改动属于谁，不要擅自提交。
 
 ### 工作中
 
 - **只改自己任务范围内的文件**。
-- 不要改 `main` 分支，不要在 `main` 上直接 `git add && git commit`。
+- **不要改 `main` 分支，不要在 `main` 上直接 `git add && git commit`。**
 - 如果需要改记忆文档（`docs/TASKS.md`、`docs/PROGRESS.md` 等），只改自己任务相关的条目。
 
 ### 收工前
@@ -79,8 +91,9 @@ git push -u origin feature/<任务名>
    git pull origin main
    git merge --no-ff feature/<任务名>
    git push
+   git branch -d feature/<任务名>
+   git push origin --delete feature/<任务名>
    ```
-4. 合并后删除已合并的 feature 分支。
 
 ## Skill 使用规则
 
