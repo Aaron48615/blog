@@ -31,3 +31,7 @@
 - 2026-08-27 | 用户 / OpenCode | 在 Vercel Preview 配置 `DEEPSEEK_API_KEY` 与 `deepseek-v4-flash` 后，实测 `https://project-2-8x2btjqyq-aaronsblog.vercel.app/api/ai` 的搜索联想与卖点生成功能正常返回 AI 文案；任务验收完成 | main@4afac82
 - 2026-08-27 | Antigravity | 完成 apps/site Phase 3.6 视觉规范重做：输出 DESIGN.md 经用户确认，按 Vestris.ai 温润骨白（#F2EFE5）与深松墨绿（#233426）重构 global.css、BaseLayout、Hero、FeaturedProjects 及四页，加入两侧动态微风枝叶景深遮罩（纯 CSS 零 JS），文章页精简为左侧粘性边栏（TOC Scrollspy/Profile）+右侧主体双栏结构，旧配色彻底清除，全站静态构建通过 | feature/site-design-system
 - 2026-08-27 | Antigravity | 完成 apps/site Phase 3.6 审查收尾修复：清理 global.css 未使用变量与 DESIGN.md 规范说明、修复文章页 TOC Scrollspy 高亮基准、调整项目 02 按钮与 previewLink 条件渲染、优化 Hero 轮播指示器 ARIA 语义，静态构建通过 | feature/site-visual-polish
+- 2026-08-28 | Codex | 从最新 main 创建视觉审计分支，核对 site 生产部署记录；将用户首页 6 条注释整理为 VISUAL_AUDIT.md 草稿，记录原话、定位、分类、建议与验收边界，保留单屏与大字体的可访问性风险；文章列表/详情及项目页待收集，未修改代码或 DESIGN.md，尚未提交推送 | feature/site-visual-audit
+- 2026-08-28 | Codex | 追加文章列表 7 条注释至视觉审计草稿（累计 13 条），区分共享页头头像/品牌名与侧栏局部精简要求；只读核验指定头像 JPEG 存在及尺寸，素材复制留给 Antigravity；请求打开项目页继续收集，文章详情尚待覆盖，未改代码或复制图片，尚未提交推送 | feature/site-visual-audit
+- 2026-08-28 | Codex | 追加项目页 5 条注释至视觉审计草稿（累计 18 条）：删页头徽章、标题改“练手项目”、副标题换斜体诗句、删两张卡片编号摘要行；明确保留下方技术栈与按钮，核对具体文章路由并请求打开 `/posts/hello-blog` 收集最后一页，未改代码或 DESIGN.md，尚未提交推送 | feature/site-visual-audit
+- 2026-08-28 | Codex | 收齐文章详情文末双按钮删除意见，完成四页 19 条视觉审计报告，补齐跨页归并、优先级、风险边界、后续验收与 Claude Code / Antigravity 交接提示词；同步任务与审计 Gotcha，交付仅含 Markdown 文档，未改代码、DESIGN.md 或复制头像，不合并 main | feature/site-visual-audit
