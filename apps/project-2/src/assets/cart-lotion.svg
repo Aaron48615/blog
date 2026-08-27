@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title">
+  <title id="title">粉色柔肤水商品图</title>
+  <defs>
+    <linearGradient id="bottle" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f3d9dd"/>
+      <stop offset=".48" stop-color="#edc6cc"/>
+      <stop offset="1" stop-color="#dbaeb7"/>
+    </linearGradient>
+    <linearGradient id="cap" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5edf0"/>
+      <stop offset="1" stop-color="#c9b9bf"/>
+    </linearGradient>
+  </defs>
+  <rect width="180" height="180" fill="#fff"/>
+  <ellipse cx="92" cy="151" rx="46" ry="9" fill="#aaa0a4" opacity=".18"/>
+  <rect x="61" y="42" width="59" height="104" rx="7" fill="url(#bottle)"/>
+  <rect x="66" y="31" width="49" height="18" rx="3" fill="url(#cap)"/>
+  <rect x="72" y="25" width="37" height="9" rx="2" fill="#d4c5ca"/>
+  <path d="M71 51v83c0 5 3 8 8 8" fill="none" stroke="#fff" stroke-width="4" opacity=".32"/>
+  <text x="69" y="75" fill="#9f737d" font-family="Georgia, serif" font-size="10" letter-spacing=".8">LANCÔME</text>
+  <text x="75" y="90" fill="#ae838c" font-family="Arial, sans-serif" font-size="6">TONIQUE</text>
+  <path d="M85 102c7-9 15-9 21 0-6 8-14 11-21 0Z" fill="none" stroke="#b58690" stroke-width="1.5" opacity=".7"/>
+</svg>

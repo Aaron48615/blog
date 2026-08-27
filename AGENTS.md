@@ -177,3 +177,4 @@ git push -u origin feature/<任务名>
 - Astro 构建时如遇到 `~/Library/Preferences/astro/config.json` 权限问题（沙箱/CI 环境），可设置环境变量 `ASTRO_TELEMETRY_DISABLED=1` 禁用遥测配置写入。
 - Vercel 首次导入 GitHub 仓库时需安装 GitHub App；应选“Only select repositories”限制到目标仓库，并在 Deploy 前复核 monorepo Root Directory（如 `apps/site`）。
 - project-1 的 `http://116.62.230.90:9999` 是 API 文档服务，不是业务 API；配置代理前应以实际接口（如验证码）验证目标，当前业务请求需保留 `/api` 前缀并转发到端口 80。
+- project-2 迁移需保留 `vue-tsc --build` 验收：旧项目混用 JS API 与 TS 视图，要启用 `allowJs` 并显式标注空数组/对象状态类型；`postcss-pxtorem` 需配套类型声明，Sass 引入的 `@parcel/watcher` 安装脚本需在根 `allowBuilds` 单独许可。Vite 自动生成的声明文件不做 Prettier 格式化，避免每次 build 弄脏工作区。
