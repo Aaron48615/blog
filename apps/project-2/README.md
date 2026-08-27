@@ -38,3 +38,10 @@ pnpm --filter project-2 preview
 - 验收至少覆盖 `/`、`/cart`、`/myorder` 和 `/api/indexImgs`；读取接口成功不代表登录、支付、订单等写入操作已联调。
 
 参考：[Vercel Node.js Functions](https://vercel.com/docs/functions/runtimes/node-js)、[Vercel 路由配置](https://vercel.com/docs/project-configuration/vercel-json)、[Vite 环境变量安全说明](https://vite.dev/guide/env-and-mode)。
+
+### 当前验收记录（2026-08-27）
+
+- `d1740b5` 已成功生成[预览部署](https://project-2-n17vpv11p-aaronsblog.vercel.app)。GitHub 的 Vercel deployment status 为 `success`。
+- 本地 11 项代理测试、完整构建及假密钥注入后的产物检查通过；实际代理函数在本地访问 `/indexImgs` 返回 HTTP 200、`success: true`、3 条数据。
+- 线上 `/api/indexImgs` 当前返回 302 并转到 Vercel SSO；页面及线上业务接口验收尚未完成，未关闭部署保护。构建成功不等于业务验收通过。
+- Dashboard Production 环境变量尚未修改，未上传真实 AI key；共享 AI 的安全替代范围待用户确认。
