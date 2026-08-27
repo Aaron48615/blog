@@ -5,7 +5,7 @@
 
 ## 待用户确认（当前阻塞，新会话接手先看这里）
 
-> apps/site DESIGN.md v3.0.0 规范提案已制定完成，头像素材已纳入站点；等待用户确认 v3 提案（字体选型、动效节奏、单屏例外）后再进入代码实施。
+> apps/site DESIGN.md v3 规范制定与全站样式重构已全部完成，pnpm --filter site build 与 19 条注释逐条验收通过；待交 Claude Code review 并由用户/OpenCode 合并 feature/site-design-v3。
 
 ## Phase 1 — 脚手架与部署管线
 
@@ -33,10 +33,10 @@
 - [x] Site 博客结构改造（内容模型/路由/项目信息/名言数据） | owner: OpenCode | 验收: 四页路由 /,/posts,/posts/[slug],/projects 可访问、Content Collections 正常、项目页双按钮无内部路径、build 通过
 - [x] Site 视觉重设计与动效实现（官网风居中Hero、名言3.5s渐变轮播、项目双卡片独立跳转、文章双栏与动态目录） | owner: Antigravity | 验收: 四页视觉现代精致、名言淡入淡出轮播正常、移动端响应良好、build 通过
 
-## Phase 3.6 — 网站视觉规范与重做（v3 进行中）
+## Phase 3.6 — 网站视觉规范与重做（v3 已完成）
 
 - [x] Site 视觉规范制定与基于 DESIGN.md 重做 (v2) | owner: Antigravity | 验收: DESIGN.md 经用户确认，重构为 Vestris 调色板与精简双栏 | 分支: feature/site-design-system
-- [~] Site 视觉规范 DESIGN.md v3 制定与全站重构 | owner: Antigravity | 范围: 基于 VISUAL_AUDIT.md 19 条注释制定 v3 规范、复制头像入库、待用户确认后重写四页样式与动效 | 验收: 用户确认 v3 规范，四页按 v3 重写完成，pnpm --filter site build 通过，19 条注释逐条验收 | 分支: feature/site-design-v3
+- [x] Site 视觉规范 DESIGN.md v3 制定与全站重构 | owner: Antigravity | 范围: 基于 VISUAL_AUDIT.md 19 条注释制定 v3 规范、复制头像入库、重写四页样式与动效 | 验收: 得意黑艺术字+楷宋兜底、1.2s淡入淡出+4s停留、头像素材复用、四页样式重写与单屏例外落实，pnpm --filter site build 通过，19 条注释逐条验收 | 分支: feature/site-design-v3
 
 ## Phase 4 — 收尾
 

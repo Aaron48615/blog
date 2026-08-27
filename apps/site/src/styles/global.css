@@ -3,6 +3,19 @@
    apps/site Phase 3.6 | Pure CSS, Zero Runtime JS Overheads
    ========================================================================== */
 
+/* Smiley Sans (得意黑) - Open Source SIL OFL 1.1 Webfont */
+@font-face {
+  font-family: "Smiley Sans";
+  src:
+    local("Smiley Sans"),
+    local("SmileySans-Oblique"),
+    url("https://cdn.jsdelivr.net/npm/smiley-sans@1.1.1/dist/smiley-sans.woff2")
+      format("woff2");
+  font-weight: 400 800;
+  font-style: normal, oblique;
+  font-display: swap;
+}
+
 :root {
   /* Surfaces & Backgrounds (Vestris Warm Bone & Deep Forest) */
   --color-bg-base: #f2efe5;
@@ -59,6 +72,9 @@
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter",
     "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei",
     sans-serif;
+  --font-quote:
+    "Smiley Sans", "Kaiti SC", "STKaiti", "KaiTi", "Songti SC",
+    "Source Han Serif SC", "Noto Serif CJK SC", "Georgia", serif;
   --font-serif:
     "Instrument Serif", Georgia, "Songti SC", "Source Han Serif SC", serif;
   --font-mono:
@@ -296,6 +312,11 @@ a {
 .text-serif {
   font-family: var(--font-serif);
   font-style: italic;
+}
+
+.font-quote,
+.text-quote {
+  font-family: var(--font-quote);
 }
 
 /* ==========================================================================

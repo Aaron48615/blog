@@ -72,23 +72,19 @@ const navItems = [
         color: var(--color-text-forest);
       }
 
-      .brand-logo {
-        width: 28px;
-        height: 28px;
+      .brand-avatar {
+        width: 30px;
+        height: 30px;
         border-radius: var(--radius-sm);
-        background: var(--color-accent-forest);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #faf8f3;
-        font-weight: 800;
-        font-size: 0.85rem;
-        box-shadow: 0 2px 6px rgba(35, 52, 38, 0.2);
+        object-fit: cover;
+        display: block;
+        border: 1px solid var(--color-border-medium);
+        box-shadow: 0 2px 6px rgba(35, 52, 38, 0.12);
         transition: transform 0.25s var(--ease-out-spring);
       }
 
-      .brand:hover .brand-logo {
-        transform: rotate(6deg) scale(1.08);
+      .brand:hover .brand-avatar {
+        transform: scale(1.08);
       }
 
       .brand-name {
@@ -266,9 +262,16 @@ const navItems = [
     <div class="header-wrapper">
       <header class="site-header-pill">
         <a class="brand" href="/" aria-label="Aaron 个人主页">
-          <span class="brand-logo">A</span>
-          <span class="brand-name">Aaron<span class="text-forest">.</span></span
-          >
+          <img
+            src="/avatar.jpg"
+            alt="Aaron"
+            class="brand-avatar"
+            width="30"
+            height="30"
+            loading="eager"
+            decoding="async"
+          />
+          <span class="brand-name">Aaron</span>
         </a>
         <nav aria-label="主导航">
           <ul class="nav-list">

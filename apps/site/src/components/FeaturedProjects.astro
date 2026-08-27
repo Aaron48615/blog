@@ -1,20 +1,16 @@
 ---
 const featuredProjects = [
   {
-    index: "01",
     id: "project-1",
     name: "云枢智慧城市数据平台",
-    tagline: "React 19 · 3D 大屏 · 数据可视化",
     description:
       "面向城市运营与指挥中心的智慧城市数据中台，支持指标多维监控、ECharts/Three.js 图表联动与高德地图 API 交互。",
     stack: ["React 19", "TypeScript", "Three.js", "ECharts", "Vite"],
     link: "/projects",
   },
   {
-    index: "02",
     id: "project-2",
     name: "拾光集移动商城系统",
-    tagline: "Vue 3 · 移动电商 · 大模型赋能",
     description:
       "轻量流畅的移动电商应用，包含商品推荐、购物车与状态持久化交互，并在商品搜索联想中接入 DeepSeek 大模型赋能。",
     stack: ["Vue 3", "Vite", "Pinia", "Vant 4", "DeepSeek AI"],
@@ -27,9 +23,9 @@ const featuredProjects = [
   <div class="section-head">
     <div class="head-left">
       <h2 class="section-title">
-        精选工程实践 <span class="title-sub">/ Featured Projects</span>
+        练手项目 <span class="title-sub">/ Projects</span>
       </h2>
-      <p class="section-desc">已纳入个人 Hub 的代表性前端架构与全栈实践。</p>
+      <p class="section-desc">已纳入个人 Hub 的前端架构与全栈练手实践。</p>
     </div>
     <a href="/projects" class="all-link">
       <span>查看全部</span>
@@ -54,11 +50,6 @@ const featuredProjects = [
       featuredProjects.map((project) => (
         <a href={project.link} class="project-card-link">
           <article class="project-card">
-            <div class="card-top">
-              <span class="project-index">{project.index}</span>
-              <span class="project-tagline">{project.tagline}</span>
-            </div>
-
             <h3 class="project-name">
               <span>{project.name}</span>
               <span class="arrow-icon">→</span>
@@ -173,31 +164,6 @@ const featuredProjects = [
     border-color: var(--color-border-medium);
     transform: translateY(-4px);
     box-shadow: var(--shadow-card-hover);
-  }
-
-  .card-top {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-  }
-
-  .project-index {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--color-accent-forest);
-    background: var(--color-bg-subtle);
-    padding: 0.15rem 0.5rem;
-    border-radius: var(--radius-xs);
-    border: 1px solid var(--color-border-medium);
-  }
-
-  .project-tagline {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--color-text-muted);
-    font-family: var(--font-mono);
   }
 
   .project-name {

@@ -9,28 +9,30 @@ const posts = (await getCollection("posts")).sort(
 
 <BaseLayout
   title="文章列表 | Aaron"
-  description="Aaron 的技术笔记、项目复盘与工程随笔。"
+  description="Aaron 的技术笔记、项目复盘与开发随笔。"
 >
   <div class="posts-layout animate-fade-in">
     <!-- Left Column: Personal Profile Sidebar (Chirpy Simplified Left Bar) -->
     <aside class="profile-sidebar animate-fade-in delay-1">
       <div class="profile-card">
+        <!-- POSTS-02: 换头像图片，删除右下角白边绿圆点 -->
         <div class="profile-avatar-wrap">
-          <div class="profile-avatar">
-            <span class="avatar-letter">A</span>
-          </div>
-          <div class="avatar-status" title="在线探索中"></div>
+          <img
+            src="/avatar.jpg"
+            alt="Aaron"
+            class="profile-avatar-img"
+            width="64"
+            height="64"
+            loading="eager"
+            decoding="async"
+          />
         </div>
 
         <div class="profile-info">
-          <h2 class="profile-name">
-            Aaron <span class="name-dot">·</span>
-          </h2>
-          <p class="profile-role">探索全栈 · 前端架构 · 交互美学</p>
-          <p class="profile-bio">
-            热爱编程与设计，专注于现代 Web
-            架构、组件设计与性能体验。记录技术思考与成长历程。
-          </p>
+          <h2 class="profile-name">Aaron</h2>
+          <!-- POSTS-04: 定位文案替换 -->
+          <p class="profile-role">大四在读 · 前端开发 · 想挣钱买新设备</p>
+          <!-- POSTS-05: 移除长简介 -->
         </div>
 
         <div class="profile-links">
@@ -71,24 +73,7 @@ const posts = (await getCollection("posts")).sort(
           </a>
         </div>
 
-        <div class="profile-action">
-          <a href="/projects" class="btn btn-secondary profile-btn">
-            <span>浏览项目作品</span>
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M5 12h14"></path>
-              <path d="m12 5 7 7-7 7"></path>
-            </svg>
-          </a>
-        </div>
+        <!-- POSTS-06: 移除侧栏“浏览项目作品”按钮 -->
 
         <div class="profile-stats">
           <span class="stats-item"
@@ -104,7 +89,8 @@ const posts = (await getCollection("posts")).sort(
         <h1 class="page-title">
           所有文章 <span class="title-sub">/ Posts</span>
         </h1>
-        <p class="page-subtitle">技术笔记、项目复盘与开发随笔。</p>
+        <!-- POSTS-07: 删掉句号 -->
+        <p class="page-subtitle">技术笔记、项目复盘与开发随笔</p>
       </header>
 
       <div class="posts-list">
@@ -219,45 +205,24 @@ const posts = (await getCollection("posts")).sort(
   }
 
   .profile-avatar-wrap {
-    position: relative;
     width: 64px;
     height: 64px;
   }
 
-  .profile-avatar {
+  .profile-avatar-img {
     width: 100%;
     height: 100%;
     border-radius: var(--radius-md);
-    background: var(--color-accent-forest);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(35, 52, 38, 0.2);
-  }
-
-  .avatar-letter {
-    font-size: 1.85rem;
-    font-weight: 800;
-    color: #faf8f3;
-    user-select: none;
-  }
-
-  .avatar-status {
-    position: absolute;
-    bottom: -2px;
-    right: -2px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--color-accent-emerald);
-    border: 2px solid var(--color-bg-surface);
-    box-shadow: 0 0 6px rgba(46, 133, 64, 0.6);
+    object-fit: cover;
+    display: block;
+    border: 1px solid var(--color-border-medium);
+    box-shadow: 0 4px 12px rgba(35, 52, 38, 0.12);
   }
 
   .profile-info {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.45rem;
   }
 
   .profile-name {
@@ -265,29 +230,16 @@ const posts = (await getCollection("posts")).sort(
     font-weight: 750;
     letter-spacing: -0.03em;
     margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
     color: var(--color-text-primary);
-  }
-
-  .name-dot {
-    color: var(--color-accent-sage);
   }
 
   .profile-role {
     font-size: 0.825rem;
-    font-weight: 650;
+    font-weight: 600;
     color: var(--color-text-forest);
     margin: 0;
+    line-height: 1.6;
     letter-spacing: 0.01em;
-  }
-
-  .profile-bio {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-    line-height: 1.65;
-    margin: 0.35rem 0 0;
   }
 
   .profile-links {
@@ -312,17 +264,6 @@ const posts = (await getCollection("posts")).sort(
   .profile-link:hover {
     color: var(--color-accent-forest);
     transform: translateX(2px);
-  }
-
-  .profile-action {
-    margin-top: 0.25rem;
-  }
-
-  .profile-btn {
-    width: 100%;
-    padding: 0.55rem 1rem;
-    font-size: 0.85rem;
-    justify-content: center;
   }
 
   .profile-stats {
