@@ -47,6 +47,10 @@ watch(
   --van-tabbar-background: #fff;
   --van-tabbar-item-active-background: #fff;
 
+  width: 100%;
+  max-width: var(--shop-viewport-width);
+  left: 50%;
+  transform: translateX(-50%);
   box-shadow: 0 -0.026667rem 0.213333rem rgba(45, 41, 38, 0.05);
 }
 </style>

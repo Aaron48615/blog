@@ -21,6 +21,7 @@
 - [x] 旧项目 2 API 代理与 Vercel 部署（第二段） | owner: Codex | 范围: 商城/图片代理、SPA 回退、首页失败隔离与重试；共享 AI 服务端代理未在本轮实现 | 验收: Vercel 预览首页与深层路由可访问、图片正常，第三方 API 调用正常，无真实 AI 密钥打入前端产物 | 分支: `feature/migrate-project-2-deploy`（已合并）
 - [x] 旧项目 2 共享 AI 服务端代理 | owner: Codex | 依赖: project-2 部署已合并、用户已明确本轮匿名 IP 限流范围 | 验收: `/api/ai` 服务端代理、前端无 key、双窗口基础限流/输入限制/头过滤/错误脱敏及本地兜底已实现；63 项测试、build、92 文件假密钥产物检查通过；Claude Code 审查通过并已合并至 main；Vercel Preview 配置真实 key 与 `deepseek-v4-flash` 后，搜索联想与卖点生成功能联调通过 | 分支: `feature/project-2-ai-proxy`（已合并）
 - [x] 两个项目各自的 Vercel project 绑定 | owner: 用户 | 进度: project-1/project-2 均已绑定 | 验收: push main 自动部署
+- [x] project-2 桌面端 375px 手机比例展示 | owner: Codex | 范围: rem 封顶、全局居中容器及固定栏宽度，保留业务逻辑/路由与 postcss rootValue | 验收: build/类型检查、71 项测试与改动文件格式检查通过；首页/分类/购物车/我的在 1280/376/375/320px 四种视口下内容与 Tabbar 对齐、无横向滚动；首页图片正常，桌面与 375×667 元素尺寸一致 | 边界: 购物车仅验空态，非空结算栏及真机/线上布局待补验，详见 project-2 README | 分支: `feature/project-2-desktop-mobile-ratio`（待 Claude Code 审查）
 
 ## Phase 3 — 个人站内容施工
 

@@ -37,7 +37,7 @@
       <!-- 轮播 -->
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
         <van-swipe-item v-for="item in skuList" :key="item.skuId">
-          <van-image :src="item.pic" width="100vw" height="10rem" fit="cover" />
+          <van-image :src="item.pic" width="100%" height="10rem" fit="cover" />
         </van-swipe-item>
       </van-swipe>
       <div class="container">
