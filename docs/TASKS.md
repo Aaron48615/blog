@@ -5,9 +5,9 @@
 
 ## 待用户确认（当前阻塞，新会话接手先看这里）
 
-> project-2 部署已合并；共享 AI 代理已实现，待审查及真实 key 预览复验；site 视觉重做待启动。
+> project-2 部署与共享 AI 代理已合并，真实 key 联调通过；site Phase 3.6 视觉规范重做已完成；当前进入 Phase 4 收尾。
 
-> project-2 部署分支已合并到 main。共享 AI 代码在 feature 分支完成本地验收，Preview 仍需配置服务端 key 与有效模型进行实际联调；site Phase 3.6 视觉规范重做待启动。
+> project-2 部署分支与共享 AI 代理分支均已合并到 main，服务端 DeepSeek 代理、前端无 key、IP 限流及本地兜底已验收，Preview 配置真实 key 后搜索联想与卖点生成功能正常；site Phase 3.6 视觉规范重做已合并，DESIGN.md 与全站样式已实现。剩余 Phase 4：全站 Lighthouse 走查（四项 ≥ 90）与各 AI 补充 AGENTS.md Gotchas。
 
 ## Phase 1 — 脚手架与部署管线
 
