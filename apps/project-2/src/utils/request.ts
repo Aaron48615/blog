@@ -14,7 +14,7 @@ interface apiResponse<T> {
 }
 
 const instance: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_APP_URL,
+  baseURL: "/api",
   timeout: 50000,
   headers: {
     "X-Custom-Header": "foobar",

@@ -11,3 +11,5 @@
 - 2026-08-25 | apps/site 用 Astro | 内容型个人站首选，默认零 JS | 用户确认
 - 2026-08-26 | 旧项目源目录：project-1 来源 `/Users/aaron/LoveCoding/21_React/高阶/data-pilot`，project-2 来源 `/Users/aaron/LoveCoding/20_Vue3/mobile-shop` | 用户已提供，作为迁移来源 | 用户
 - 2026-08-26 | project-1 采用 Vercel rewrites：`/api/:path*` 转发至 `http://116.62.230.90/api/:path*`，SPA 路由回退至 `/index.html` | 实测 `:9999` 提供 API 文档且业务路径返回 404；端口 80 的 `/api/auth/captcha` 返回正常 JSON，并已在 Vercel 预览中验证 | 用户 + Codex
+- 2026-08-27 | project-2 按用户本轮明确要求采用 Vercel Serverless Function 转发商城 `/api/*` 至 `http://shop-api.edu.koobietech.com/*`；作为“仓库不含服务端”的限定例外，仅增加代理，前端仍静态构建，商城业务后端仍为第三方 | 用户明确指定 Serverless 代理方案；不影响 project-1 与 site 的既有方案 | 用户
+- 2026-08-27 | 提议（待确认）：本轮不向 `VITE_AI_API_KEY` 写入真实共享密钥，AI 保留现有无配置兜底；共享 AI 服务改用不含 `VITE_` 前缀的服务端密钥及鉴权/限流代理另行实施 | 现有前端读取该变量，Vite 会将真实 key 打入前端产物，与本轮验收冲突 | Codex 提议

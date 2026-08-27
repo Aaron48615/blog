@@ -10,6 +10,17 @@ import pxtorem from "postcss-pxtorem";
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Only public settings are exposed, even if an old VITE_AI_API_KEY is present.
+  envPrefix: ["VITE_APP_URL", "VITE_AI_API_BASE", "VITE_AI_API_MODEL"],
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://shop-api.edu.koobietech.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api(?=\/|\?|$)/, ""),
+      },
+    },
+  },
   plugins: [
     vue(),
     // vueDevTools(),

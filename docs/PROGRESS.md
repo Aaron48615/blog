@@ -20,3 +20,4 @@
 - 2026-08-27 | Antigravity | 完成 apps/site 视觉重设计与动效：技术官网风居中首页、7 条名言 3.5s 渐变平滑淡入淡出轮播、/projects 双卡片独立双按钮跳转、/posts 左侧个人介绍粘性侧边栏+右侧文章列表、/posts/[slug] 自动生成 h2/h3 目录粘性侧边栏+更多文章推荐+移动端无缝响应，全站静态构建通过 | feature/site-visual
 - 2026-08-27 | OpenCode | 合并 feature/site-visual 至 main（含 647a15a 修复：删除未使用 Highlights 组件、修复未闭合标签与重复声明）；删除 feature/site-blog-structure、feature/site-visual 已合并分支 | main@b25c322
 - 2026-08-27 | Codex | 将 mobile-shop 源码迁入 apps/project-2，排除真实 AI 密钥、旧 dist、npm 锁文件、备份与调试垃圾；统一 pnpm 依赖，补充 @parcel/watcher 构建许可和 postcss-pxtorem 类型，修复 JS/TS 混用、视图状态及 Axios 类型问题；冻结锁文件安装、强制类型检查、project-2 build、格式检查及密钥检查通过，project-1 build/22 项测试、site build 回归通过；未处理 API 代理与 Vercel 部署，待 Claude Code 审查 | feature/migrate-project-2-base
+- 2026-08-27 | Codex | 开始 project-2 部署阶段：新增固定上游的 Serverless 商城代理、同源 `/api` 和 SPA 回退，移除前端共享 AI key 读取；11 项代理测试与 build 通过，旧后端 `/indexImgs` 实测成功；Vercel 预览验收与环境配置进行中，真实 AI 密钥配置因安全冲突待用户确认 | feature/migrate-project-2-deploy

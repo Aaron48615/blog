@@ -18,7 +18,7 @@
 - [x] 旧项目迁移评估（技术栈/依赖/第三方 API/迁移步骤/环境变量） | owner: OpenCode Go | 验收: `docs/MIGRATION_PLAN.md` 已包含全部信息
 - [x] 旧项目 1 迁入 `apps/project-1`（来源：`/Users/aaron/LoveCoding/21_React/高阶/data-pilot`） | owner: Codex | 依赖: docs/MIGRATION_PLAN.md、API 路由方案确认（方案 B：Vercel rewrites） | 验收: build/test/lint 通过，Vercel 预览首页与深层路由可访问，`/api/auth/captcha` 调用正常
 - [x] 旧项目 2 基础迁移至 `apps/project-2`（来源：`/Users/aaron/LoveCoding/20_Vue3/mobile-shop`） | owner: Codex | 范围: 源码清理、pnpm workspace 依赖整合与本地构建；不含 API 代理和部署 | 验收: 根目录冻结锁文件安装、强制类型检查、`pnpm --filter project-2 build` 通过，无真实 AI 密钥与垃圾文件入库；project-1 build/22 项测试及 site build 回归通过 | 分支: `feature/migrate-project-2-base`（待 Claude Code 审查）
-- [ ] 旧项目 2 API 代理与 Vercel 部署（第二段） | owner: 待认领 | 依赖: project-2 基础迁移审查通过、API 路由与 AI 密钥处理方案确认 | 验收: Vercel 预览首页与深层路由可访问，第三方 API 调用正常，无真实 AI 密钥打入前端产物
+- [~] 旧项目 2 API 代理与 Vercel 部署（第二段） | owner: Codex | 范围: 按用户本轮要求添加 Vercel Serverless 商城代理、统一 `/api` 与 SPA 回退；真实 `VITE_AI_API_KEY` 与密钥验收冲突，等待确认安全替代范围 | 验收: Vercel 预览首页与深层路由可访问，第三方 API 调用正常，无真实 AI 密钥打入前端产物 | 分支: `feature/migrate-project-2-deploy`
 - [~] 两个项目各自的 Vercel project 绑定 | owner: 用户 | 进度: project-1 已绑定，project-2 基础迁移完成，待 API 代理与部署 | 验收: push main 自动部署
 
 ## Phase 3 — 个人站内容施工

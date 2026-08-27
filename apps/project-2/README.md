@@ -11,6 +11,7 @@ Vue 3 + TypeScript + Vite + Vant 移动端商城，迁自 `mobile-shop`。
 pnpm install
 pnpm --filter project-2 dev
 pnpm --filter project-2 build
+pnpm --filter project-2 test
 pnpm --filter project-2 preview
 ```
 
@@ -20,9 +21,20 @@ pnpm --filter project-2 preview
 
 ## 配置与迁移边界
 
-- `.env.development` 仅保留原项目的公开商城 API 地址；`.env.example` 提供公开配置模板。
+- axios 固定使用同源 `/api`；`.env.development` 和 `.env.example` 的 `VITE_APP_URL=/api` 用于标明部署约定，不能通过它绕过代理改为外部地址。
 - 未迁入原 `.env.local`、真实 AI key、`node_modules/`、`dist/`、npm 锁文件、Vue 备份、系统文件、浏览器调试记录及学习笔记；原项目文件保持不变。
 - 未使用的 `amfe-flexible` 依赖已移除，继续使用原有 `src/utils/rem.ts`，不改变移动端布局逻辑。
-- 本阶段只验收本地构建，不配置 API 代理、生产环境变量、SPA 部署回退或 Vercel。不代表登录、下单和 AI 功能已通过联调。
-- 原 AI provider 支持浏览器配置和 `VITE_AI_API_KEY`。所有 `VITE_*` 值都可能进入前端产物，**不能用 Vercel 环境变量隐藏共享密钥**。未配置 key 时 AI provider 不可用；密钥轮换及安全调用方案留到后续确认。
+- 共享 `VITE_AI_API_KEY` 已停止在前端读取，模板保留空字段作为弃用提示；Vite 仅暴露公开配置前缀。AI 未配置时继续使用本地兜底；用户自己的浏览器配置仍可用。**不得将真实共享密钥写进 Vercel 的 `VITE_AI_API_KEY`**，共享 AI 代理的服务端密钥、鉴权和限流另行确认。
 - 原登录 AES 常量随协议实现保留，浏览器端常量不能视为保密措施；本次不改登录协议。
+
+## Vercel 部署
+
+- 项目 Root Directory 为 `apps/project-2`，使用 Vite，构建命令 `pnpm build`，输出 `dist`。
+- `vercel.json` 先将 `/api/*` 转到 `api/proxy.ts`，通过保留参数 `__path` 传入上游路径；其余前端路由回退到 `index.html`。
+- 代理固定访问 `http://shop-api.edu.koobietech.com/*`，保留业务请求的方法、查询参数、请求体和 Authorization。`__path` 是内部路由参数，客户端业务查询不能使用它。
+- 代理不转发 Cookie、Vercel 内部头或上游 Set-Cookie，不跟随重定向，响应统一 `no-store`；上游超时返回 504，其余连接错误返回 502。
+- Vite 开发环境使用同目标的 `/api` 代理；`vite preview` 仅用于静态产物预览，线上 Serverless 行为以 Vercel 预览部署验收为准。
+- 浏览器到 Vercel 为 HTTPS，但 Vercel 到旧商城仍为 HTTP。认证 token 和业务请求在这段链路上不受 TLS 保护；后端 HTTPS 升级属于后续事项。
+- 验收至少覆盖 `/`、`/cart`、`/myorder` 和 `/api/indexImgs`；读取接口成功不代表登录、支付、订单等写入操作已联调。
+
+参考：[Vercel Node.js Functions](https://vercel.com/docs/functions/runtimes/node-js)、[Vercel 路由配置](https://vercel.com/docs/project-configuration/vercel-json)、[Vite 环境变量安全说明](https://vite.dev/guide/env-and-mode)。
