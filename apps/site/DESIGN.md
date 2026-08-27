@@ -2,7 +2,8 @@
 
 > 版本：v2.0.0  
 > 适用范围：`apps/site`（Astro 个人空间与博客站）  
-> 视觉风格：**Vestris 人文科技雅致风（Editorial Naturalism & Modern Tech）**，融合温润亚麻骨白、深松墨绿、浮动药丸导航与两侧自然动态枝叶景深遮罩。
+> 视觉风格：**Vestris 人文科技雅致风（Editorial Naturalism & Modern Tech）**，融合温润亚麻骨白、深松墨绿、浮动药丸导航与两侧自然动态枝叶景深遮罩。  
+> 说明：本规范中的数值为设计基准，实际实现可能因浏览器渲染、可读性微调而以代码为准。
 
 ---
 
@@ -70,7 +71,6 @@
 - `--gradient-hero-text`: `linear-gradient(135deg, #1D1D1D 0%, #233426 60%, #4A6750 100%)`
 - `--gradient-dark-card`: `linear-gradient(180deg, #233426 0%, #1A281D 100%)`
 - `--gradient-specular-bar`: `linear-gradient(90deg, transparent 0%, #829A84 50%, transparent 100%)`
-- `--gradient-section-divider`: `linear-gradient(90deg, rgba(35, 52, 38, 0.25) 0%, rgba(35, 52, 38, 0.05) 50%, transparent 100%)`
 
 ---
 
@@ -157,7 +157,7 @@
   - 双 CTA 按钮（深松墨绿主按钮“浏览项目作品” + 温润亚麻次按钮“阅读文章”）。
   - **核心名言轮播盒**：深松墨绿（`#233426`）拟态卡片，激光高光顶边，3.5s 周期平滑轮播。
 - **精选项目流 (Featured Projects)**：
-  - 参考 lukevoidx 的 `01` / `02` 编号排布，双卡片网格，配有细致的渐变分界线与技术栈标签。
+  - 参考 lukevoidx 的 `01` / `02` 编号排布，双卡片网格，配有细致的 1px 弱边框分界线（`border-top: 1px solid var(--color-border-subtle)`）与技术栈标签。
 
 ### 6.2 项目展示页 (`/projects`)
 

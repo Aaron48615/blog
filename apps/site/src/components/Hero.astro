@@ -109,16 +109,14 @@ const quotes = [
       </div>
 
       <!-- Navigation Dots -->
-      <div class="quote-dots" role="tablist" aria-label="名言轮播控制">
+      <div class="quote-dots" role="group" aria-label="轮播指示器">
         {
           quotes.map((_, index) => (
             <button
               type="button"
               class={`quote-dot ${index === 0 ? "is-active" : ""}`}
               data-target={index}
-              aria-label={`切换到第 ${index + 1} 条名言`}
-              role="tab"
-              aria-selected={index === 0 ? "true" : "false"}
+              aria-label={`第 ${index + 1} 条名言`}
             />
           ))
         }
@@ -150,14 +148,12 @@ const quotes = [
       slides[currentIndex]?.classList.remove("is-active");
       slides[currentIndex]?.setAttribute("aria-hidden", "true");
       dots[currentIndex]?.classList.remove("is-active");
-      dots[currentIndex]?.setAttribute("aria-selected", "false");
 
       currentIndex = (nextIndex + slides.length) % slides.length;
 
       slides[currentIndex]?.classList.add("is-active");
       slides[currentIndex]?.setAttribute("aria-hidden", "false");
       dots[currentIndex]?.classList.add("is-active");
-      dots[currentIndex]?.setAttribute("aria-selected", "true");
     }
 
     function startAutoPlay() {

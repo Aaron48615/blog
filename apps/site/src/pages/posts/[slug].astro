@@ -248,15 +248,20 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
     let activeSlug = "";
 
     function onScroll() {
-      const scrollPos = window.scrollY + 120;
+      const targetOffset = 130;
       let currentSlug = "";
 
       for (const el of headingElements) {
-        if (el.offsetTop <= scrollPos) {
+        const top = el.getBoundingClientRect().top;
+        if (top <= targetOffset) {
           currentSlug = el.id;
         } else {
           break;
         }
+      }
+
+      if (!currentSlug && headingElements.length > 0) {
+        currentSlug = headingElements[0].id;
       }
 
       if (currentSlug !== activeSlug) {

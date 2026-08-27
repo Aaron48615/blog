@@ -30,3 +30,4 @@
 - 2026-08-27 | OpenCode | 经 Claude Code 审查通过，按用户选择先合并 `feature/project-2-ai-proxy` 至 main；删除已合并分支；真实 key 与有效模型的 Preview 联调待用户配置后复验，任务仍保持进行中 | main@01bea21
 - 2026-08-27 | 用户 / OpenCode | 在 Vercel Preview 配置 `DEEPSEEK_API_KEY` 与 `deepseek-v4-flash` 后，实测 `https://project-2-8x2btjqyq-aaronsblog.vercel.app/api/ai` 的搜索联想与卖点生成功能正常返回 AI 文案；任务验收完成 | main@4afac82
 - 2026-08-27 | Antigravity | 完成 apps/site Phase 3.6 视觉规范重做：输出 DESIGN.md 经用户确认，按 Vestris.ai 温润骨白（#F2EFE5）与深松墨绿（#233426）重构 global.css、BaseLayout、Hero、FeaturedProjects 及四页，加入两侧动态微风枝叶景深遮罩（纯 CSS 零 JS），文章页精简为左侧粘性边栏（TOC Scrollspy/Profile）+右侧主体双栏结构，旧配色彻底清除，全站静态构建通过 | feature/site-design-system
+- 2026-08-27 | Antigravity | 完成 apps/site Phase 3.6 审查收尾修复：清理 global.css 未使用变量与 DESIGN.md 规范说明、修复文章页 TOC Scrollspy 高亮基准、调整项目 02 按钮与 previewLink 条件渲染、优化 Hero 轮播指示器 ARIA 语义，静态构建通过 | feature/site-visual-polish
