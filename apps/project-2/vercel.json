@@ -1,0 +1,18 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "buildCommand": "pnpm build",
+  "outputDirectory": "dist",
+  "functions": {
+    "api/proxy.ts": { "maxDuration": 20 },
+    "api/image.ts": { "maxDuration": 20 }
+  },
+  "rewrites": [
+    {
+      "source": "/shop-images/:path*",
+      "destination": "/api/image?__path=:path*"
+    },
+    { "source": "/api/:path*", "destination": "/api/proxy?__path=:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

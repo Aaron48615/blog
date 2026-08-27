@@ -12,10 +12,8 @@
 function getConfig() {
   try {
     return {
-      key:
-        localStorage.getItem("ai_api_key") ||
-        import.meta.env.VITE_AI_API_KEY ||
-        "",
+      // Only a user's own browser setting; never bundle a shared provider key.
+      key: localStorage.getItem("ai_api_key") || "",
       base:
         localStorage.getItem("ai_api_base") ||
         import.meta.env.VITE_AI_API_BASE ||
