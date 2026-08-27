@@ -18,3 +18,4 @@
 - 2026-08-27 | Codex | 将 data-pilot 复制迁入 apps/project-1，清理密钥与构建残留、修正 TS import 和依赖，配置 Vercel SPA/API rewrites；完成 build/test/lint/preview 与 Vercel 预览验收，并实测确认 `:9999` 是文档服务、业务 API 为端口 80 的 `/api` | feature/migrate-project-1@308f0f1
 - 2026-08-27 | OpenCode | apps/site 博客结构改造：创建 Content Collections 配置与示例文章，新增 /posts 文章列表页与 /posts/[slug] 详情页，替换项目页为拾光集/云枢双卡片+双按钮，首页 Hero 保留+7 条名言数组，删除 about.astro，导航改为首页/文章/项目，build 通过 | feature/site-blog-structure
 - 2026-08-27 | Antigravity | 完成 apps/site 视觉重设计与动效：技术官网风居中首页、7 条名言 3.5s 渐变平滑淡入淡出轮播、/projects 双卡片独立双按钮跳转、/posts 左侧个人介绍粘性侧边栏+右侧文章列表、/posts/[slug] 自动生成 h2/h3 目录粘性侧边栏+更多文章推荐+移动端无缝响应，全站静态构建通过 | feature/site-visual
+- 2026-08-27 | OpenCode | 合并 feature/site-visual 至 main（含 647a15a 修复：删除未使用 Highlights 组件、修复未闭合标签与重复声明）；删除 feature/site-blog-structure、feature/site-visual 已合并分支 | main@b25c322
