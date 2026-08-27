@@ -53,12 +53,6 @@
     #829a84 50%,
     transparent 100%
   );
-  --gradient-section-divider: linear-gradient(
-    90deg,
-    rgba(35, 52, 38, 0.22) 0%,
-    rgba(35, 52, 38, 0.04) 50%,
-    transparent 100%
-  );
 
   /* Typography */
   --font-sans:
