@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title">
+  <title id="title">蓝绿色礼盒相机商品图</title>
+  <defs>
+    <linearGradient id="gift" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#33aeb3"/>
+      <stop offset=".55" stop-color="#52c9ca"/>
+      <stop offset="1" stop-color="#188b99"/>
+    </linearGradient>
+    <linearGradient id="camera" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f9f7f0"/>
+      <stop offset="1" stop-color="#c8c8c5"/>
+    </linearGradient>
+  </defs>
+  <rect width="180" height="180" fill="#fff"/>
+  <text x="12" y="25" fill="#347ba4" font-family="Arial, sans-serif" font-size="9" font-weight="700">CASIO · SPECIAL EDITION</text>
+  <path d="M46 65c5-23 36-29 50-8" fill="none" stroke="#6a8580" stroke-width="5" stroke-linecap="round"/>
+  <rect x="10" y="61" width="99" height="100" rx="5" fill="url(#gift)"/>
+  <path d="M21 82c24-23 41-18 56-1s24 13 32 3M15 126c28-20 50-13 67 5s24 12 29 6" fill="none" stroke="#efe2a5" stroke-width="3" opacity=".72"/>
+  <circle cx="42" cy="100" r="14" fill="none" stroke="#ead581" stroke-width="2" opacity=".75"/>
+  <path d="m36 94 8 11m-14-2 24-8" stroke="#ead581" stroke-width="2" opacity=".75"/>
+  <rect x="97" y="67" width="45" height="84" rx="8" fill="url(#camera)" transform="rotate(-7 120 109)"/>
+  <rect x="109" y="75" width="19" height="11" rx="2" fill="#d9dedc" transform="rotate(-7 118 80)"/>
+  <circle cx="119" cy="100" r="13" fill="#9ba3a2"/>
+  <circle cx="119" cy="100" r="8" fill="#4c575b"/>
+  <circle cx="119" cy="100" r="3" fill="#9bcbd3"/>
+  <rect x="137" y="80" width="29" height="71" rx="5" fill="#e4e0db" transform="rotate(8 151 115)"/>
+  <circle cx="150" cy="93" r="6" fill="#383e43"/>
+  <circle cx="150" cy="93" r="2.5" fill="#84a8b2"/>
+</svg>
