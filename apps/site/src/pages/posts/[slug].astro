@@ -16,7 +16,7 @@ const { Content, headings } = await render(post);
 // Filter h2 and h3 for Table of Contents
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
-// Fetch other posts for "More Posts" (3-5 articles)
+// Fetch other posts for "More Posts"
 const allPosts = await getCollection("posts");
 const morePosts = allPosts
   .filter((p) => p.data.slug !== post.data.slug)
@@ -35,7 +35,7 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
   description={post.data.summary}
 >
   <div class="article-layout animate-fade-in">
-    <!-- Left Column: Table of Contents & More Posts (Sticky on Desktop) -->
+    <!-- Left Column: Table of Contents & More Posts (Chirpy Simplified Left Sticky Bar) -->
     <aside class="article-sidebar animate-fade-in delay-1">
       <a href="/posts" class="back-link">
         <svg
@@ -143,7 +143,7 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
           }
         </header>
 
-        <!-- Mobile TOC Accordion (Shown only on small screens before content) -->
+        <!-- Mobile TOC Accordion -->
         {
           toc.length > 0 && (
             <details class="mobile-toc-details mobile-only">
@@ -194,7 +194,7 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
         </footer>
       </article>
 
-      <!-- Mobile Only More Posts (Rendered at bottom of reading flow) -->
+      <!-- Mobile Only More Posts -->
       {
         morePosts.length > 0 && (
           <section class="sidebar-block more-posts-block mobile-only mobile-more-posts">
@@ -287,7 +287,7 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2.5rem;
-    padding: 0.5rem 0 3rem;
+    padding: 0.5rem 0 3.5rem;
   }
 
   @media (min-width: 900px) {
@@ -299,7 +299,7 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
   }
 
   /* ==========================================================================
-     Left Sidebar (TOC & More Posts)
+     Left Sidebar (TOC & More Posts - Chirpy Style)
      ========================================================================== */
   .article-sidebar {
     position: relative;
@@ -320,29 +320,23 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
     align-items: center;
     gap: 0.4rem;
     font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text-secondary);
+    font-weight: 600;
+    color: var(--color-text-forest);
     transition: all 0.2s ease;
     margin-bottom: 0.5rem;
   }
 
   .back-link:hover {
-    color: var(--accent-teal);
+    color: var(--color-accent-sage);
     transform: translateX(-3px);
   }
 
   .sidebar-block {
-    padding: 1.5rem;
+    padding: 1.6rem;
     border-radius: var(--radius-md);
-    background: linear-gradient(
-      180deg,
-      rgba(15, 22, 38, 0.8) 0%,
-      rgba(10, 15, 26, 0.7) 100%
-    );
-    border: 1px solid var(--border-subtle);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.45);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    box-shadow: var(--shadow-sm);
   }
 
   .block-header {
@@ -351,7 +345,7 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
     gap: 0.5rem;
     margin-bottom: 1rem;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--color-border-subtle);
   }
 
   .block-icon {
@@ -359,11 +353,11 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
   }
 
   .block-title {
-    font-size: 0.925rem;
-    font-weight: 700;
+    font-size: 0.95rem;
+    font-weight: 750;
     letter-spacing: -0.01em;
     margin: 0;
-    color: var(--text-primary);
+    color: var(--color-text-forest);
   }
 
   /* TOC Styles */
@@ -377,53 +371,53 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
   }
 
   .toc-item {
-    font-size: 0.85rem;
-    line-height: 1.4;
+    font-size: 0.875rem;
+    line-height: 1.45;
   }
 
   .toc-item.depth-3 {
     padding-left: 1rem;
-    font-size: 0.8rem;
+    font-size: 0.825rem;
   }
 
   .toc-link {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--text-secondary);
-    padding: 0.3rem 0.5rem;
+    color: var(--color-text-secondary);
+    padding: 0.35rem 0.55rem;
     border-radius: var(--radius-sm);
-    transition: all 0.2s ease;
+    transition: all 0.2s var(--ease-out-spring);
   }
 
   .toc-bullet {
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    background: var(--text-muted);
+    background: var(--color-text-dim);
     flex-shrink: 0;
     transition: all 0.2s ease;
   }
 
   .toc-link:hover {
-    color: var(--accent-teal);
-    background: rgba(45, 212, 191, 0.06);
+    color: var(--color-accent-forest);
+    background: var(--color-bg-subtle);
   }
 
   .toc-link:hover .toc-bullet {
-    background: var(--accent-teal);
+    background: var(--color-accent-forest);
   }
 
   .toc-link.is-active {
-    color: #5eead4;
-    font-weight: 600;
-    background: rgba(45, 212, 191, 0.1);
+    color: var(--color-accent-forest);
+    font-weight: 700;
+    background: var(--color-bg-subtle);
   }
 
   .toc-link.is-active .toc-bullet {
-    background: var(--accent-teal);
+    background: var(--color-accent-emerald);
     transform: scale(1.6);
-    box-shadow: 0 0 6px var(--accent-teal);
+    box-shadow: 0 0 6px rgba(46, 133, 64, 0.5);
   }
 
   /* More Posts Sidebar List */
@@ -445,12 +439,13 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
     align-items: baseline;
     justify-content: space-between;
     gap: 0.5rem;
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
+    font-weight: 500;
     transition: color 0.2s ease;
   }
 
   .more-post-link:hover {
-    color: var(--accent-teal);
+    color: var(--color-accent-forest);
   }
 
   .more-post-title {
@@ -463,7 +458,7 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
   .more-post-date {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: var(--color-text-muted);
     flex-shrink: 0;
   }
 
@@ -476,22 +471,17 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
   }
 
   .article-content {
-    background: linear-gradient(
-      180deg,
-      rgba(15, 22, 38, 0.55) 0%,
-      rgba(10, 15, 26, 0.45) 100%
-    );
-    border: 1px solid var(--border-subtle);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-lg);
-    padding: 2.5rem;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    padding: 2.75rem 3rem;
+    box-shadow: var(--shadow-sm);
   }
 
   .article-header {
     margin-bottom: 2.5rem;
     padding-bottom: 1.75rem;
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
   }
 
   .header-meta {
@@ -504,7 +494,8 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
   .article-date {
     font-family: var(--font-mono);
     font-size: 0.825rem;
-    color: var(--text-muted);
+    color: var(--color-text-muted);
+    font-weight: 550;
   }
 
   .article-tags {
@@ -517,9 +508,10 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
     font-family: var(--font-mono);
     padding: 0.15rem 0.55rem;
     border-radius: var(--radius-full);
-    background: rgba(45, 212, 191, 0.08);
-    border: 1px solid rgba(45, 212, 191, 0.2);
-    color: var(--accent-teal);
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-subtle);
+    color: var(--color-text-forest);
+    font-weight: 600;
   }
 
   .article-title {
@@ -528,17 +520,17 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
     letter-spacing: -0.035em;
     line-height: 1.22;
     margin: 0 0 1.25rem;
-    color: var(--text-primary);
+    color: var(--color-text-primary);
   }
 
   .article-lead {
-    padding: 1rem 1.25rem;
+    padding: 1.1rem 1.35rem;
     border-radius: var(--radius-sm);
-    background: rgba(255, 255, 255, 0.025);
-    border-left: 3px solid var(--accent-teal);
-    font-size: 1.025rem;
-    color: var(--text-secondary);
-    line-height: 1.7;
+    background: var(--color-bg-subtle);
+    border-left: 3px solid var(--color-accent-forest);
+    font-size: 1.05rem;
+    color: var(--color-text-forest);
+    line-height: 1.75;
   }
 
   .article-lead p {
@@ -549,8 +541,8 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
   .mobile-toc-details {
     margin-bottom: 2rem;
     border-radius: var(--radius-md);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-subtle);
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-medium);
     padding: 0.75rem 1rem;
   }
 
@@ -559,9 +551,9 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
     align-items: center;
     justify-content: space-between;
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 650;
     cursor: pointer;
-    color: var(--text-primary);
+    color: var(--color-text-forest);
     list-style: none;
   }
 
@@ -578,33 +570,33 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
   .mobile-toc-nav {
     margin-top: 0.85rem;
     padding-top: 0.75rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--color-border-subtle);
   }
 
   /* Markdown Content Typography */
   .article-body {
     font-size: 1.05rem;
     line-height: 1.85;
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
   }
 
   .article-body :global(h2) {
     font-size: clamp(1.4rem, 3vw, 1.75rem);
-    font-weight: 700;
+    font-weight: 750;
     margin: 2.75rem 0 1rem;
-    color: var(--text-primary);
+    color: var(--color-text-forest);
     letter-spacing: -0.025em;
     scroll-margin-top: 5.5rem;
     position: relative;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--color-border-subtle);
   }
 
   .article-body :global(h3) {
     font-size: clamp(1.2rem, 2.5vw, 1.35rem);
-    font-weight: 600;
+    font-weight: 700;
     margin: 2.25rem 0 0.85rem;
-    color: var(--text-primary);
+    color: var(--color-text-primary);
     letter-spacing: -0.015em;
     scroll-margin-top: 5.5rem;
   }
@@ -614,8 +606,8 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
   }
 
   .article-body :global(strong) {
-    color: var(--text-primary);
-    font-weight: 600;
+    color: var(--color-text-primary);
+    font-weight: 650;
   }
 
   .article-body :global(ul),
@@ -631,14 +623,10 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
   .article-body :global(blockquote) {
     margin: 1.75rem 0;
     padding: 1rem 1.4rem;
-    border-left: 3px solid var(--accent-teal);
-    background: linear-gradient(
-      90deg,
-      rgba(45, 212, 191, 0.08) 0%,
-      rgba(45, 212, 191, 0.02) 100%
-    );
+    border-left: 3px solid var(--color-accent-forest);
+    background: var(--color-bg-subtle);
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    color: var(--text-primary);
+    color: var(--color-text-forest);
     font-style: italic;
   }
 
@@ -647,19 +635,20 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
     font-size: 0.88em;
     padding: 0.2em 0.45em;
     border-radius: 4px;
-    background: rgba(255, 255, 255, 0.07);
-    color: #5eead4;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--color-bg-subtle);
+    color: var(--color-accent-forest);
+    border: 1px solid var(--color-border-subtle);
   }
 
   .article-body :global(pre) {
     padding: 1.4rem;
     border-radius: var(--radius-md);
-    background: #080d18 !important;
-    border: 1px solid var(--border-medium);
+    background: #1a281d !important;
+    color: #f8faf6 !important;
+    border: 1px solid rgba(255, 255, 255, 0.12);
     overflow-x: auto;
     margin: 1.75rem 0;
-    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 24px -4px rgba(10, 20, 12, 0.35);
   }
 
   .article-body :global(pre code) {
@@ -673,7 +662,7 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
   .article-footer {
     margin-top: 3.5rem;
     padding-top: 2rem;
-    border-top: 1px solid var(--border-subtle);
+    border-top: 1px solid var(--color-border-subtle);
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -681,7 +670,7 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
 
   .footer-notice {
     font-size: 0.875rem;
-    color: var(--text-muted);
+    color: var(--color-text-muted);
   }
 
   .footer-notice p {
@@ -719,7 +708,7 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
     }
 
     .article-content {
-      padding: 1.75rem 1.25rem;
+      padding: 1.75rem 1.35rem;
     }
   }
 </style>

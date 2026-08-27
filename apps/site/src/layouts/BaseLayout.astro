@@ -28,114 +28,120 @@ const navItems = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#06090e" />
+    <meta name="theme-color" content="#F2EFE5" />
     <title>{title}</title>
     <style>
-      .site-header {
+      .header-wrapper {
         position: sticky;
-        top: 0;
+        top: 1rem;
         z-index: 50;
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-        background: var(--bg-glass);
-        border-bottom: 1px solid var(--border-subtle);
-        transition:
-          border-color 0.2s ease,
-          background-color 0.2s ease;
+        display: flex;
+        justify-content: center;
+        padding: 0 1rem;
       }
 
-      .header-inner {
+      .site-header-pill {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1rem 0;
+        gap: 1.5rem;
+        padding: 0.45rem 0.65rem 0.45rem 1.15rem;
+        border-radius: var(--radius-full);
+        background: var(--color-bg-glass);
+        border: 1px solid var(--color-border-medium);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        box-shadow: 0 8px 24px -4px rgba(35, 52, 38, 0.08);
+        width: 100%;
+        max-width: 640px;
+        transition: all 0.25s var(--ease-out-spring);
+      }
+
+      .site-header-pill:hover {
+        border-color: var(--color-accent-sage);
+        box-shadow: 0 12px 30px -4px rgba(35, 52, 38, 0.12);
       }
 
       .brand {
         display: flex;
         align-items: center;
         gap: 0.65rem;
-        font-weight: 700;
-        font-size: 1.15rem;
-        letter-spacing: -0.02em;
-        color: var(--text-primary);
-      }
-
-      .brand:hover .brand-logo {
-        transform: rotate(6deg) scale(1.06);
-        box-shadow: 0 0 16px 0 rgba(45, 212, 191, 0.6);
+        font-weight: 750;
+        font-size: 1.05rem;
+        letter-spacing: -0.025em;
+        color: var(--color-text-forest);
       }
 
       .brand-logo {
-        width: 30px;
-        height: 30px;
+        width: 28px;
+        height: 28px;
         border-radius: var(--radius-sm);
-        background: linear-gradient(
-          135deg,
-          var(--accent-teal),
-          var(--accent-indigo)
-        );
+        background: var(--color-accent-forest);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #06090e;
+        color: #faf8f3;
         font-weight: 800;
-        font-size: 0.9rem;
-        box-shadow: 0 0 12px -2px rgba(45, 212, 191, 0.4);
-        transition:
-          transform 0.25s ease,
-          box-shadow 0.25s ease;
+        font-size: 0.85rem;
+        box-shadow: 0 2px 6px rgba(35, 52, 38, 0.2);
+        transition: transform 0.25s var(--ease-out-spring);
+      }
+
+      .brand:hover .brand-logo {
+        transform: rotate(6deg) scale(1.08);
       }
 
       .brand-name {
-        font-weight: 700;
+        font-weight: 750;
         letter-spacing: -0.03em;
       }
 
       .nav-list {
         list-style: none;
         margin: 0;
-        padding: 0.25rem;
+        padding: 0.2rem;
         display: flex;
-        gap: 0.25rem;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid var(--border-subtle);
+        gap: 0.2rem;
+        background: rgba(35, 52, 38, 0.05);
         border-radius: var(--radius-full);
       }
 
       .nav-link {
         display: inline-block;
-        padding: 0.4rem 0.95rem;
+        padding: 0.35rem 0.95rem;
         border-radius: var(--radius-full);
-        font-size: 0.875rem;
-        font-weight: 500;
-        color: var(--text-secondary);
-        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--color-text-secondary);
+        transition: all 0.2s var(--ease-out-spring);
       }
 
       .nav-link:hover {
-        color: var(--text-primary);
-        background: rgba(255, 255, 255, 0.06);
+        color: var(--color-text-primary);
+        background: rgba(255, 255, 255, 0.6);
       }
 
       .nav-link[aria-current="page"] {
-        color: #ffffff;
-        background: rgba(45, 212, 191, 0.16);
-        border: 1px solid rgba(45, 212, 191, 0.3);
-        box-shadow: 0 0 12px -2px rgba(45, 212, 191, 0.25);
+        color: #faf8f3;
+        background: var(--color-accent-forest);
+        box-shadow: 0 2px 8px rgba(35, 52, 38, 0.2);
       }
 
       .site-main {
         flex: 1;
         padding: 2.5rem 0 4.5rem;
+        position: relative;
+        z-index: 1;
       }
 
       .site-footer {
-        border-top: 1px solid var(--border-subtle);
-        background: rgba(6, 9, 14, 0.85);
+        border-top: 1px solid var(--color-border-subtle);
+        background: var(--color-bg-subtle);
         padding: 2.5rem 0;
-        color: var(--text-muted);
+        color: var(--color-text-muted);
         font-size: 0.875rem;
+        position: relative;
+        z-index: 1;
       }
 
       .footer-inner {
@@ -161,22 +167,107 @@ const navItems = [
       }
 
       .footer-link {
-        color: var(--text-muted);
+        color: var(--color-text-secondary);
+        font-weight: 500;
         transition: color 0.2s ease;
       }
 
       .footer-link:hover {
-        color: var(--accent-teal);
+        color: var(--color-accent-forest);
       }
     </style>
   </head>
   <body>
-    <header class="site-header">
-      <div class="container header-inner">
+    <!-- Left Dynamic Botanical Foliage Overlay (Vestris Style) -->
+    <div class="ambient-foliage foliage-left" aria-hidden="true">
+      <svg
+        viewBox="0 0 200 450"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="foliage-svg"
+      >
+        <path
+          d="M10 20C40 80 80 120 130 180C160 220 170 290 140 370C120 420 80 440 30 450"
+          stroke="#2E4032"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-opacity="0.25"></path>
+        <!-- Leaves -->
+        <path
+          d="M40 70C65 50 110 55 130 75C110 95 65 95 40 70Z"
+          fill="#3D5943"
+          fill-opacity="0.18"></path>
+        <path
+          d="M75 110C105 90 150 95 170 120C150 140 100 140 75 110Z"
+          fill="#2E4032"
+          fill-opacity="0.22"></path>
+        <path
+          d="M110 160C140 140 185 145 200 175C175 195 130 195 110 160Z"
+          fill="#4A6750"
+          fill-opacity="0.16"></path>
+        <path
+          d="M135 230C165 210 195 220 205 250C180 270 145 265 135 230Z"
+          fill="#3D5943"
+          fill-opacity="0.2"></path>
+        <path
+          d="M140 300C170 285 190 300 195 330C170 345 145 335 140 300Z"
+          fill="#2E4032"
+          fill-opacity="0.17"></path>
+        <path
+          d="M100 370C130 360 150 375 150 405C125 415 105 400 100 370Z"
+          fill="#4A6750"
+          fill-opacity="0.15"></path>
+      </svg>
+    </div>
+
+    <!-- Right Dynamic Botanical Foliage Overlay (Vestris Style) -->
+    <div class="ambient-foliage foliage-right" aria-hidden="true">
+      <svg
+        viewBox="0 0 220 500"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="foliage-svg"
+      >
+        <path
+          d="M210 10C170 80 130 130 80 200C40 260 30 340 70 420C90 460 130 485 190 500"
+          stroke="#2E4032"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-opacity="0.25"></path>
+        <!-- Leaves -->
+        <path
+          d="M180 60C150 40 105 45 85 70C105 90 155 85 180 60Z"
+          fill="#3D5943"
+          fill-opacity="0.18"></path>
+        <path
+          d="M140 120C110 100 65 105 45 135C65 155 115 150 140 120Z"
+          fill="#2E4032"
+          fill-opacity="0.22"></path>
+        <path
+          d="M95 185C65 165 20 175 5 205C30 225 75 220 95 185Z"
+          fill="#4A6750"
+          fill-opacity="0.16"></path>
+        <path
+          d="M65 260C35 240 5 255 -5 285C20 305 55 295 65 260Z"
+          fill="#3D5943"
+          fill-opacity="0.2"></path>
+        <path
+          d="M60 340C35 330 10 345 5 375C30 390 55 375 60 340Z"
+          fill="#2E4032"
+          fill-opacity="0.18"></path>
+        <path
+          d="M100 410C75 405 55 425 55 455C80 465 100 445 100 410Z"
+          fill="#4A6750"
+          fill-opacity="0.15"></path>
+      </svg>
+    </div>
+
+    <!-- Floating Pill Header -->
+    <div class="header-wrapper">
+      <header class="site-header-pill">
         <a class="brand" href="/" aria-label="Aaron 个人主页">
           <span class="brand-logo">A</span>
-          <span class="brand-name"
-            >Aaron<span class="text-gradient">.</span></span
+          <span class="brand-name">Aaron<span class="text-forest">.</span></span
           >
         </a>
         <nav aria-label="主导航">
@@ -205,8 +296,8 @@ const navItems = [
             }
           </ul>
         </nav>
-      </div>
-    </header>
+      </header>
+    </div>
 
     <main class="site-main">
       <div class="container">
@@ -217,7 +308,7 @@ const navItems = [
     <footer class="site-footer">
       <div class="container footer-inner">
         <div class="footer-copy">
-          © {new Date().getFullYear()} Aaron. Crafted with Astro & Modern CSS.
+          © {new Date().getFullYear()} Aaron. Crafted with Astro & Vestris Aesthetic.
         </div>
         <div class="footer-links">
           <a class="footer-link" href="/">首页</a>

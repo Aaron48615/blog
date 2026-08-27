@@ -27,10 +27,10 @@ const quotes = [
 
   <!-- Hero Description -->
   <p class="hero-desc animate-fade-in delay-3">
-    嗨，我是 <strong>Aaron</strong>。专注于现代 Web 架构、交互细节与高效开发流。<br
+    嗨，我是 <strong>Aaron</strong>。专注于现代 Web 架构、交互细节与高效工程流。<br
       class="desc-br"
     />
-    追求极简设计与极致性能，坚持 Astro 极速呈现。
+    追求温润自然的人文美学与极致性能，坚持 Astro 纯静态呈现。
   </p>
 
   <!-- CTA Action Buttons -->
@@ -82,7 +82,7 @@ const quotes = [
     </div>
   </div>
 
-  <!-- Centerpiece: Quotes Rotator Banner (3.5s crossfade) -->
+  <!-- Centerpiece: Deep Forest Quotes Rotator (3.5s crossfade) -->
   <div
     class="quote-container animate-fade-in delay-4"
     id="quote-carousel"
@@ -191,7 +191,6 @@ const quotes = [
     startAutoPlay();
   }
 
-  // Support both direct load and Astro view transitions if applicable
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", setupQuoteCarousel);
   } else {
@@ -201,7 +200,7 @@ const quotes = [
 
 <style>
   .hero {
-    padding: 2.5rem 0 3rem;
+    padding: 2rem 0 3.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -220,19 +219,20 @@ const quotes = [
     line-height: 1.18;
     letter-spacing: -0.038em;
     margin-bottom: 1.5rem;
+    color: var(--color-text-primary);
   }
 
   .hero-desc {
     font-size: clamp(1.05rem, 2vw, 1.2rem);
     line-height: 1.75;
-    color: var(--text-secondary);
-    max-width: 54ch;
+    color: var(--color-text-secondary);
+    max-width: 52ch;
     margin-bottom: 2.25rem;
   }
 
   .hero-desc strong {
-    color: var(--text-primary);
-    font-weight: 600;
+    color: var(--color-text-forest);
+    font-weight: 650;
   }
 
   .desc-br {
@@ -270,8 +270,8 @@ const quotes = [
 
   .pill-label {
     font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-dim);
+    font-weight: 650;
+    color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-right: 0.2rem;
@@ -288,23 +288,24 @@ const quotes = [
   .pill {
     padding: 0.25rem 0.7rem;
     border-radius: var(--radius-full);
-    background: rgba(255, 255, 255, 0.035);
-    border: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    color: var(--color-text-forest);
     font-family: var(--font-mono);
     font-size: 0.775rem;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    font-weight: 550;
+    transition: all 0.25s var(--ease-out-spring);
   }
 
   .pill:hover {
-    border-color: rgba(45, 212, 191, 0.4);
-    color: var(--accent-teal);
-    background: rgba(45, 212, 191, 0.08);
+    border-color: var(--color-accent-forest);
+    background: #ffffff;
     transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
   }
 
   /* ==========================================================================
-     Quote Carousel Component
+     Quote Carousel Component (Vestris Deep Forest Aesthetic)
      ========================================================================== */
   .quote-container {
     width: 100%;
@@ -317,29 +318,22 @@ const quotes = [
     position: relative;
     padding: 2.25rem 2.5rem 1.75rem;
     border-radius: var(--radius-lg);
-    background: linear-gradient(
-      180deg,
-      rgba(15, 22, 38, 0.85) 0%,
-      rgba(10, 15, 26, 0.75) 100%
-    );
-    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: var(--gradient-dark-card);
+    border: 1px solid var(--color-border-dark);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    box-shadow:
-      0 10px 30px -10px rgba(0, 0, 0, 0.6),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-dark-card);
     overflow: hidden;
     transition:
-      border-color 0.3s ease,
+      transform 0.3s var(--ease-out-spring),
       box-shadow 0.3s ease;
   }
 
   .quote-card:hover {
-    border-color: rgba(45, 212, 191, 0.3);
+    transform: translateY(-3px);
     box-shadow:
-      0 14px 40px -10px rgba(0, 0, 0, 0.7),
-      0 0 30px -5px rgba(45, 212, 191, 0.15),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      0 22px 50px -12px rgba(10, 20, 12, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
 
   .quote-glow {
@@ -349,24 +343,18 @@ const quotes = [
     transform: translateX(-50%);
     width: 60%;
     height: 2px;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      var(--accent-teal) 50%,
-      transparent 100%
-    );
-    opacity: 0.7;
-    filter: drop-shadow(0 0 8px var(--accent-teal));
+    background: var(--gradient-specular-bar);
+    opacity: 0.85;
   }
 
   .quote-icon {
     position: absolute;
-    top: 0.5rem;
+    top: 0.75rem;
     left: 1.25rem;
     font-size: 4rem;
     line-height: 1;
-    font-family: Georgia, serif;
-    color: rgba(45, 212, 191, 0.1);
+    font-family: var(--font-serif);
+    color: rgba(248, 250, 246, 0.12);
     pointer-events: none;
     user-select: none;
   }
@@ -388,19 +376,16 @@ const quotes = [
     justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transform: translateY(8px) scale(0.98);
-    filter: blur(3px);
+    transform: translateY(6px) scale(0.98);
     transition:
-      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-      filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity 0.6s var(--ease-out-spring),
+      transform 0.6s var(--ease-out-spring);
   }
 
   .quote-slide.is-active {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0) scale(1);
-    filter: blur(0px);
     position: relative;
   }
 
@@ -409,19 +394,15 @@ const quotes = [
     font-weight: 700;
     line-height: 1.4;
     letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #a5b4fc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--color-text-on-dark-primary);
     margin: 0 0 0.5rem;
-    text-shadow: 0 2px 20px rgba(255, 255, 255, 0.1);
   }
 
   .quote-author {
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     font-style: normal;
     font-weight: 500;
-    color: var(--accent-teal);
+    color: var(--color-text-on-dark-secondary);
     letter-spacing: 0.02em;
   }
 
@@ -432,28 +413,28 @@ const quotes = [
     gap: 0.45rem;
     margin-top: 1.25rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .quote-dot {
     width: 20px;
     height: 4px;
     border-radius: var(--radius-full);
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.2);
     border: none;
     padding: 0;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.3s var(--ease-out-spring);
   }
 
   .quote-dot:hover {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.45);
   }
 
   .quote-dot.is-active {
     width: 36px;
-    background: linear-gradient(90deg, var(--accent-teal), var(--accent-cyan));
-    box-shadow: 0 0 10px rgba(45, 212, 191, 0.5);
+    background: #faf8f3;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
   }
 
   @media (max-width: 640px) {
@@ -483,7 +464,6 @@ const quotes = [
     .quote-slide {
       transition: opacity 0.1s ease !important;
       transform: none !important;
-      filter: none !important;
     }
   }
 </style>
