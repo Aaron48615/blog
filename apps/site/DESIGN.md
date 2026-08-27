@@ -1,185 +1,169 @@
 # apps/site 视觉设计规范 (DESIGN.md)
 
-> 版本：v1.0.0  
+> 版本：v2.0.0  
 > 适用范围：`apps/site`（Astro 个人空间与博客站）  
-> 视觉方向：现代化极客官网质感、克制优雅动效、高质感排版、深色太空黑（Obsidian Glass）
+> 视觉风格：**Vestris 人文科技雅致风（Editorial Naturalism & Modern Tech）**，融合温润亚麻骨白、深松墨绿、浮动药丸导航与两侧自然动态枝叶景深遮罩。
 
 ---
 
-## 1. 设计哲学与参考站提炼
+## 1. 设计灵感与参考站解构
 
-本规范融合并提炼了以下优秀站点的前沿设计语言：
-1. **idle.space**：浮动悬浮药丸（Floating Glass Pill）、微高光边框（Specular 0.5px Highlight）、超椭圆圆角与高级投影层级。
-2. **vestris.ai**：极致的排版韵律、紧致的字间距控制（Tight Letter-Spacing）、多层级表面深度（Layered Surfaces）与极简分割线。
-3. **lukevoidx.com/zh**：深邃的宇宙质感暗底（Cosmic Obsidian）、优雅的流光与径向微光弥散、中英文混排的高质量字阶匹配。
-4. **chirpy.cotes.page**：技术博客高信息密度的双栏阅读体验、精准的目录索引（TOC Scrollspy）与清晰的代码块层级。
-
----
-
-## 2. 颜色系统 (Color System & Tokens)
-
-站点采用纯粹沉浸的深色体系（Obsidian & Slate），配合电光紫罗兰（Electric Iris / Violet）与薄荷天青（Aurora Cyan）作为视觉焦点与交互引导。
-
-### 2.1 基础与表面层级 (Background & Surface Tokens)
-- `--color-bg-base`: `#080B11`（页面最底层背景，深邃宇宙黑）
-- `--color-bg-subtle`: `#0D111A`（次级容器底色，微弱明度递进）
-- `--color-bg-surface`: `#121722`（标准卡片与容器底色）
-- `--color-bg-surface-elevated`: `#18202F`（悬停与浮层提升背景）
-- `--color-bg-glass`: `rgba(13, 17, 26, 0.72)`（浮动导航与毛玻璃容器，配合 `backdrop-filter: blur(20px) saturate(180%)`）
-- `--color-bg-glass-card`: `rgba(18, 23, 34, 0.65)`（文章与项目卡片半透明毛玻璃）
-
-### 2.2 边框与微光 (Borders & Highlights)
-- `--color-border-subtle`: `rgba(255, 255, 255, 0.07)`（静止卡片与弱分割线）
-- `--color-border-medium`: `rgba(255, 255, 255, 0.14)`（激活项、悬停外框）
-- `--color-border-strong`: `rgba(255, 255, 255, 0.25)`（高光强调边框）
-- `--color-border-specular`: `rgba(255, 255, 255, 0.18)`（顶部 1px 模拟光照边框）
-- `--color-border-glow-primary`: `rgba(99, 102, 241, 0.35)`（主焦点光晕）
-- `--color-border-glow-secondary`: `rgba(56, 189, 248, 0.35)`（辅焦点光晕）
-
-### 2.3 文本与前景色 (Typography & Neutral Tokens)
-- `--color-text-primary`: `#F8FAFC`（主要标题、高亮文字，对比度 15.5:1）
-- `--color-text-secondary`: `#94A3B8`（正文描述、次要信息，对比度 7.2:1）
-- `--color-text-muted`: `#64748B`（时间戳、辅助注释、占位符，对比度 4.6:1）
-- `--color-text-dim`: `#475569`（极弱装饰文字、小标签文字）
-
-### 2.4 主题主色与渐变 (Accents & Gradients)
-- `--color-accent-primary`: `#6366F1`（主交互蓝紫，Electric Indigo）
-- `--color-accent-primary-hover`: `#4F46E5`
-- `--color-accent-primary-subtle`: `rgba(99, 102, 241, 0.12)`
-- `--color-accent-secondary`: `#38BDF8`（辅助青蓝，Sky Cyan）
-- `--color-accent-secondary-subtle`: `rgba(56, 189, 248, 0.12)`
-- `--color-accent-emerald`: `#10B981`（在线状态、成功、发布标记）
-- `--color-accent-amber`: `#F59E0B`（注意、提醒）
-
-### 2.5 功能渐变 (Functional Gradients)
-- `--gradient-brand`: `linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #38BDF8 100%)`
-- `--gradient-brand-subtle`: `linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.1) 50%, rgba(56, 189, 248, 0.15) 100%)`
-- `--gradient-text-hero`: `linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 45%, #93C5FD 100%)`
-- `--gradient-glow-line`: `linear-gradient(90deg, transparent 0%, #6366F1 50%, transparent 100%)`
+1. **配色灵魂 — vestris.ai**：
+   - 告别千篇一律的纯黑冷色霓虹，拥抱 **温润骨白（Warm Bone `#F2EFE5`）** 与 **深松墨绿（Deep Forest `#233426`）** 的高级画册质感。
+   - 高阶明度层级对比，细腻的米褐米黄弱边框（`#E7E1CE`），温润柔和的人文阅读体验。
+   - **两侧动态景深植物遮盖（Ambient Botanical Foliage Overlay）**：页面左右两侧带有微风摇曳的剪影枝叶微光，创造超高质感的自然景深层。
+2. **首页架构 — lukevoidx.com/zh + idle.space**：
+   - **idle.space 交互精髓**：居中悬浮毛玻璃药丸导航（Floating Pill Nav）、微高光 0.5px 边框、紧凑有力的 Display 主标、极客技术栈药丸、两段式精简 CTA。
+   - **lukevoidx.com/zh 内容排布**：富有哲思的 Manifesto / 名言核心区块、编号索引（01 / 02）项目卡片流与优雅的渐变分界线。
+3. **文章页双栏结构 — chirpy.cotes.page 精简升级**：
+   - **去除原 Chirpy 最右侧多余边栏**，纯粹保留 **左侧粘性边栏（Sticky Sidebar） + 右侧核心阅读区（Main Content）**。
+   - 文章列表页：左侧放置个人 Profile 名片（头像、在线状态、联系方式、文章统计），右侧为文章列表流。
+   - 文章详情页：左侧放置返回导航 + **滚动目录索引（TOC Scrollspy）** + 更多文章推荐；右侧为主文章 Markdown 精美排版。
 
 ---
 
-## 3. 字体与排版系统 (Typography System)
+## 2. 颜色系统 (Color Palette & Design Tokens)
 
-### 3.1 字体族 (Font Families)
+基于 `vestris.ai` 提取的温润人文大地色系与深松墨绿色调，兼备高对比度阅读性与艺术画册美感。
+
+### 2.1 基础与表面层级 (Surfaces & Backgrounds)
+- `--color-bg-base`: `#F2EFE5`（主页面基底，温润骨白 / 亚麻暖白）
+- `--color-bg-subtle`: `#EBE6DA`（次级容器、输入框、浅底分割）
+- `--color-bg-surface`: `#FAF8F3`（卡片基础表面白）
+- `--color-bg-surface-elevated`: `#FFFFFF`（悬浮提升卡片、纯净白）
+- `--color-bg-dark`: `#233426`（深松墨绿，用于名言核心卡片、深色强调块）
+- `--color-bg-dark-elevated`: `#1A281D`（深色块内更深层级）
+- `--color-bg-glass`: `rgba(242, 239, 229, 0.82)`（浮动导航毛玻璃，配合 `backdrop-filter: blur(16px)`）
+- `--color-bg-glass-dark`: `rgba(35, 52, 38, 0.88)`（深色容器毛玻璃）
+
+### 2.2 边框与微光分割 (Borders & Dividers)
+- `--color-border-subtle`: `#E5DFC9`（浅色卡片微弱边框）
+- `--color-border-medium`: `#D5CDB5`（悬停与交互强调外框）
+- `--color-border-dark`: `rgba(255, 255, 255, 0.12)`（深色容器内部边框）
+- `--color-border-dark-specular`: `rgba(255, 255, 255, 0.22)`（深色卡片顶部 1px 模拟光照边框）
+- `--color-divider`: `rgba(35, 52, 38, 0.08)`（内容弱分割线）
+
+### 2.3 文本与排版前景色 (Typography Colors)
+- `--color-text-primary`: `#1D1D1D`（主要标题与正文字，对比度 13.8:1）
+- `--color-text-forest`: `#233426`（深松墨绿主题文字）
+- `--color-text-secondary`: `#556157`（正文次要描述，对比度 6.5:1）
+- `--color-text-muted`: `#7E8A80`（时间戳、辅助注释、占位符，对比度 4.6:1）
+- `--color-text-dim`: `#A0ABA2`（极弱装饰文字）
+- `--color-text-on-dark-primary`: `#F8FAF6`（深色卡片上的主标题）
+- `--color-text-on-dark-secondary`: `#C4D1C6`（深色卡片上的次级文字）
+- `--color-text-on-dark-muted`: `#8E9E91`（深色卡片上的弱化文字）
+
+### 2.4 主题色与点缀色 (Brand Accents & Semantics)
+- `--color-accent-forest`: `#233426`（主交互按键与强调色）
+- `--color-accent-forest-hover`: `#172319`
+- `--color-accent-sage`: `#4A6750`（次级鼠尾草绿）
+- `--color-accent-sage-subtle`: `rgba(74, 103, 80, 0.12)`
+- `--color-accent-amber`: `#9E763A`（暖金琥珀色，用于局部亮点或徽章）
+- `--color-accent-emerald`: `#2E8540`（在线状态指示灯、成功标记）
+
+### 2.5 渐变与光泽 (Gradients)
+- `--gradient-hero-text`: `linear-gradient(135deg, #1D1D1D 0%, #233426 60%, #4A6750 100%)`
+- `--gradient-dark-card`: `linear-gradient(180deg, #233426 0%, #1A281D 100%)`
+- `--gradient-specular-bar`: `linear-gradient(90deg, transparent 0%, #829A84 50%, transparent 100%)`
+- `--gradient-section-divider`: `linear-gradient(90deg, rgba(35, 52, 38, 0.25) 0%, rgba(35, 52, 38, 0.05) 50%, transparent 100%)`
+
+---
+
+## 3. 字体与排版层级 (Typography System)
+
+### 3.1 字体族配置
 ```css
-/* 无衬线主字体（现代几何 + 优雅中文字体回退） */
+/* 主无衬线字体：紧凑现代几何 + 优质中文字体回退 */
 --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
 
-/* 等宽字体（代码块、技术标签、时间戳、徽章） */
+/* 优雅衬线装饰体（用于名言、重点短语、引用符号） */
+--font-serif: "Instrument Serif", "Georgia", "Songti SC", "Source Han Serif SC", serif;
+
+/* 代码与元数据等宽字体 */
 --font-mono: ui-monospace, SFMono-Regular, "Geist Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 ```
 
-### 3.2 字阶层级表 (Type Scale & Hierarchy)
+### 3.2 字阶规范表
 
-| 层级 Token | 像素值 (rem / clamp) | 字重 (Weight) | 行高 (Line Height) | 字间距 (Letter Spacing) | 应用场景 |
+| 层级 Token | 尺寸 (clamp / rem) | 字重 | 行高 | 字间距 | 应用场景 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Display** | `clamp(2.5rem, 5.5vw, 3.75rem)` (40~60px) | 800 (Bold) | 1.15 | `-0.038em` | 首页 Hero 主标 |
-| **H1** | `clamp(2rem, 4.5vw, 2.75rem)` (32~44px) | 750 (SemiBold) | 1.22 | `-0.035em` | 各页面主标题、文章标题 |
-| **H2** | `clamp(1.35rem, 3vw, 1.75rem)` (21.6~28px) | 700 (Bold) | 1.3 | `-0.025em` | 区块标题、文章正文二级标题 |
-| **H3** | `clamp(1.15rem, 2.2vw, 1.35rem)` (18.4~21.6px) | 650 (Medium) | 1.35 | `-0.015em` | 卡片标题、文章正文三级标题 |
-| **Body Lead** | `1.125rem` (18px) | 400 / 500 | 1.7 | `-0.01em` | 首页导语、文章 Lead 引言 |
-| **Body** | `1rem` (16px) | 400 (Regular) | 1.75 | `-0.005em` | 标准正文段落 |
-| **Caption / Meta** | `0.875rem` (14px) | 450 | 1.5 | `0` | 辅助文字、作者信息、侧边栏内容 |
-| **Micro / Tag** | `0.75rem` (12px) | 600 | 1.4 | `0.04em` | 徽章、技术栈 Pill、时间标签 |
+| **Display** | `clamp(2.5rem, 5.5vw, 3.8rem)` (40~60px) | 800 | 1.15 | `-0.038em` | 首页 Hero 主标题 |
+| **H1** | `clamp(2rem, 4.2vw, 2.75rem)` (32~44px) | 750 | 1.22 | `-0.035em` | 页面大标题、文章主标题 |
+| **H2** | `clamp(1.35rem, 2.8vw, 1.75rem)` (21.6~28px) | 700 | 1.3 | `-0.025em` | 区块标题、文章二级标题 |
+| **H3** | `clamp(1.15rem, 2.2vw, 1.35rem)` (18.4~21.6px) | 650 | 1.35 | `-0.015em` | 卡片标题、文章三级标题 |
+| **Body Lead** | `1.125rem` (18px) | 450 | 1.75 | `-0.01em` | 首页导言、文章前言 |
+| **Body** | `1rem` (16px) | 400 | 1.8 | `-0.005em` | 标准正文段落 |
+| **Caption / Meta**| `0.875rem` (14px) | 450 | 1.5 | `0` | 侧栏说明、文章日期、作者信息 |
+| **Micro / Tag** | `0.75rem` (12px) | 600 | 1.4 | `0.04em` | 徽章、技术栈 Pill、TOC 状态项 |
 
 ---
 
-## 4. 间距与尺寸系统 (Spacing & Radius Scale)
+## 4. 间距与圆角标尺 (Spacing & Radius Scale)
 
-基于 **4px / 8px** 栅格倍率系统，确保全站对齐精密。
-
-### 4.1 间距 Token
-- `--space-1`: `4px` (0.25rem)
-- `--space-2`: `8px` (0.5rem)
-- `--space-3`: `12px` (0.75rem)
-- `--space-4`: `16px` (1rem)
-- `--space-5`: `20px` (1.25rem)
-- `--space-6`: `24px` (1.5rem)
-- `--space-8`: `32px` (2rem)
-- `--space-10`: `40px` (2.5rem)
-- `--space-12`: `48px` (3rem)
-- `--space-16`: `64px` (4rem)
-- `--space-20`: `80px` (5rem)
-- `--space-24`: `96px` (6rem)
-
-### 4.2 圆角 Token
-- `--radius-xs`: `4px` (标签、小代码块)
-- `--radius-sm`: `8px` (输入框、次级按钮、小图标容器)
-- `--radius-md`: `14px` (普通卡片、导航容器)
-- `--radius-lg`: `20px` (主卡片、名言轮播盒、侧边栏)
-- `--radius-xl`: `28px` (大模态、Hero 视觉面板)
-- `--radius-full`: `9999px` (胶囊按钮、Status 药丸徽章)
+基于 **4px / 8px** 黄金比例体系：
+- 间距：`--space-1: 4px`、`--space-2: 8px`、`--space-3: 12px`、`--space-4: 16px`、`--space-5: 20px`、`--space-6: 24px`、`--space-8: 32px`、`--space-10: 40px`、`--space-12: 48px`、`--space-16: 64px`、`--space-20: 80px`
+- 圆角：
+  - `--radius-xs`: `4px`（微型代码标签）
+  - `--radius-sm`: `8px`（次级按钮、输入框、小图标底座）
+  - `--radius-md`: `14px`（文章卡片、目录块容器）
+  - `--radius-lg`: `20px`（大项目卡片、名言暗色核心盒、个人 Profile 侧栏）
+  - `--radius-full`: `9999px`（胶囊导航栏、主按钮、状态药丸）
 
 ---
 
-## 5. 动效与微交互规范 (Motion System)
+## 5. 动效系统与两侧植物景深遮盖 (Motion & Ambient Foliage)
 
-强调 **克制、自然、灵动、零运行时库依赖**（纯 CSS 实现）。
+### 5.1 页面两侧动态自然枝叶遮盖 (Ambient Foliage Overlay)
+借鉴 `vestris.ai` 的艺术画册视觉层级：
+- **布局定位**：左右两侧使用固定容器（`position: fixed; pointer-events: none; z-index: 10`），不影响页面任何点击与文字复制。
+- **视觉形态**：使用纯 SVG / CSS 绘制高精度半透明水墨/松木枝叶轮廓（Sage & Forest Green 渐变剪影），在屏幕两侧形成优雅的自然边缘景深。
+- **动态微风效果 (Wind Sway)**：
+  - 运用纯 CSS `transform: rotate(...) translateY(...)` 关键帧，实现 `12s ~ 18s` 的自然微风无规则轻微摇曳与呼吸。
+  - 在移动端（`< 768px`）自动收缩至边缘仅保留极微弱的角落点缀，避免遮挡窄屏阅读。
 
-### 5.1 缓动曲线 (Easing Curves)
-- `--ease-out-spring`: `cubic-bezier(0.16, 1, 0.3, 1)`（自然回弹缓出，用于入场与悬停）
-- `--ease-in-out-smooth`: `cubic-bezier(0.4, 0, 0.2, 1)`（平滑中速过度）
-- `--ease-bounce`: `cubic-bezier(0.22, 1, 0.36, 1)`（弹性质感）
-
-### 5.2 交互时长 (Durations)
-- **微交互 (Micro-transitions)**: `150ms ~ 200ms`（按钮按下、链接变色、图标位移）
-- **悬停动效 (Hover Lift & Glow)**: `250ms ~ 300ms`（卡片浮起、光晕放大）
-- **入场动效 (Fade In & Up)**: `500ms ~ 700ms`（页面初次加载、级联延迟）
-- **轮播过渡 (Quote Carousel Crossfade)**: `600ms` 淡入淡出 + `3500ms` 停留周期
-
-### 5.3 关键动画
-1. **FadeInUp 入场**：`transform: translateY(16px)` -> `translateY(0)`，配合 `opacity: 0` -> `1`。
-2. **Ambient Float 背景弥散**：缓慢无规则漂移（`18s` 无限往复），营造深邃空间感。
-3. **Card Specular Glow 悬停**：卡片上移 `3px ~ 4px`，顶层微光边框透明度提高，外发光柔和扩散。
-4. **Reduced Motion 降级**：在 `prefers-reduced-motion: reduce` 下强制将时长归零，禁止大幅度位移。
+### 5.2 缓动曲线与核心动效
+- `--ease-out-spring`: `cubic-bezier(0.16, 1, 0.3, 1)`（悬停抬起与入场）
+- `--ease-smooth`: `cubic-bezier(0.4, 0, 0.2, 1)`（平滑淡入）
+- **名言轮播 (3.5s Cycle)**：双层透明度渐变 + 极轻微的 `translateY(4px)` 位移，优雅无闪烁。
+- **卡片悬停 (Hover Lift)**：卡片上移 `3px`，阴影柔化扩散为温润墨绿漫反射（`0 16px 36px -12px rgba(35, 52, 38, 0.15)`）。
+- **无障碍降级**：`prefers-reduced-motion: reduce` 时彻底关闭摇曳与轮播位移。
 
 ---
 
-## 6. 布局与响应式网格 (Layout & Breakpoints)
+## 6. 页面结构与交互布局规范
 
-### 6.1 容器宽度
-- `--container-max`: `1080px`（标准页面主容器）
-- `--container-narrow`: `760px`（单栏聚焦阅读容器）
-- `--container-wide`: `1200px`（全景展示）
+### 6.1 首页结构 (`/`) — 融合 lukevoidx + idle.space
+- **Header**：居中浮动温润毛玻璃胶囊（Floating Glass Pill），内嵌品牌 Logo、当前路由胶囊与外链。
+- **Hero**：
+  - 顶部在线微徽章（探索全栈 · 前端架构 · 交互美学，带脉冲绿点）。
+  - 800 字重主标题（Display 大字阶，紧凑行距）。
+  - 极客技术栈药丸群（React, Vue 3, TypeScript, Astro, CSS, pnpm）。
+  - 双 CTA 按钮（深松墨绿主按钮“浏览项目作品” + 温润亚麻次按钮“阅读文章”）。
+  - **核心名言轮播盒**：深松墨绿（`#233426`）拟态卡片，激光高光顶边，3.5s 周期平滑轮播。
+- **精选项目流 (Featured Projects)**：
+  - 参考 lukevoidx 的 `01` / `02` 编号排布，双卡片网格，配有细致的渐变分界线与技术栈标签。
 
-### 6.2 断点系统 (Breakpoints)
-- **Mobile (`< 640px`)**：单列自适应，侧边栏下沉或折叠，内边距 `16px ~ 20px`，按钮全宽化。
-- **Tablet (`640px ~ 899px`)**：双列项目网格，适度内边距 `24px ~ 32px`。
-- **Desktop (`900px ~ 1199px`)**：标准双栏布局（左侧边栏 280px / 290px，右侧内容区 1fr），顶部固定毛玻璃导航。
-- **Wide Desktop (`>= 1200px`)**：居中对齐，大空间留白，极致排版体验。
+### 6.2 项目展示页 (`/projects`)
+- **页头导言**：大标题 + 渐变分割线 + 项目实践背景概述。
+- **项目卡片**：
+  - 拾光集移动商城系统（Vue 3 / DeepSeek 大模型）。
+  - 云枢智慧城市数据平台（React 19 / Three.js / ECharts 3D 大屏）。
+  - 包含多维度技术栈标签与**真实双按钮**（在线预览 + 查看代码仓库）。
 
----
+### 6.3 文章列表页 (`/posts`) — Chirpy 精简双栏
+- **左侧粘性个人名片 (Sticky Profile Sidebar)**：
+  - 头像微徽章、在线状态绿点、自我定位与个人简介。
+  - 联系邮箱（点击调起发信）与 GitHub 链接。
+  - 已发布文章数统计卡片。
+- **右侧文章流 (Posts Feed)**：
+  - 精致卡片式文章列表，包含发布日期、分类/标签、文章摘要、悬停滑动箭头与阅读全文引导。
 
-## 7. 四大核心页面与组件规范
-
-### 7.1 首页 (`/`)
-- **Header**: 居中浮动玻璃药丸（Floating Pill Header），支持当前路由微高亮胶囊。
-- **Hero**:
-  - 顶部状态微徽章（带有脉冲绿点的探索领域说明）。
-  - 800 字重的主标题 + 品牌渐变词组。
-  - 精炼且富有感染力的自我介绍。
-  - 双主操作按钮（主行动点：项目作品，次行动点：阅读文章）。
-  - 极客技术栈药丸群。
-  - **名言轮播核心卡片**：深色拟态毛玻璃盒，顶部带有激光高光流线，3.5s 周期无跳动平滑渐变切换。
-- **Featured Projects**: 双卡片网格预览，带独立悬浮发光与直接路由引导。
-
-### 7.2 项目页 (`/projects`)
-- **Page Header**: 标题 + 渐变斜杠装饰 + 清晰的项目定位导语。
-- **Project Detail Cards**:
-  - 顶部发光微流线（区分 React 项目蓝青色与 Vue 3 项目紫靛色）。
-  - 项目名称 + 一句话标语。
-  - 项目详细架构与业务价值阐述。
-  - 技术栈标签（等宽字体，高对比度微底色）。
-  - 真实双按钮：在线预览（外链带新标签图标）+ 查看源码（GitHub 图标）。
-
-### 7.3 文章列表页 (`/posts`)
-- **双栏现代结构**:
-  - **左侧个人名片 (Profile Sidebar)**：头像徽章、在线状态绿点、自我定位、联系邮箱（点击发送邮件）、GitHub 链接、已发布文章数计数。
-  - **右侧文章流 (Posts Feed)**：卡片式文章条目，包含发布日期、标签药丸、悬浮变色标题与滑动箭头。
-
-### 7.4 文章详情页 (`/posts/[slug]`)
-- **双栏阅读体验**:
-  - **左侧粘性导航 (Sticky Article Sidebar)**：返回上一页导航、**动态生成文章目录（TOC）**（基于滚动位置高亮当前章节）、**更多文章推荐卡片**。
-  - **移动端自适应**：折叠式目录手风琴组件（Details/Summary），底部追加更多文章。
-  - **正文排版 (Markdown Typography)**：优雅的二级/三级标题下划虚线、引用块左侧高光条、等宽代码块高对比度黑底与代码内联药丸。
+### 6.4 文章详情页 (`/posts/[slug]`) — Chirpy 精简双栏 + TOC Scrollspy
+- **左侧粘性目录与导航 (Left Sticky TOC & Nav)**：
+  - 返回文章列表导航。
+  - **文章目录 TOC**：自动解析 Markdown H2 / H3 标题，随页面滚动实时点亮当前章节（Scrollspy）。
+  - **更多文章推荐卡片**：展示站内其他推荐文章快速链接。
+- **右侧文章主体 (Right Main Content)**：
+  - 文章 Header（发布日期、标签、大标题、导言 Lead 区块）。
+  - 正文 Markdown 排版：优雅的下划线二级标题、引用块左侧松墨绿竖线、高反差深色代码高亮块。
+  - 移动端自适应：顶部折叠式目录（Details/Summary 手风琴），底部追加更多文章。
