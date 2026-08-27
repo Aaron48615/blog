@@ -2,31 +2,44 @@
 const highlights = [
   {
     icon: "⚡️",
-    title: "Astro 零 JS 优先",
-    desc: "全静态 HTML/CSS 直出，无冗余运行时，秒级首屏渲染与极高 Lighthouse 表现。",
+    title: "Astro 极速纯静态",
+    desc: "全静态 HTML/CSS 直出，首屏极速加载，默认零运行时 JS 负担与卓越体验。",
+    tag: "Performance",
   },
   {
     icon: "🍱",
     title: "pnpm Monorepo",
-    desc: "统一管理个人门户与多个独立技术栈工程（React / Vue 3），保持依赖与架构整洁。",
+    desc: "统一管理个人空间与 React / Vue 3 多技术栈独立工程，保持代码干净整洁。",
+    tag: "Architecture",
   },
   {
     icon: "🎨",
-    title: "纯 CSS 动效美学",
-    desc: "微光渐变、玻璃拟态与硬件加速关键帧动效，兼顾优雅视觉与系统无障碍体验。",
+    title: "现代 CSS 动效美学",
+    desc: "微光渐变、玻璃拟态与硬件加速关键帧动效，兼顾优雅视觉与系统无障碍。",
+    tag: "Design",
   },
 ];
 ---
 
-<section class="highlights-section">
-  <h2 class="section-title">
-    设计与工程理念 <span class="title-sub">/ Principles</span>
-  </h2>
+<section class="highlights-section animate-fade-in delay-4">
+  <div class="section-header">
+    <div class="section-badge">
+      <span class="badge-dot"></span>
+      <span>理念与规范</span>
+    </div>
+    <h2 class="section-title">
+      工程与设计哲学 <span class="title-sub">/ Principles</span>
+    </h2>
+  </div>
+
   <div class="highlights-grid">
     {
       highlights.map((item) => (
         <div class="highlight-card">
-          <div class="card-icon">{item.icon}</div>
+          <div class="card-top">
+            <span class="card-icon">{item.icon}</span>
+            <span class="card-tag">{item.tag}</span>
+          </div>
           <h3 class="card-title">{item.title}</h3>
           <p class="card-desc">{item.desc}</p>
         </div>
@@ -37,15 +50,34 @@ const highlights = [
 
 <style>
   .highlights-section {
-    padding: 2.5rem 0 1rem;
+    padding: 3.5rem 0 1rem;
+    margin-top: 2rem;
     border-top: 1px solid var(--border-subtle);
   }
 
+  .section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-subtle);
+    font-size: 0.775rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 0.85rem;
+  }
+
   .section-title {
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
+    margin-bottom: 0;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    letter-spacing: -0.025em;
   }
 
   .title-sub {
@@ -60,42 +92,72 @@ const highlights = [
     gap: 1.25rem;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 768px) {
     .highlights-grid {
       grid-template-columns: repeat(3, 1fr);
     }
   }
 
   .highlight-card {
-    padding: 1.5rem;
+    padding: 1.75rem 1.5rem;
     border-radius: var(--radius-md);
-    background: rgba(15, 21, 35, 0.4);
+    background: linear-gradient(
+      180deg,
+      rgba(15, 22, 36, 0.6) 0%,
+      rgba(10, 15, 25, 0.5) 100%
+    );
     border: 1px solid var(--border-subtle);
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
   }
 
   .highlight-card:hover {
-    background: var(--bg-card);
-    border-color: var(--border-medium);
-    transform: translateY(-2px);
+    background: var(--bg-card-hover);
+    border-color: rgba(45, 212, 191, 0.25);
+    transform: translateY(-3px);
+    box-shadow:
+      0 12px 30px -10px rgba(0, 0, 0, 0.5),
+      0 0 20px -5px rgba(45, 212, 191, 0.12);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
   }
 
   .card-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.85rem;
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  .card-tag {
+    font-family: var(--font-mono);
+    font-size: 0.725rem;
+    font-weight: 500;
+    color: var(--accent-teal);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-sm);
+    background: rgba(45, 212, 191, 0.08);
+    border: 1px solid rgba(45, 212, 191, 0.2);
   }
 
   .card-title {
-    font-size: 1.05rem;
-    margin: 0 0 0.5rem;
-    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 0 0 0.65rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
     color: var(--text-primary);
   }
 
   .card-desc {
     margin: 0;
-    font-size: 0.875rem;
-    line-height: 1.6;
-    color: var(--text-muted);
+    font-size: 0.885rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
   }
 </style>

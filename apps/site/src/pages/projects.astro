@@ -4,65 +4,138 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const projects = [
   {
     name: "拾光集移动商城系统",
-    stack: ["Vue 3", "JavaScript", "TypeScript", "Vant 4", "Vite", "Axios", "Sass", "PostCSS(pxtorem)", "CryptoJS", "DeepSeek 大模型"],
+    tagline: "Vue 3 · 移动电商 · 大模型赋能",
+    stack: [
+      "Vue 3",
+      "JavaScript",
+      "TypeScript",
+      "Vant 4",
+      "Vite",
+      "Axios",
+      "Sass",
+      "PostCSS(pxtorem)",
+      "CryptoJS",
+      "DeepSeek 大模型",
+    ],
     description:
       "拾光集移动商城系统是一款面向 C 端消费者的移动电商应用。项目实现了用户注册登录、首页推荐、商品分类与搜索、商品详情等功能，并在功能页面接入大模型实现商品搜索联想和卖点生成。",
     previewLink: "https://github.com/Aaron48615/blog/tree/main/apps/project-2",
     repoLink: "https://github.com/Aaron48615/blog/tree/main/apps/project-2",
     accent: "var(--accent-indigo)",
+    accentGlow: "rgba(129, 140, 248, 0.25)",
   },
   {
     name: "云枢智慧城市数据平台",
-    stack: ["React 19", "JavaScript", "TypeScript", "Vite", "React Router", "React Redux", "redux-persist", "ECharts", "Axios", "JWT", "Three.js", "高德地图 API"],
+    tagline: "React 19 · 数据可视化 · 3D 大屏",
+    stack: [
+      "React 19",
+      "JavaScript",
+      "TypeScript",
+      "Vite",
+      "React Router",
+      "React Redux",
+      "redux-persist",
+      "ECharts",
+      "Axios",
+      "JWT",
+      "Three.js",
+      "高德地图 API",
+    ],
     description:
       "该平台是一套面向城市运营人员和数据分析人员的智慧城市数据可视化平台。实现了城市运行数据的集中展示，提供城市运行指标总览、交通拥堵排行、公共设施与城市事件分析的数据可视化。",
     previewLink: "https://project-1-jade-omega.vercel.app",
     repoLink: "https://github.com/Aaron48615/blog/tree/main/apps/project-1",
     accent: "var(--accent-teal)",
+    accentGlow: "rgba(45, 212, 191, 0.25)",
   },
 ];
 ---
 
 <BaseLayout
-  title="项目 | Aaron"
-  description="Aaron 的前端与全栈工程项目展示。"
+  title="项目作品 | Aaron"
+  description="Aaron 的代表性前端与全栈工程项目展示，包含智慧城市数据可视化平台与移动电商大模型应用。"
 >
-  <div class="projects-page">
+  <div class="projects-page animate-fade-in">
     <header class="page-header">
-      <h1 class="page-title">项目</h1>
-      <p class="page-subtitle">代表性前端与全栈工程项目。</p>
+      <div class="page-badge animate-fade-in delay-1">
+        <span class="badge-dot"></span>
+        <span>精选工程作品</span>
+      </div>
+      <h1 class="page-title animate-fade-in delay-2">
+        代表性项目 <span class="text-gradient">/ Projects</span>
+      </h1>
+      <p class="page-subtitle animate-fade-in delay-3">
+        融合现代前端架构、实时数据可视化与大模型交互的前端与全栈工程实践。
+      </p>
     </header>
 
     <div class="projects-container">
       {
-        projects.map((project) => (
-          <article class="project-item" style={`--item-accent: ${project.accent}`}>
+        projects.map((project, idx) => (
+          <article
+            class={`project-card animate-fade-in delay-${idx + 2}`}
+            style={`--card-accent: ${project.accent}; --card-glow: ${project.accentGlow};`}
+          >
+            <div class="card-glow-bar" />
             <div class="project-header">
-              <h2 class="project-name">{project.name}</h2>
-            </div>
-            <p class="project-description">{project.description}</p>
-            <div class="project-footer">
-              <div class="stack-tags">
-                {project.stack.map((tech) => (
-                  <span class="tech-tag">{tech}</span>
-                ))}
+              <div class="title-wrap">
+                <span class="project-tagline">{project.tagline}</span>
+                <h2 class="project-name">{project.name}</h2>
               </div>
-              <div class="project-buttons">
+            </div>
+
+            <p class="project-description">{project.description}</p>
+
+            <div class="project-footer">
+              <div class="stack-wrap">
+                <span class="stack-label">技术栈：</span>
+                <div class="stack-tags">
+                  {project.stack.map((tech) => (
+                    <span class="tech-tag">{tech}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div class="project-actions">
                 <a
                   href={project.previewLink}
                   class="btn btn-primary"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`在线预览 ${project.name}`}
                 >
-                  在线预览
+                  <span>在线预览</span>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
                 </a>
                 <a
                   href={project.repoLink}
                   class="btn btn-secondary"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`查看 ${project.name} 代码仓库`}
                 >
-                  查看仓库
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                  </svg>
+                  <span>查看仓库</span>
                 </a>
               </div>
             </div>
@@ -75,77 +148,154 @@ const projects = [
 
 <style>
   .projects-page {
-    padding: 1rem 0 2rem;
+    padding: 1rem 0 3rem;
   }
 
   .page-header {
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .page-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-subtle);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
   }
 
   .page-title {
-    font-size: clamp(2rem, 4.5vw, 2.8rem);
-    margin-top: 1rem;
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.03em;
+    font-size: clamp(2.2rem, 5vw, 3rem);
+    letter-spacing: -0.035em;
+    margin-bottom: 0.85rem;
   }
 
   .page-subtitle {
     font-size: 1.05rem;
     color: var(--text-secondary);
+    max-width: 58ch;
     margin: 0;
+    line-height: 1.7;
   }
 
   .projects-container {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
-  .project-item {
-    padding: 2rem;
-    border-radius: var(--radius-md);
-    background: var(--bg-card);
+  .project-card {
+    padding: 2.25rem;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(
+      180deg,
+      rgba(15, 22, 38, 0.8) 0%,
+      rgba(10, 15, 26, 0.7) 100%
+    );
     border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     position: relative;
     overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
   }
 
-  .project-item::before {
-    content: "";
+  .project-card:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-3px);
+    box-shadow:
+      0 16px 40px -12px rgba(0, 0, 0, 0.7),
+      0 0 25px -5px var(--card-glow);
+  }
+
+  .card-glow-bar {
     position: absolute;
     top: 0;
     left: 0;
-    width: 3px;
-    height: 100%;
-    background: var(--item-accent);
-    opacity: 0.7;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--card-accent) 0%,
+      rgba(56, 189, 248, 0.5) 60%,
+      transparent 100%
+    );
+    opacity: 0.8;
   }
 
   .project-header {
-    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .project-tagline {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--card-accent);
+    font-family: var(--font-mono);
   }
 
   .project-name {
-    font-size: 1.5rem;
+    font-size: clamp(1.4rem, 3.2vw, 1.8rem);
     font-weight: 700;
+    letter-spacing: -0.025em;
     margin: 0;
+    color: var(--text-primary);
   }
 
   .project-description {
-    font-size: 0.975rem;
+    font-size: 0.985rem;
     color: var(--text-secondary);
-    line-height: 1.65;
-    margin-bottom: 1.5rem;
+    line-height: 1.75;
+    margin-bottom: 1.75rem;
+    max-width: 80ch;
   }
 
   .project-footer {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 1rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  @media (min-width: 768px) {
+    .project-footer {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+  }
+
+  .stack-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  .stack-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
   }
 
   .stack-tags {
@@ -157,51 +307,43 @@ const projects = [
   .tech-tag {
     font-size: 0.775rem;
     font-family: var(--font-mono);
-    padding: 0.25rem 0.6rem;
+    padding: 0.25rem 0.65rem;
     border-radius: var(--radius-sm);
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.035);
     border: 1px solid var(--border-subtle);
     color: var(--text-secondary);
-  }
-
-  .project-buttons {
-    display: flex;
-    gap: 0.75rem;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-decoration: none;
     transition: all 0.2s ease;
-    white-space: nowrap;
   }
 
-  .btn-primary {
-    background: rgba(45, 212, 191, 0.12);
-    border: 1px solid rgba(45, 212, 191, 0.3);
-    color: var(--accent-teal);
-  }
-
-  .btn-primary:hover {
-    background: rgba(45, 212, 191, 0.2);
-    border-color: var(--accent-teal);
-  }
-
-  .btn-secondary {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
-  }
-
-  .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--border-medium);
+  .tech-tag:hover {
     color: var(--text-primary);
+    border-color: var(--border-medium);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .project-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .project-actions .btn {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 640px) {
+    .project-card {
+      padding: 1.5rem;
+    }
+
+    .project-actions {
+      width: 100%;
+    }
+
+    .project-actions .btn {
+      flex: 1;
+    }
   }
 </style>
