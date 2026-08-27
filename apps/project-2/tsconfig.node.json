@@ -11,6 +11,7 @@
     "eslint.config.*"
   ],
   "compilerOptions": {
+    "allowJs": true,
     "allowImportingTsExtensions": true,
     // Most tools use transpilation instead of Node.js's native type-stripping.
     // Bundler mode provides a smoother developer experience.

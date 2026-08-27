@@ -1,115 +1,48 @@
-// 通用 OpenAI 兼容 Provider — 支持任何 OpenAI 格式的 API
-// 配置方式（浏览器控制台，立即生效）：
-//   localStorage.setItem('ai_api_key',  'sk-xxx')
-//   localStorage.setItem('ai_api_base', 'https://api.deepseek.com/v1')
-//   localStorage.setItem('ai_api_model','deepseek-chat')
-//
-// 国内推荐：
-//   DeepSeek:    base=https://api.deepseek.com/v1       model=deepseek-chat     (便宜)
-//   硅基流动:    base=https://api.siliconflow.cn/v1     model=Qwen/Qwen3-8B     (免费额度)
-//   Ollama本地:  base=http://localhost:11434/v1          model=qwen3:latest      (完全免费)
-
-function getConfig() {
-  try {
-    return {
-      // Only a user's own browser setting; never bundle a shared provider key.
-      key: localStorage.getItem("ai_api_key") || "",
-      base:
-        localStorage.getItem("ai_api_base") ||
-        import.meta.env.VITE_AI_API_BASE ||
-        "https://api.deepseek.com/v1",
-      model:
-        localStorage.getItem("ai_api_model") ||
-        import.meta.env.VITE_AI_API_MODEL ||
-        "deepseek-chat",
-    };
-  } catch {
-    return { key: "", base: "", model: "" };
-  }
-}
-
-export async function isAvailable() {
-  const { key, base } = getConfig();
-  return !!(key && base);
-}
-
+// The shared provider configuration and key exist only in api/ai.ts.
 /**
- * 调用 OpenAI 兼容 API
- * @param {string} promptText
- * @returns {Promise<{text: string|null, error?: string}>}
+ * @param {string} prompt
+ * @param {string} [model] Must match the server-configured model, if supplied.
+ * @returns {Promise<{text: string|null, error: string|null}>}
  */
-export async function generate(promptText) {
-  const { key, base, model } = getConfig();
-  if (!key || !base) {
-    return {
-      text: null,
-      error: '未配置，控制台执行: localStorage.setItem("ai_api_key","sk-xxx")',
-    };
-  }
-
-  // 去掉末尾斜杠
-  const baseUrl = base.replace(/\/+$/, "");
-
+export async function generate(prompt, model) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15_000);
   try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15000);
-
-    const resp = await fetch(`${baseUrl}/chat/completions`, {
+    const resp = await fetch("/api/ai", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${key}`,
-      },
-      body: JSON.stringify({
-        model,
-        messages: [
-          {
-            role: "system",
-            content: "你是一个电商卖点文案专家。直接输出结果，不要额外解释。",
-          },
-          { role: "user", content: promptText },
-        ],
-        temperature: 0.7,
-        max_tokens: 300,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt, model }),
       signal: controller.signal,
     });
-    clearTimeout(timeout);
-
     if (!resp.ok) {
-      const errText = await resp.text();
-      let errMsg = `HTTP ${resp.status}`;
-      if (resp.status === 401) errMsg += " — API Key 无效";
-      else if (resp.status === 403) errMsg += " — 无权访问，检查 Key 或余额";
-      else if (resp.status === 429) errMsg += " — 请求太频繁";
-      else errMsg += ` — ${errText.substring(0, 100)}`;
-
-      console.warn(`[OpenAI] ${errMsg}`);
-      return { text: null, error: errMsg };
+      const messages = {
+        400: "请求内容无效或过长",
+        401: "AI 服务认证失败",
+        403: "AI 服务无权访问",
+        429: "请求太频繁，请稍后再试",
+        503: "AI 服务未配置或暂不可用",
+        504: "AI 服务响应超时",
+      };
+      const message =
+        messages[resp.status] ||
+        (resp.status >= 500 ? "AI 服务暂不可用" : "AI 请求失败");
+      return { text: null, error: `HTTP ${resp.status} — ${message}` };
     }
-
     const json = await resp.json();
-    const text = json.choices?.[0]?.message?.content;
-    if (text && text.trim()) {
-      console.log("[OpenAI] ✅ API 调用成功");
-      return { text: text.trim(), error: null };
+    if (typeof json?.text === "string" && json.text.trim()) {
+      return { text: json.text.trim(), error: null };
     }
-
     return { text: null, error: "响应为空" };
-  } catch (e) {
-    let errMsg;
-    if (e.name === "AbortError") {
-      errMsg = "请求超时（15s）";
-    } else if (
-      e.message.includes("Failed to fetch") ||
-      e.message.includes("NetworkError")
-    ) {
-      errMsg = `网络不通 — 检查 API 地址: ${baseUrl}`;
-    } else {
-      errMsg = e.message;
-    }
-
-    console.warn(`[OpenAI] ${errMsg}`);
-    return { text: null, error: errMsg };
+  } catch (error) {
+    const message =
+      controller.signal.aborted || error?.name === "AbortError"
+        ? "请求超时（15s）"
+        : error instanceof TypeError
+          ? "网络不通，请稍后重试"
+          : "AI 响应异常";
+    return { text: null, error: message };
+  } finally {
+    // Keep the timeout active through body decoding; clear it on every exit path.
+    clearTimeout(timeout);
   }
 }
