@@ -24,7 +24,12 @@
 
 - [x] 首页视觉打磨（Hero、动效、配色定案） | owner: antigravity | 验收: 用户目检通过，Lighthouse 性能 ≥ 90
 - [x] 项目展示页：嵌入 project-1 / project-2 的链接与介绍 | owner: OpenCode Go | 验收: 从个人站可跳转两个项目
-- [x] 关于页 + 联系方式 | owner: 用户 | 验收: 内容真实可发布
+  - [x] 关于页 + 联系方式 | owner: 用户 | 验收: 内容真实可发布
+
+## Phase 3.5 — 博客结构改造
+
+- [x] Site 博客结构改造（内容模型/路由/项目信息/名言数据） | owner: OpenCode | 验收: 四页路由 /,/posts,/posts/[slug],/projects 可访问、Content Collections 正常、项目页双按钮无内部路径、build 通过
+- [x] Site 视觉重设计与动效实现（官网风居中Hero、名言3.5s渐变轮播、项目双卡片独立跳转、文章双栏与动态目录） | owner: Antigravity | 验收: 四页视觉现代精致、名言淡入淡出轮播正常、移动端响应良好、build 通过
 
 ## Phase 4 — 收尾
 

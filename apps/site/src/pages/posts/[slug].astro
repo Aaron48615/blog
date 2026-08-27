@@ -1,0 +1,725 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+// Filter h2 and h3 for Table of Contents
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+
+// Fetch other posts for "More Posts" (3-5 articles)
+const allPosts = await getCollection("posts");
+const morePosts = allPosts
+  .filter((p) => p.data.slug !== post.data.slug)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4);
+
+const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
+---
+
+<BaseLayout
+  title={`${post.data.title} | Aaron`}
+  description={post.data.summary}
+>
+  <div class="article-layout animate-fade-in">
+    <!-- Left Column: Table of Contents & More Posts (Sticky on Desktop) -->
+    <aside class="article-sidebar animate-fade-in delay-1">
+      <a href="/posts" class="back-link">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m15 18-6-6 6-6"></path>
+        </svg>
+        <span>返回文章列表</span>
+      </a>
+
+      <!-- Table of Contents Card (Desktop) -->
+      {
+        toc.length > 0 && (
+          <div class="sidebar-block toc-block desktop-only">
+            <div class="block-header">
+              <span class="block-icon">📑</span>
+              <h2 class="block-title">本文目录</h2>
+            </div>
+            <nav class="toc-nav" aria-label="文章目录">
+              <ul class="toc-list" id="desktop-toc-list">
+                {toc.map((heading) => (
+                  <li class={`toc-item depth-${heading.depth}`}>
+                    <a
+                      href={`#${heading.slug}`}
+                      class="toc-link"
+                      data-slug={heading.slug}
+                    >
+                      <span class="toc-bullet" />
+                      <span class="toc-text">{heading.text}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        )
+      }
+
+      <!-- More Posts Card (Desktop) -->
+      {
+        morePosts.length > 0 && (
+          <div class="sidebar-block more-posts-block desktop-only">
+            <div class="block-header">
+              <span class="block-icon">📚</span>
+              <h2 class="block-title">更多文章</h2>
+            </div>
+            <ul class="more-posts-list">
+              {morePosts.map((otherPost) => (
+                <li class="more-post-item">
+                  <a
+                    href={`/posts/${otherPost.data.slug}`}
+                    class="more-post-link"
+                  >
+                    <span class="more-post-title">{otherPost.data.title}</span>
+                    <time class="more-post-date">
+                      {otherPost.data.date.toLocaleDateString("zh-CN", {
+                        month: "2-digit",
+                        day: "2-digit",
+                      })}
+                    </time>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </aside>
+
+    <!-- Right Column: Main Article Body -->
+    <main class="article-main animate-fade-in delay-2">
+      <article class="article-content">
+        <!-- Article Header -->
+        <header class="article-header">
+          <div class="header-meta">
+            <time datetime={post.data.date.toISOString()} class="article-date">
+              {formattedDate}
+            </time>
+            {
+              post.data.tags.length > 0 && (
+                <div class="article-tags">
+                  {post.data.tags.map((tag) => (
+                    <span class="tag-pill">{tag}</span>
+                  ))}
+                </div>
+              )
+            }
+          </div>
+
+          <h1 class="article-title">{post.data.title}</h1>
+
+          {
+            post.data.summary && (
+              <div class="article-lead">
+                <p>{post.data.summary}</p>
+              </div>
+            )
+          }
+        </header>
+
+        <!-- Mobile TOC Accordion (Shown only on small screens before content) -->
+        {
+          toc.length > 0 && (
+            <details class="mobile-toc-details mobile-only">
+              <summary class="mobile-toc-summary">
+                <div class="summary-left">
+                  <span class="block-icon">📑</span>
+                  <span>本文目录 ({toc.length})</span>
+                </div>
+                <span class="summary-arrow">&darr;</span>
+              </summary>
+              <nav class="toc-nav mobile-toc-nav" aria-label="移动端文章目录">
+                <ul class="toc-list">
+                  {toc.map((heading) => (
+                    <li class={`toc-item depth-${heading.depth}`}>
+                      <a href={`#${heading.slug}`} class="toc-link">
+                        <span class="toc-bullet" />
+                        <span class="toc-text">{heading.text}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </details>
+          )
+        }
+
+        <!-- Rendered Article Markdown Body -->
+        <div class="article-body">
+          <Content />
+        </div>
+
+        <!-- Article Footer / Navigation -->
+        <footer class="article-footer">
+          <div class="footer-notice">
+            <p>感谢阅读。欢迎在 GitHub 探讨与交流。</p>
+          </div>
+          <div class="footer-actions">
+            <a href="/posts" class="btn btn-secondary"> &larr; 返回所有文章 </a>
+            <a
+              href="https://github.com/Aaron48615"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary"
+            >
+              关注 GitHub
+            </a>
+          </div>
+        </footer>
+      </article>
+
+      <!-- Mobile Only More Posts (Rendered at bottom of reading flow) -->
+      {
+        morePosts.length > 0 && (
+          <section class="sidebar-block more-posts-block mobile-only mobile-more-posts">
+            <div class="block-header">
+              <span class="block-icon">📚</span>
+              <h2 class="block-title">更多文章</h2>
+            </div>
+            <ul class="more-posts-list">
+              {morePosts.map((otherPost) => (
+                <li class="more-post-item">
+                  <a
+                    href={`/posts/${otherPost.data.slug}`}
+                    class="more-post-link"
+                  >
+                    <span class="more-post-title">{otherPost.data.title}</span>
+                    <time class="more-post-date">
+                      {otherPost.data.date.toLocaleDateString("zh-CN", {
+                        month: "2-digit",
+                        day: "2-digit",
+                      })}
+                    </time>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+    </main>
+  </div>
+</BaseLayout>
+
+<script>
+  function setupTocScrollSpy() {
+    const tocLinks = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>(
+        "#desktop-toc-list .toc-link",
+      ),
+    );
+    if (tocLinks.length === 0) return;
+
+    const slugs = tocLinks
+      .map((link) => link.getAttribute("data-slug"))
+      .filter(Boolean) as string[];
+    const headingElements = slugs
+      .map((slug) => document.getElementById(slug))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (headingElements.length === 0) return;
+
+    let activeSlug = "";
+
+    function onScroll() {
+      const scrollPos = window.scrollY + 120;
+      let currentSlug = "";
+
+      for (const el of headingElements) {
+        if (el.offsetTop <= scrollPos) {
+          currentSlug = el.id;
+        } else {
+          break;
+        }
+      }
+
+      if (currentSlug !== activeSlug) {
+        activeSlug = currentSlug;
+        tocLinks.forEach((link) => {
+          if (link.getAttribute("data-slug") === activeSlug) {
+            link.classList.add("is-active");
+          } else {
+            link.classList.remove("is-active");
+          }
+        });
+      }
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupTocScrollSpy);
+  } else {
+    setupTocScrollSpy();
+  }
+</script>
+
+<style>
+  .article-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 0.5rem 0 3rem;
+  }
+
+  @media (min-width: 900px) {
+    .article-layout {
+      grid-template-columns: 280px 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+  }
+
+  /* ==========================================================================
+     Left Sidebar (TOC & More Posts)
+     ========================================================================== */
+  .article-sidebar {
+    position: relative;
+  }
+
+  @media (min-width: 900px) {
+    .article-sidebar {
+      position: sticky;
+      top: 5.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    margin-bottom: 0.5rem;
+  }
+
+  .back-link:hover {
+    color: var(--accent-teal);
+    transform: translateX(-3px);
+  }
+
+  .sidebar-block {
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    background: linear-gradient(
+      180deg,
+      rgba(15, 22, 38, 0.8) 0%,
+      rgba(10, 15, 26, 0.7) 100%
+    );
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.45);
+  }
+
+  .block-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .block-icon {
+    font-size: 1rem;
+  }
+
+  .block-title {
+    font-size: 0.925rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--text-primary);
+  }
+
+  /* TOC Styles */
+  .toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .toc-item {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .toc-item.depth-3 {
+    padding-left: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .toc-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    padding: 0.3rem 0.5rem;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+  }
+
+  .toc-bullet {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+
+  .toc-link:hover {
+    color: var(--accent-teal);
+    background: rgba(45, 212, 191, 0.06);
+  }
+
+  .toc-link:hover .toc-bullet {
+    background: var(--accent-teal);
+  }
+
+  .toc-link.is-active {
+    color: #5eead4;
+    font-weight: 600;
+    background: rgba(45, 212, 191, 0.1);
+  }
+
+  .toc-link.is-active .toc-bullet {
+    background: var(--accent-teal);
+    transform: scale(1.6);
+    box-shadow: 0 0 6px var(--accent-teal);
+  }
+
+  /* More Posts Sidebar List */
+  .more-posts-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .more-post-item {
+    font-size: 0.85rem;
+  }
+
+  .more-post-link {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  .more-post-link:hover {
+    color: var(--accent-teal);
+  }
+
+  .more-post-title {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .more-post-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  /* ==========================================================================
+     Right Column: Article Container & Typography
+     ========================================================================== */
+  .article-main {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .article-content {
+    background: linear-gradient(
+      180deg,
+      rgba(15, 22, 38, 0.55) 0%,
+      rgba(10, 15, 26, 0.45) 100%
+    );
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .article-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .article-date {
+    font-family: var(--font-mono);
+    font-size: 0.825rem;
+    color: var(--text-muted);
+  }
+
+  .article-tags {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .tag-pill {
+    font-size: 0.725rem;
+    font-family: var(--font-mono);
+    padding: 0.15rem 0.55rem;
+    border-radius: var(--radius-full);
+    background: rgba(45, 212, 191, 0.08);
+    border: 1px solid rgba(45, 212, 191, 0.2);
+    color: var(--accent-teal);
+  }
+
+  .article-title {
+    font-size: clamp(2rem, 4.5vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.22;
+    margin: 0 0 1.25rem;
+    color: var(--text-primary);
+  }
+
+  .article-lead {
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.025);
+    border-left: 3px solid var(--accent-teal);
+    font-size: 1.025rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .article-lead p {
+    margin: 0;
+  }
+
+  /* Mobile TOC Details */
+  .mobile-toc-details {
+    margin-bottom: 2rem;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-subtle);
+    padding: 0.75rem 1rem;
+  }
+
+  .mobile-toc-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-primary);
+    list-style: none;
+  }
+
+  .mobile-toc-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .summary-left {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .mobile-toc-nav {
+    margin-top: 0.85rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  /* Markdown Content Typography */
+  .article-body {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
+  }
+
+  .article-body :global(h2) {
+    font-size: clamp(1.4rem, 3vw, 1.75rem);
+    font-weight: 700;
+    margin: 2.75rem 0 1rem;
+    color: var(--text-primary);
+    letter-spacing: -0.025em;
+    scroll-margin-top: 5.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .article-body :global(h3) {
+    font-size: clamp(1.2rem, 2.5vw, 1.35rem);
+    font-weight: 600;
+    margin: 2.25rem 0 0.85rem;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+    scroll-margin-top: 5.5rem;
+  }
+
+  .article-body :global(p) {
+    margin: 0 0 1.4rem;
+  }
+
+  .article-body :global(strong) {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    margin: 0 0 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .article-body :global(li) {
+    margin-bottom: 0.45rem;
+  }
+
+  .article-body :global(blockquote) {
+    margin: 1.75rem 0;
+    padding: 1rem 1.4rem;
+    border-left: 3px solid var(--accent-teal);
+    background: linear-gradient(
+      90deg,
+      rgba(45, 212, 191, 0.08) 0%,
+      rgba(45, 212, 191, 0.02) 100%
+    );
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: var(--text-primary);
+    font-style: italic;
+  }
+
+  .article-body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    padding: 0.2em 0.45em;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.07);
+    color: #5eead4;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .article-body :global(pre) {
+    padding: 1.4rem;
+    border-radius: var(--radius-md);
+    background: #080d18 !important;
+    border: 1px solid var(--border-medium);
+    overflow-x: auto;
+    margin: 1.75rem 0;
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  }
+
+  .article-body :global(pre code) {
+    padding: 0;
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 0.9em;
+  }
+
+  .article-footer {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .footer-notice {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .footer-notice p {
+    margin: 0;
+  }
+
+  .footer-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  /* Visibility Helpers */
+  .desktop-only {
+    display: block;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  .mobile-more-posts {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 899px) {
+    .desktop-only {
+      display: none !important;
+    }
+
+    .mobile-only {
+      display: block !important;
+    }
+
+    .article-content {
+      padding: 1.75rem 1.25rem;
+    }
+  }
+</style>

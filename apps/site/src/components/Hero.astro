@@ -1,8 +1,17 @@
 ---
-
+const quotes = [
+  { quote: "无限进步。", author: "影视飓风" },
+  { quote: "保持饥饿，保持愚蠢。", author: "史蒂夫·乔布斯" },
+  { quote: "达人所之未达，探人所之未知。", author: "徐霞客" },
+  { quote: "勇踏前人未至之境。", author: "《星际迷航》" },
+  { quote: "生命不息，折腾不止。", author: "罗永浩" },
+  { quote: "人类的特别之处，在于对未知的狂热。", author: "赫拉利" },
+  { quote: "我没有特别的天赋，只是极其好奇。", author: "阿尔伯特·爱因斯坦" },
+];
 ---
 
 <section class="hero animate-fade-in">
+  <!-- Status Badge -->
   <div class="status-wrap animate-fade-in delay-1">
     <div class="badge">
       <span class="badge-dot"></span>
@@ -10,19 +19,24 @@
     </div>
   </div>
 
+  <!-- Hero Main Title -->
   <h1 class="hero-title animate-fade-in delay-2">
     构建快速、精致且有<br />
-    <span class="text-gradient">温度的数字体验</span>。
+    <span class="text-gradient">温度的数字体验</span>
   </h1>
 
+  <!-- Hero Description -->
   <p class="hero-desc animate-fade-in delay-3">
-    嗨，我是 <strong>Aaron</strong>。专注于现代 Web 架构、交互细节与高效开发流。
-    追求极简设计与极致性能，坚持 Astro 零运行时 JS 倾向。
+    嗨，我是 <strong>Aaron</strong>。专注于现代 Web 架构、交互细节与高效开发流。<br
+      class="desc-br"
+    />
+    追求极简设计与极致性能，坚持 Astro 极速呈现。
   </p>
 
+  <!-- CTA Action Buttons -->
   <div class="hero-actions animate-fade-in delay-4">
     <a href="/projects" class="btn btn-primary">
-      浏览项目作品
+      <span>浏览项目作品</span>
       <svg
         width="16"
         height="16"
@@ -37,45 +51,182 @@
         <path d="m12 5 7 7-7 7"></path>
       </svg>
     </a>
-    <a href="/about" class="btn btn-secondary"> 关于我 & 经历 </a>
+    <a href="/posts" class="btn btn-secondary">
+      <span>阅读文章</span>
+      <svg
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+      </svg>
+    </a>
   </div>
 
+  <!-- Tech Stack Badges -->
   <div class="stack-pills animate-fade-in delay-4">
-    <span class="pill-label">技术栈：</span>
-    <span class="pill">React</span>
-    <span class="pill">Vue 3</span>
-    <span class="pill">TypeScript</span>
-    <span class="pill">Astro</span>
-    <span class="pill">Modern CSS</span>
-    <span class="pill">pnpm monorepo</span>
+    <span class="pill-label">技术栈</span>
+    <div class="pills-group">
+      <span class="pill">React</span>
+      <span class="pill">Vue 3</span>
+      <span class="pill">TypeScript</span>
+      <span class="pill">Astro</span>
+      <span class="pill">Modern CSS</span>
+      <span class="pill">pnpm monorepo</span>
+    </div>
+  </div>
+
+  <!-- Centerpiece: Quotes Rotator Banner (3.5s crossfade) -->
+  <div
+    class="quote-container animate-fade-in delay-4"
+    id="quote-carousel"
+    aria-roledescription="carousel"
+    aria-label="名言轮播"
+  >
+    <div class="quote-card">
+      <div class="quote-glow"></div>
+      <div class="quote-icon" aria-hidden="true">“</div>
+
+      <div class="quote-stage">
+        {
+          quotes.map((item, index) => (
+            <div
+              class={`quote-slide ${index === 0 ? "is-active" : ""}`}
+              data-index={index}
+              aria-hidden={index === 0 ? "false" : "true"}
+            >
+              <p class="quote-text">{item.quote}</p>
+              <cite class="quote-author">—— {item.author}</cite>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Navigation Dots -->
+      <div class="quote-dots" role="tablist" aria-label="名言轮播控制">
+        {
+          quotes.map((_, index) => (
+            <button
+              type="button"
+              class={`quote-dot ${index === 0 ? "is-active" : ""}`}
+              data-target={index}
+              aria-label={`切换到第 ${index + 1} 条名言`}
+              role="tab"
+              aria-selected={index === 0 ? "true" : "false"}
+            />
+          ))
+        }
+      </div>
+    </div>
   </div>
 </section>
 
+<script>
+  function setupQuoteCarousel() {
+    const root = document.getElementById("quote-carousel");
+    if (!root) return;
+
+    const slides = Array.from(
+      root.querySelectorAll<HTMLElement>(".quote-slide"),
+    );
+    const dots = Array.from(
+      root.querySelectorAll<HTMLButtonElement>(".quote-dot"),
+    );
+    if (slides.length <= 1) return;
+
+    let currentIndex = 0;
+    let timer: number | null = null;
+    const INTERVAL_MS = 3500;
+
+    function goToSlide(nextIndex: number) {
+      if (nextIndex === currentIndex) return;
+
+      slides[currentIndex]?.classList.remove("is-active");
+      slides[currentIndex]?.setAttribute("aria-hidden", "true");
+      dots[currentIndex]?.classList.remove("is-active");
+      dots[currentIndex]?.setAttribute("aria-selected", "false");
+
+      currentIndex = (nextIndex + slides.length) % slides.length;
+
+      slides[currentIndex]?.classList.add("is-active");
+      slides[currentIndex]?.setAttribute("aria-hidden", "false");
+      dots[currentIndex]?.classList.add("is-active");
+      dots[currentIndex]?.setAttribute("aria-selected", "true");
+    }
+
+    function startAutoPlay() {
+      if (timer !== null) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      timer = window.setInterval(() => {
+        goToSlide(currentIndex + 1);
+      }, INTERVAL_MS);
+    }
+
+    function stopAutoPlay() {
+      if (timer !== null) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener("click", () => {
+        goToSlide(idx);
+        stopAutoPlay();
+        startAutoPlay();
+      });
+    });
+
+    root.addEventListener("mouseenter", stopAutoPlay);
+    root.addEventListener("mouseleave", startAutoPlay);
+    root.addEventListener("focusin", stopAutoPlay);
+    root.addEventListener("focusout", startAutoPlay);
+
+    startAutoPlay();
+  }
+
+  // Support both direct load and Astro view transitions if applicable
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupQuoteCarousel);
+  } else {
+    setupQuoteCarousel();
+  }
+</script>
+
 <style>
   .hero {
-    padding: 2.5rem 0 3.5rem;
+    padding: 2.5rem 0 3rem;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
+    max-width: 820px;
+    margin: 0 auto;
   }
 
   .status-wrap {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
   }
 
   .hero-title {
-    font-size: clamp(2.3rem, 5.5vw, 3.4rem);
+    font-size: clamp(2.4rem, 5.5vw, 3.6rem);
     font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: -0.035em;
-    margin-bottom: 1.35rem;
+    line-height: 1.18;
+    letter-spacing: -0.038em;
+    margin-bottom: 1.5rem;
   }
 
   .hero-desc {
-    font-size: clamp(1.05rem, 2.2vw, 1.2rem);
-    line-height: 1.7;
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    line-height: 1.75;
     color: var(--text-secondary);
-    max-width: 44ch;
+    max-width: 54ch;
     margin-bottom: 2.25rem;
   }
 
@@ -84,42 +235,225 @@
     font-weight: 600;
   }
 
+  .desc-br {
+    display: block;
+  }
+
+  @media (max-width: 640px) {
+    .desc-br {
+      display: none;
+    }
+  }
+
   .hero-actions {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-bottom: 2.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-actions .btn {
+    padding: 0.75rem 1.6rem;
+    font-size: 0.95rem;
   }
 
   .stack-pills {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.825rem;
-    color: var(--text-muted);
+    justify-content: center;
+    gap: 0.65rem;
+    margin-bottom: 3.5rem;
   }
 
   .pill-label {
-    margin-right: 0.25rem;
-    font-weight: 500;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.2rem;
+  }
+
+  .pills-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
   }
 
   .pill {
-    padding: 0.25rem 0.65rem;
-    border-radius: var(--radius-sm);
-    background: rgba(255, 255, 255, 0.04);
+    padding: 0.25rem 0.7rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.035);
     border: 1px solid var(--border-subtle);
     color: var(--text-secondary);
     font-family: var(--font-mono);
     font-size: 0.775rem;
-    transition: all 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .pill:hover {
-    border-color: var(--border-medium);
+    border-color: rgba(45, 212, 191, 0.4);
     color: var(--accent-teal);
-    background: rgba(45, 212, 191, 0.06);
+    background: rgba(45, 212, 191, 0.08);
+    transform: translateY(-1px);
+  }
+
+  /* ==========================================================================
+     Quote Carousel Component
+     ========================================================================== */
+  .quote-container {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .quote-card {
+    position: relative;
+    padding: 2.25rem 2.5rem 1.75rem;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(
+      180deg,
+      rgba(15, 22, 38, 0.85) 0%,
+      rgba(10, 15, 26, 0.75) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow:
+      0 10px 30px -10px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .quote-card:hover {
+    border-color: rgba(45, 212, 191, 0.3);
+    box-shadow:
+      0 14px 40px -10px rgba(0, 0, 0, 0.7),
+      0 0 30px -5px rgba(45, 212, 191, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .quote-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--accent-teal) 50%,
+      transparent 100%
+    );
+    opacity: 0.7;
+    filter: drop-shadow(0 0 8px var(--accent-teal));
+  }
+
+  .quote-icon {
+    position: absolute;
+    top: 0.5rem;
+    left: 1.25rem;
+    font-size: 4rem;
+    line-height: 1;
+    font-family: Georgia, serif;
+    color: rgba(45, 212, 191, 0.1);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .quote-stage {
+    position: relative;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quote-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px) scale(0.98);
+    filter: blur(3px);
+    transition:
+      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .quote-slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+    position: relative;
+  }
+
+  .quote-text {
+    font-size: clamp(1.2rem, 3vw, 1.55rem);
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 0.5rem;
+    text-shadow: 0 2px 20px rgba(255, 255, 255, 0.1);
+  }
+
+  .quote-author {
+    font-size: 0.9rem;
+    font-style: normal;
+    font-weight: 500;
+    color: var(--accent-teal);
+    letter-spacing: 0.02em;
+  }
+
+  .quote-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .quote-dot {
+    width: 20px;
+    height: 4px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .quote-dot:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  .quote-dot.is-active {
+    width: 36px;
+    background: linear-gradient(90deg, var(--accent-teal), var(--accent-cyan));
+    box-shadow: 0 0 10px rgba(45, 212, 191, 0.5);
   }
 
   @media (max-width: 640px) {
@@ -134,6 +468,22 @@
 
     .hero-actions .btn {
       width: 100%;
+    }
+
+    .quote-card {
+      padding: 1.75rem 1.25rem 1.25rem;
+    }
+
+    .quote-stage {
+      min-height: 110px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .quote-slide {
+      transition: opacity 0.1s ease !important;
+      transform: none !important;
+      filter: none !important;
     }
   }
 </style>
