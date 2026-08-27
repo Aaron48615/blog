@@ -1,42 +1,38 @@
 ---
 const featuredProjects = [
   {
+    index: "01",
     id: "project-1",
-    name: "Data Pilot",
-    tagline: "React 高阶数据大屏与分析看板",
+    name: "云枢智慧城市数据平台",
+    tagline: "React 19 · 3D 大屏 · 数据可视化",
     description:
-      "具备多维度指标监控、图表联动与实时交互能力的分析中台，纯前端架构适配第三方 API。",
-    stack: ["React 18", "TypeScript", "ECharts", "RESTful API"],
-    status: "准备迁移",
-    gradient:
-      "linear-gradient(135deg, rgba(45, 212, 191, 0.12) 0%, rgba(56, 189, 248, 0.05) 100%)",
-    accent: "var(--accent-teal)",
+      "面向城市运营与指挥中心的智慧城市数据中台，支持指标多维监控、ECharts/Three.js 图表联动与高德地图 API 交互。",
+    stack: ["React 19", "TypeScript", "Three.js", "ECharts", "Vite"],
+    link: "/projects",
   },
   {
+    index: "02",
     id: "project-2",
-    name: "Mobile Shop",
-    tagline: "Vue 3 现代化移动端商城应用",
+    name: "拾光集移动商城系统",
+    tagline: "Vue 3 · 移动电商 · 大模型赋能",
     description:
-      "专注轻量化与流畅操作体验的移动电商应用，包含商品流、购物车与状态持久化交互。",
-    stack: ["Vue 3", "Vite", "Pinia", "Mobile UI"],
-    status: "准备迁移",
-    gradient:
-      "linear-gradient(135deg, rgba(129, 140, 248, 0.12) 0%, rgba(56, 189, 248, 0.05) 100%)",
-    accent: "var(--accent-indigo)",
+      "轻量流畅的移动电商应用，包含商品推荐、购物车与状态持久化交互，并在商品搜索联想中接入 DeepSeek 大模型赋能。",
+    stack: ["Vue 3", "Vite", "Pinia", "Vant 4", "DeepSeek AI"],
+    link: "/projects",
   },
 ];
 ---
 
-<section class="featured-section">
+<section class="featured-section animate-fade-in delay-3">
   <div class="section-head">
-    <div>
+    <div class="head-left">
       <h2 class="section-title">
-        精选项目 <span class="title-sub">/ Projects</span>
+        精选工程实践 <span class="title-sub">/ Featured Projects</span>
       </h2>
-      <p class="section-desc">已规划纳入个人 Hub 的代表性工程与前端实践。</p>
+      <p class="section-desc">已纳入个人 Hub 的代表性前端架构与全栈实践。</p>
     </div>
     <a href="/projects" class="all-link">
-      查看全部
+      <span>查看全部</span>
       <svg
         width="14"
         height="14"
@@ -56,18 +52,15 @@ const featuredProjects = [
   <div class="projects-grid">
     {
       featuredProjects.map((project) => (
-        <a href="/projects" class="project-card-link">
-          <article
-            class="project-card"
-            style={`--card-glow: ${project.accent}`}
-          >
+        <a href={project.link} class="project-card-link">
+          <article class="project-card">
             <div class="card-top">
+              <span class="project-index">{project.index}</span>
               <span class="project-tagline">{project.tagline}</span>
-              <span class="status-pill">{project.status}</span>
             </div>
 
             <h3 class="project-name">
-              {project.name}
+              <span>{project.name}</span>
               <span class="arrow-icon">→</span>
             </h3>
 
@@ -87,8 +80,8 @@ const featuredProjects = [
 
 <style>
   .featured-section {
-    padding: 2.5rem 0 3.5rem;
-    border-top: 1px solid var(--border-subtle);
+    padding: 3rem 0 3.5rem;
+    border-top: 1px solid var(--color-border-subtle);
   }
 
   .section-head {
@@ -100,22 +93,24 @@ const featuredProjects = [
   }
 
   .section-title {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.35rem;
     display: flex;
     align-items: baseline;
     gap: 0.5rem;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    color: var(--color-text-forest);
   }
 
   .title-sub {
     font-size: 0.95rem;
     font-weight: 500;
-    color: var(--text-muted);
+    color: var(--color-text-muted);
   }
 
   .section-desc {
     margin: 0;
     font-size: 0.95rem;
-    color: var(--text-muted);
+    color: var(--color-text-secondary);
   }
 
   .all-link {
@@ -123,29 +118,31 @@ const featuredProjects = [
     align-items: center;
     gap: 0.35rem;
     font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--accent-teal);
-    padding: 0.35rem 0.75rem;
+    font-weight: 650;
+    color: var(--color-text-forest);
+    padding: 0.4rem 0.85rem;
     border-radius: var(--radius-full);
-    background: rgba(45, 212, 191, 0.08);
-    border: 1px solid rgba(45, 212, 191, 0.2);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-medium);
     white-space: nowrap;
-    transition: all 0.2s ease;
+    transition: all 0.2s var(--ease-out-spring);
+    box-shadow: var(--shadow-sm);
   }
 
   .all-link:hover {
-    background: rgba(45, 212, 191, 0.18);
-    border-color: var(--accent-teal);
+    background: var(--color-bg-surface-elevated);
+    border-color: var(--color-accent-forest);
     transform: translateX(2px);
+    box-shadow: var(--shadow-md);
   }
 
   .projects-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 768px) {
     .projects-grid {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -154,96 +151,82 @@ const featuredProjects = [
   .project-card-link {
     display: block;
     height: 100%;
+    text-decoration: none;
+    color: inherit;
   }
 
   .project-card {
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 1.6rem;
-    border-radius: var(--radius-md);
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s var(--ease-out-spring);
     position: relative;
-    overflow: hidden;
-  }
-
-  .project-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--card-glow);
-    opacity: 0.4;
-    transition: opacity 0.3s ease;
   }
 
   .project-card:hover {
-    border-color: var(--border-medium);
+    background: var(--color-bg-surface-elevated);
+    border-color: var(--color-border-medium);
     transform: translateY(-4px);
-    box-shadow:
-      0 14px 30px -10px rgba(0, 0, 0, 0.5),
-      0 0 20px -5px var(--card-glow);
-  }
-
-  .project-card:hover::before {
-    opacity: 1;
+    box-shadow: var(--shadow-card-hover);
   }
 
   .card-top {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.75rem;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .project-index {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-accent-forest);
+    background: var(--color-bg-subtle);
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--color-border-medium);
   }
 
   .project-tagline {
-    font-size: 0.775rem;
-    font-weight: 500;
-    color: var(--text-muted);
-  }
-
-  .status-pill {
-    font-size: 0.725rem;
-    padding: 0.2rem 0.55rem;
-    border-radius: var(--radius-full);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
   }
 
   .project-name {
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin: 0 0 0.65rem;
+    font-size: 1.35rem;
+    font-weight: 750;
+    margin: 0 0 0.75rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: var(--color-text-primary);
   }
 
   .arrow-icon {
-    font-size: 1.1rem;
-    color: var(--text-muted);
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
     transition:
-      transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.25s var(--ease-out-spring),
       color 0.2s ease;
   }
 
   .project-card:hover .arrow-icon {
-    transform: translateX(4px);
-    color: var(--text-primary);
+    transform: translateX(5px);
+    color: var(--color-accent-forest);
   }
 
   .project-desc {
-    font-size: 0.925rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
     margin: 0 0 1.5rem;
     flex-grow: 1;
   }
@@ -251,17 +234,30 @@ const featuredProjects = [
   .stack-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 0.45rem;
     margin-top: auto;
   }
 
   .stack-item {
-    font-size: 0.75rem;
+    font-size: 0.775rem;
     font-family: var(--font-mono);
-    padding: 0.2rem 0.55rem;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--text-secondary);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-xs);
+    background: var(--color-bg-subtle);
+    color: var(--color-text-forest);
+    border: 1px solid var(--color-border-subtle);
+    font-weight: 550;
+  }
+
+  @media (max-width: 640px) {
+    .section-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .project-card {
+      padding: 1.5rem;
+    }
   }
 </style>

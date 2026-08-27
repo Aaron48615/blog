@@ -3,6 +3,30 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const projects = [
   {
+    index: "01",
+    name: "云枢智慧城市数据平台",
+    tagline: "React 19 · 数据可视化 · 3D 大屏",
+    stack: [
+      "React 19",
+      "JavaScript",
+      "TypeScript",
+      "Vite",
+      "React Router",
+      "React Redux",
+      "redux-persist",
+      "ECharts",
+      "Axios",
+      "JWT",
+      "Three.js",
+      "高德地图 API",
+    ],
+    description:
+      "该平台是一套面向城市运营人员和数据分析人员的智慧城市数据可视化平台。实现了城市运行数据的集中展示，提供城市运行指标总览、交通拥堵排行、公共设施与城市事件分析的数据可视化与多维交互。",
+    previewLink: "https://project-1-jade-omega.vercel.app",
+    repoLink: "https://github.com/Aaron48615/blog/tree/main/apps/project-1",
+  },
+  {
+    index: "02",
     name: "拾光集移动商城系统",
     tagline: "Vue 3 · 移动电商 · 大模型赋能",
     stack: [
@@ -21,32 +45,6 @@ const projects = [
       "拾光集移动商城系统是一款面向 C 端消费者的移动电商应用。项目实现了用户注册登录、首页推荐、商品分类与搜索、商品详情等功能，并在功能页面接入大模型实现商品搜索联想和卖点生成。",
     previewLink: "https://github.com/Aaron48615/blog/tree/main/apps/project-2",
     repoLink: "https://github.com/Aaron48615/blog/tree/main/apps/project-2",
-    accent: "var(--accent-indigo)",
-    accentGlow: "rgba(129, 140, 248, 0.25)",
-  },
-  {
-    name: "云枢智慧城市数据平台",
-    tagline: "React 19 · 数据可视化 · 3D 大屏",
-    stack: [
-      "React 19",
-      "JavaScript",
-      "TypeScript",
-      "Vite",
-      "React Router",
-      "React Redux",
-      "redux-persist",
-      "ECharts",
-      "Axios",
-      "JWT",
-      "Three.js",
-      "高德地图 API",
-    ],
-    description:
-      "该平台是一套面向城市运营人员和数据分析人员的智慧城市数据可视化平台。实现了城市运行数据的集中展示，提供城市运行指标总览、交通拥堵排行、公共设施与城市事件分析的数据可视化。",
-    previewLink: "https://project-1-jade-omega.vercel.app",
-    repoLink: "https://github.com/Aaron48615/blog/tree/main/apps/project-1",
-    accent: "var(--accent-teal)",
-    accentGlow: "rgba(45, 212, 191, 0.25)",
   },
 ];
 ---
@@ -59,10 +57,10 @@ const projects = [
     <header class="page-header">
       <div class="page-badge animate-fade-in delay-1">
         <span class="badge-dot"></span>
-        <span>精选工程作品</span>
+        <span>代表性工程实践</span>
       </div>
       <h1 class="page-title animate-fade-in delay-2">
-        代表性项目 <span class="text-gradient">/ Projects</span>
+        精选项目 <span class="title-sub">/ Projects</span>
       </h1>
       <p class="page-subtitle animate-fade-in delay-3">
         融合现代前端架构、实时数据可视化与大模型交互的前端与全栈工程实践。
@@ -72,14 +70,13 @@ const projects = [
     <div class="projects-container">
       {
         projects.map((project, idx) => (
-          <article
-            class={`project-card animate-fade-in delay-${idx + 2}`}
-            style={`--card-accent: ${project.accent}; --card-glow: ${project.accentGlow};`}
-          >
-            <div class="card-glow-bar" />
+          <article class={`project-card animate-fade-in delay-${idx + 2}`}>
             <div class="project-header">
               <div class="title-wrap">
-                <span class="project-tagline">{project.tagline}</span>
+                <div class="tagline-row">
+                  <span class="project-index">{project.index}</span>
+                  <span class="project-tagline">{project.tagline}</span>
+                </div>
                 <h2 class="project-name">{project.name}</h2>
               </div>
             </div>
@@ -148,7 +145,7 @@ const projects = [
 
 <style>
   .projects-page {
-    padding: 1rem 0 3rem;
+    padding: 1rem 0 3.5rem;
   }
 
   .page-header {
@@ -159,28 +156,36 @@ const projects = [
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    padding: 0.3rem 0.8rem;
+    padding: 0.35rem 0.85rem;
     border-radius: var(--radius-full);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-subtle);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-medium);
     font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--text-secondary);
+    font-weight: 600;
+    color: var(--color-text-forest);
     margin-bottom: 1rem;
+    box-shadow: var(--shadow-sm);
   }
 
   .page-title {
     font-size: clamp(2.2rem, 5vw, 3rem);
     letter-spacing: -0.035em;
     margin-bottom: 0.85rem;
+    color: var(--color-text-primary);
+  }
+
+  .title-sub {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
   }
 
   .page-subtitle {
     font-size: 1.05rem;
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
     max-width: 58ch;
     margin: 0;
-    line-height: 1.7;
+    line-height: 1.75;
   }
 
   .projects-container {
@@ -190,89 +195,78 @@ const projects = [
   }
 
   .project-card {
-    padding: 2.25rem;
+    padding: 2.5rem;
     border-radius: var(--radius-lg);
-    background: linear-gradient(
-      180deg,
-      rgba(15, 22, 38, 0.8) 0%,
-      rgba(10, 15, 26, 0.7) 100%
-    );
-    border: 1px solid var(--border-subtle);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s var(--ease-out-spring);
     position: relative;
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
   }
 
   .project-card:hover {
-    border-color: rgba(255, 255, 255, 0.18);
+    background: var(--color-bg-surface-elevated);
+    border-color: var(--color-border-medium);
     transform: translateY(-3px);
-    box-shadow:
-      0 16px 40px -12px rgba(0, 0, 0, 0.7),
-      0 0 25px -5px var(--card-glow);
-  }
-
-  .card-glow-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(
-      90deg,
-      var(--card-accent) 0%,
-      rgba(56, 189, 248, 0.5) 60%,
-      transparent 100%
-    );
-    opacity: 0.8;
+    box-shadow: var(--shadow-card-hover);
   }
 
   .project-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
     margin-bottom: 1.25rem;
   }
 
   .title-wrap {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.5rem;
+  }
+
+  .tagline-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .project-index {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-accent-forest);
+    background: var(--color-bg-subtle);
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--color-border-medium);
   }
 
   .project-tagline {
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--card-accent);
+    font-size: 0.825rem;
+    font-weight: 650;
+    color: var(--color-text-muted);
     font-family: var(--font-mono);
   }
 
   .project-name {
-    font-size: clamp(1.4rem, 3.2vw, 1.8rem);
-    font-weight: 700;
+    font-size: clamp(1.4rem, 3.2vw, 1.85rem);
+    font-weight: 750;
     letter-spacing: -0.025em;
     margin: 0;
-    color: var(--text-primary);
+    color: var(--color-text-primary);
   }
 
   .project-description {
-    font-size: 0.985rem;
-    color: var(--text-secondary);
-    line-height: 1.75;
-    margin-bottom: 1.75rem;
-    max-width: 80ch;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    max-width: 82ch;
   }
 
   .project-footer {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--color-border-subtle);
   }
 
   @media (min-width: 768px) {
@@ -287,15 +281,16 @@ const projects = [
   .stack-wrap {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.6rem;
     flex: 1;
   }
 
   .stack-label {
     font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--text-dim);
+    font-weight: 700;
+    color: var(--color-text-muted);
     letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
   .stack-tags {
@@ -308,17 +303,18 @@ const projects = [
     font-size: 0.775rem;
     font-family: var(--font-mono);
     padding: 0.25rem 0.65rem;
-    border-radius: var(--radius-sm);
-    background: rgba(255, 255, 255, 0.035);
-    border: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
+    border-radius: var(--radius-xs);
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-subtle);
+    color: var(--color-text-forest);
+    font-weight: 550;
     transition: all 0.2s ease;
   }
 
   .tech-tag:hover {
-    color: var(--text-primary);
-    border-color: var(--border-medium);
-    background: rgba(255, 255, 255, 0.06);
+    color: var(--color-text-primary);
+    border-color: var(--color-border-medium);
+    background: #ffffff;
   }
 
   .project-actions {
@@ -329,13 +325,13 @@ const projects = [
   }
 
   .project-actions .btn {
-    padding: 0.6rem 1.25rem;
+    padding: 0.65rem 1.35rem;
     font-size: 0.875rem;
   }
 
   @media (max-width: 640px) {
     .project-card {
-      padding: 1.5rem;
+      padding: 1.6rem;
     }
 
     .project-actions {
