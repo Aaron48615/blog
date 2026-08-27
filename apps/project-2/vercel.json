@@ -5,9 +5,11 @@
   "outputDirectory": "dist",
   "functions": {
     "api/proxy.ts": { "maxDuration": 20 },
-    "api/image.ts": { "maxDuration": 20 }
+    "api/image.ts": { "maxDuration": 20 },
+    "api/ai.ts": { "maxDuration": 20 }
   },
   "rewrites": [
+    { "source": "/api/ai", "destination": "/api/ai" },
     {
       "source": "/shop-images/:path*",
       "destination": "/api/image?__path=:path*"

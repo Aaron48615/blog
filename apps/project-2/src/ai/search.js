@@ -1,32 +1,19 @@
-import { isAvailable, generate as DeepseekGenerate } from "./providers/openai";
+import { generate as DeepseekGenerate } from "./providers/openai.js";
 
 async function tryAI(name, promptText, fallback) {
-  if (await isAvailable()) {
-    try {
-      const { text } = await DeepseekGenerate(promptText);
-      if (text) {
-        console.log(`AI ${name} DeepSeek生成成功`);
-        return {
-          result: text,
-          source: "openai",
-        };
-      }
-    } catch (err) {
-      console.log(`AI模型请求异常`);
-      const r = typeof fallback === "function" ? fallback() : fallback;
-      return {
-        result: r,
-        source: "fallback",
-        error: "DeepSeek请求异常",
-      };
+  try {
+    const { text } = await DeepseekGenerate(promptText);
+    if (text) {
+      return { result: text, source: "openai" };
     }
+  } catch {
+    // Any provider failure still resolves through the local rules below.
   }
-  console.log(`AI ${name} DeepSeek模型未配置, 将使用本地规则`);
   const r = typeof fallback === "function" ? fallback() : fallback;
   return {
     result: r,
     source: "fallback",
-    error: "DeepSeek未配置",
+    error: `${name}暂不可用，已使用本地规则`,
   };
 }
 
@@ -35,7 +22,19 @@ export async function getSearchSuggestion(keyWord) {
   const { result, source } = await tryAI(
     "搜索联想",
     `你现在是一个商品文案专家，用户正在搜索${keyWord}，你要给出5条相关的搜索建议词条，只能输出电商相关的，每一条不能超过10个字，不需要在前面加序号，每条之间用换行隔开。`,
-    () => {},
+    () => {
+      const keyword =
+        String(keyWord || "商品")
+          .trim()
+          .slice(0, 6) || "商品";
+      return [
+        keyword,
+        `${keyword}推荐`,
+        `${keyword}新品`,
+        `${keyword}热卖`,
+        `${keyword}优惠`,
+      ];
+    },
   );
   return { result, source };
 }

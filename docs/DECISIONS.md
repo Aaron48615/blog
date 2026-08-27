@@ -13,3 +13,4 @@
 - 2026-08-26 | project-1 采用 Vercel rewrites：`/api/:path*` 转发至 `http://116.62.230.90/api/:path*`，SPA 路由回退至 `/index.html` | 实测 `:9999` 提供 API 文档且业务路径返回 404；端口 80 的 `/api/auth/captcha` 返回正常 JSON，并已在 Vercel 预览中验证 | 用户 + Codex
 - 2026-08-27 | project-2 按用户本轮明确要求采用 Vercel Serverless Function 转发商城 `/api/*` 至 `http://shop-api.edu.koobietech.com/*`；作为“仓库不含服务端”的限定例外，仅增加代理，前端仍静态构建，商城业务后端仍为第三方 | 用户明确指定 Serverless 代理方案；不影响 project-1 与 site 的既有方案 | 用户
 - 2026-08-27 | 提议（待确认）：本轮不向 `VITE_AI_API_KEY` 写入真实共享密钥，AI 保留现有无配置兜底；共享 AI 服务改用不含 `VITE_` 前缀的服务端密钥及鉴权/限流代理另行实施 | 现有前端读取该变量，Vite 会将真实 key 打入前端产物，与本轮验收冲突 | Codex 提议
+- 2026-08-27 | 用户已明确派发共享 AI 代理任务：确认前条服务端密钥方向，project-2 增加 Vercel `/api/ai`，仅服务端读取 `DEEPSEEK_API_KEY`；匿名调用按 IP 默认每分钟 10 次/每小时 50 次，保留本地兜底，不复用商城 Authorization | 限定扩展 Serverless 例外；本轮用实例内存滚动窗口实现基础保护，不承诺跨实例全局配额或费用硬上限；更强鉴权/共享存储另行决策 | 用户（任务范围）+ Codex（实现及边界说明）

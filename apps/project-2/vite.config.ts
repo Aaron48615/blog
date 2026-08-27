@@ -10,8 +10,8 @@ import pxtorem from "postcss-pxtorem";
 
 // https://vite.dev/config/
 export default defineConfig({
-  // Only public settings are exposed, even if an old VITE_AI_API_KEY is present.
-  envPrefix: ["VITE_APP_URL", "VITE_AI_API_BASE", "VITE_AI_API_MODEL"],
+  // AI configuration is server-only, including legacy VITE_AI_* settings.
+  envPrefix: ["VITE_APP_URL"],
   server: {
     proxy: {
       "/shop-images": {
@@ -28,6 +28,10 @@ export default defineConfig({
       "/api": {
         target: "http://shop-api.edu.koobietech.com",
         changeOrigin: true,
+        // Vite alone does not run Serverless functions. Use local fallback and
+        // never send AI prompts to the unrelated shop backend during development.
+        bypass: (request) =>
+          /^\/api\/ai(?:\/|\?|$)/.test(request.url || "") ? false : undefined,
         rewrite: (path) => path.replace(/^\/api(?=\/|\?|$)/, ""),
       },
     },

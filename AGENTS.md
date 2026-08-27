@@ -30,7 +30,7 @@
 - 安装依赖：`pnpm install`
 - 开发：`pnpm --filter <app名> dev`
 - 构建：`pnpm --filter <app名> build`
-- 前端构建产物必须能纯静态部署，业务后端使用第三方 API。例外：project-2 按用户 2026-08-27 的部署要求允许 Vercel Serverless 商城代理，范围见 `docs/DECISIONS.md`。
+- 前端构建产物必须能纯静态部署，业务后端使用第三方 API。例外：project-2 按用户 2026-08-27 的部署及 AI 任务要求允许 Vercel Serverless 商城/图片/共享 AI 代理，范围见 `docs/DECISIONS.md`。
 
 ## 部署
 
@@ -180,3 +180,4 @@ git push -u origin feature/<任务名>
 - project-2 迁移需保留 `vue-tsc --build` 验收：旧项目混用 JS API 与 TS 视图，要启用 `allowJs` 并显式标注空数组/对象状态类型；`postcss-pxtorem` 需配套类型声明，Sass 引入的 `@parcel/watcher` 安装脚本需在根 `allowBuilds` 单独许可。Vite 自动生成的声明文件不做 Prettier 格式化，避免每次 build 弄脏工作区。
 - project-2 的 `VITE_AI_API_KEY` 不得填写共享真实密钥，Dashboard 中的 `VITE_*` 同样可能被打包；客户端已移除该变量读取并限制 `envPrefix`。商城代理只转发业务 Authorization，不转发 Vercel Cookie/内部头，不跟随重定向且禁用缓存；Vercel 到旧后端仍是 HTTP，不能视为端到端加密。
 - project-2 的 JSON 接口成功不代表图片可加载：`shop-static.edu.koobietech.com` 返回 HTTP 图片地址，2026-08-27 实测 HTTPS 证书域名不匹配；由 `/shop-images/*` 固定来源代理提供图片，禁止转发凭据或代理 SVG/HTML。首页接口需隔离失败，避免一个公告请求失败让轮播图与商品一起消失；部署验收要实际检查图片及部分接口失败场景。
+- project-2 共享 AI 的 `/api/ai` rewrite 必须在商城 `/api/:path*` 之前；Vite dev 不运行 Serverless，应直接兜底，不能把 prompt 发到商城。限流是实例内存计数，不是全局费用上限；真实 key 仅放服务端 `DEEPSEEK_API_KEY`。DeepSeek 已公告旧 `deepseek-chat` 名称停用，部署时显式配置有效模型，细节和验收边界见 project-2 README。
