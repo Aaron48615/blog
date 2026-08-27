@@ -3,94 +3,70 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const projects = [
   {
-    id: "project-1",
-    name: "Data Pilot",
-    tagline: "React 智慧城市数据平台",
+    name: "拾光集移动商城系统",
+    stack: ["Vue 3", "JavaScript", "TypeScript", "Vant 4", "Vite", "Axios", "Sass", "PostCSS(pxtorem)", "CryptoJS", "DeepSeek 大模型"],
     description:
-      "基于 React 19.2 与 TypeScript 6.0 构建的智慧城市数据平台，集成 Ant Design 6.5、ECharts 6.1、Three.js 0.185 + React Three Fiber 与高德 AMap JS API，支持数据看板、图表联动、3D 场景与 AI 对话 SSE。",
-    stack: [
-      "React 19",
-      "TypeScript 6",
-      "Vite 8",
-      "Ant Design 6",
-      "ECharts 6",
-      "Three.js",
-      "Redux Toolkit",
-      "高德地图",
-    ],
-    status: "已部署",
-    sourcePath: "apps/project-1",
-    link: "https://project-1-jade-omega.vercel.app",
-    accent: "var(--accent-teal)",
+      "拾光集移动商城系统是一款面向 C 端消费者的移动电商应用。项目实现了用户注册登录、首页推荐、商品分类与搜索、商品详情等功能，并在功能页面接入大模型实现商品搜索联想和卖点生成。",
+    previewLink: "https://github.com/Aaron48615/blog/tree/main/apps/project-2",
+    repoLink: "https://github.com/Aaron48615/blog/tree/main/apps/project-2",
+    accent: "var(--accent-indigo)",
   },
   {
-    id: "project-2",
-    name: "Mobile Shop",
-    tagline: "Vue 3 移动端商城",
+    name: "云枢智慧城市数据平台",
+    stack: ["React 19", "JavaScript", "TypeScript", "Vite", "React Router", "React Redux", "redux-persist", "ECharts", "Axios", "JWT", "Three.js", "高德地图 API"],
     description:
-      "基于 Vue 3.5 与 TypeScript 6.0 构建的现代化移动端商城，使用 Vant 4.10 组件库与 Pinia 3.0 状态管理，涵盖商品展示、分类检索、购物车、订单结算与 OpenAI 兼容 AI 客服。",
-    stack: ["Vue 3.5", "TypeScript 6", "Vite 8", "Vant 4", "Pinia 3", "axios"],
-    status: "迁移中",
-    sourcePath: "apps/project-2",
-    link: "https://github.com/Aaron48615/blog/tree/main/apps/project-2",
-    accent: "var(--accent-indigo)",
+      "该平台是一套面向城市运营人员和数据分析人员的智慧城市数据可视化平台。实现了城市运行数据的集中展示，提供城市运行指标总览、交通拥堵排行、公共设施与城市事件分析的数据可视化。",
+    previewLink: "https://project-1-jade-omega.vercel.app",
+    repoLink: "https://github.com/Aaron48615/blog/tree/main/apps/project-1",
+    accent: "var(--accent-teal)",
   },
 ];
 ---
 
 <BaseLayout
-  title="项目作品集 | Aaron"
-  description="Aaron 的精选前端与全栈工程项目展示，包含 React 数据中台与 Vue 3 移动电商等完整实践。"
+  title="项目 | Aaron"
+  description="Aaron 的前端与全栈工程项目展示。"
 >
-  <div class="projects-page animate-fade-in">
+  <div class="projects-page">
     <header class="page-header">
-      <div class="badge animate-fade-in delay-1">
-        <span class="badge-dot"></span>
-        <span>Portfolio & Works</span>
-      </div>
-      <h1 class="page-title animate-fade-in delay-2">
-        精选与迁移中的<span class="text-gradient">项目作品</span>
-      </h1>
-      <p class="page-subtitle animate-fade-in delay-3">
-        这里汇总了我在前端架构、数据可视化与全栈开发中的代表性项目。Phase 2
-        迁移完成后将提供独立的在线预览与源码导览。
-      </p>
+      <h1 class="page-title">项目</h1>
+      <p class="page-subtitle">代表性前端与全栈工程项目。</p>
     </header>
 
     <div class="projects-container">
       {
-        projects.map((project, idx) => (
-          <a
-            href={project.link}
-            class="project-card-link"
-            aria-label={`查看 ${project.name} 项目详情`}
-          >
-            <article
-              class={`project-item animate-fade-in delay-${idx + 2}`}
-              style={`--item-accent: ${project.accent}`}
-            >
-              <div class="project-header">
-                <div>
-                  <span class="project-tagline">{project.tagline}</span>
-                  <h2 class="project-name">{project.name}</h2>
-                </div>
-                <span class="status-badge">{project.status}</span>
+        projects.map((project) => (
+          <article class="project-item" style={`--item-accent: ${project.accent}`}>
+            <div class="project-header">
+              <h2 class="project-name">{project.name}</h2>
+            </div>
+            <p class="project-description">{project.description}</p>
+            <div class="project-footer">
+              <div class="stack-tags">
+                {project.stack.map((tech) => (
+                  <span class="tech-tag">{tech}</span>
+                ))}
               </div>
-
-              <p class="project-description">{project.description}</p>
-
-              <div class="project-footer">
-                <div class="stack-tags">
-                  {project.stack.map((tech) => (
-                    <span class="tech-tag">{tech}</span>
-                  ))}
-                </div>
-                <span class="location-tag">
-                  <code>{project.sourcePath}</code>
-                </span>
+              <div class="project-buttons">
+                <a
+                  href={project.previewLink}
+                  class="btn btn-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  在线预览
+                </a>
+                <a
+                  href={project.repoLink}
+                  class="btn btn-secondary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  查看仓库
+                </a>
               </div>
-            </article>
-          </a>
+            </div>
+          </article>
         ))
       }
     </div>
@@ -103,21 +79,19 @@ const projects = [
   }
 
   .page-header {
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
   }
 
   .page-title {
     font-size: clamp(2rem, 4.5vw, 2.8rem);
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     letter-spacing: -0.03em;
   }
 
   .page-subtitle {
     font-size: 1.05rem;
     color: var(--text-secondary);
-    max-width: 52ch;
-    line-height: 1.7;
     margin: 0;
   }
 
@@ -127,23 +101,13 @@ const projects = [
     gap: 1.5rem;
   }
 
-  .project-card-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    border-radius: var(--radius-md);
-  }
-
   .project-item {
     padding: 2rem;
     border-radius: var(--radius-md);
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .project-item::before {
@@ -157,56 +121,27 @@ const projects = [
     opacity: 0.7;
   }
 
-  .project-item:hover {
-    border-color: var(--border-medium);
-    transform: translateY(-3px);
-    box-shadow:
-      0 16px 36px -12px rgba(0, 0, 0, 0.6),
-      0 0 24px -6px var(--item-accent);
-  }
-
   .project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
     margin-bottom: 1rem;
-  }
-
-  .project-tagline {
-    font-size: 0.825rem;
-    color: var(--text-muted);
-    font-weight: 500;
   }
 
   .project-name {
     font-size: 1.5rem;
-    margin: 0.25rem 0 0;
     font-weight: 700;
-  }
-
-  .status-badge {
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 0.25rem 0.65rem;
-    border-radius: var(--radius-full);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
-    white-space: nowrap;
+    margin: 0;
   }
 
   .project-description {
     font-size: 0.975rem;
     color: var(--text-secondary);
     line-height: 1.65;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
   }
 
   .project-footer {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     gap: 1rem;
     padding-top: 1.25rem;
@@ -229,9 +164,44 @@ const projects = [
     color: var(--text-secondary);
   }
 
-  .location-tag code {
-    font-size: 0.775rem;
-    font-family: var(--font-mono);
-    color: var(--text-muted);
+  .project-buttons {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: rgba(45, 212, 191, 0.12);
+    border: 1px solid rgba(45, 212, 191, 0.3);
+    color: var(--accent-teal);
+  }
+
+  .btn-primary:hover {
+    background: rgba(45, 212, 191, 0.2);
+    border-color: var(--accent-teal);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--border-medium);
+    color: var(--text-primary);
   }
 </style>
