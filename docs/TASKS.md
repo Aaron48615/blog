@@ -37,7 +37,7 @@
 
 ## Phase 3.6 — 网站视觉规范与重做（待启动）
 
-- [ ] Site 视觉规范制定与基于 DESIGN.md 重做 | owner: Antigravity | 方法: 先按参考站（idle.space / vestris.ai / lukevoidx.com/zh / chirpy.cotes.page/）输出 DESIGN.md（配色板、字体层级、间距系统、动效规范、布局描述），用户确认后再按规范重写样式；禁止直接复用旧 CSS 变量 | 验收: DESIGN.md 通过用户确认，最终首页/项目页/文章页与参考站视觉方向一致，无旧配色残留，build 通过
+- [~] Site 视觉规范制定与基于 DESIGN.md 重做 | owner: Antigravity | 方法: 先按参考站（idle.space / vestris.ai / lukevoidx.com/zh / chirpy.cotes.page/）输出 DESIGN.md（配色板、字体层级、间距系统、动效规范、布局描述），用户确认后再按规范重写样式；禁止直接复用旧 CSS 变量 | 验收: DESIGN.md 通过用户确认，最终首页/项目页/文章页与参考站视觉方向一致，无旧配色残留，build 通过
 
 ## Phase 4 — 收尾
 
