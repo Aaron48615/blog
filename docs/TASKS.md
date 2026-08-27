@@ -32,6 +32,10 @@
 - [x] Site 博客结构改造（内容模型/路由/项目信息/名言数据） | owner: OpenCode | 验收: 四页路由 /,/posts,/posts/[slug],/projects 可访问、Content Collections 正常、项目页双按钮无内部路径、build 通过
 - [x] Site 视觉重设计与动效实现（官网风居中Hero、名言3.5s渐变轮播、项目双卡片独立跳转、文章双栏与动态目录） | owner: Antigravity | 验收: 四页视觉现代精致、名言淡入淡出轮播正常、移动端响应良好、build 通过
 
+## Phase 3.6 — 网站视觉规范与重做（待启动）
+
+- [ ] Site 视觉规范制定与基于 DESIGN.md 重做 | owner: Antigravity | 方法: 先按参考站（idle.space / vestris.ai / lukevoidx.com/zh / chirpy.cotes.page/）输出 DESIGN.md（配色板、字体层级、间距系统、动效规范、布局描述），用户确认后再按规范重写样式；禁止直接复用旧 CSS 变量 | 验收: DESIGN.md 通过用户确认，最终首页/项目页/文章页与参考站视觉方向一致，无旧配色残留，build 通过
+
 ## Phase 4 — 收尾
 
 - [ ] 全站 Lighthouse 走查（性能/SEO/无障碍） | owner: claude-code review + 用户拍板 | 验收: 四项 ≥ 90
