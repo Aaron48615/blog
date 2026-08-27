@@ -35,3 +35,5 @@
 - 2026-08-28 | Codex | 追加文章列表 7 条注释至视觉审计草稿（累计 13 条），区分共享页头头像/品牌名与侧栏局部精简要求；只读核验指定头像 JPEG 存在及尺寸，素材复制留给 Antigravity；请求打开项目页继续收集，文章详情尚待覆盖，未改代码或复制图片，尚未提交推送 | feature/site-visual-audit
 - 2026-08-28 | Codex | 追加项目页 5 条注释至视觉审计草稿（累计 18 条）：删页头徽章、标题改“练手项目”、副标题换斜体诗句、删两张卡片编号摘要行；明确保留下方技术栈与按钮，核对具体文章路由并请求打开 `/posts/hello-blog` 收集最后一页，未改代码或 DESIGN.md，尚未提交推送 | feature/site-visual-audit
 - 2026-08-28 | Codex | 收齐文章详情文末双按钮删除意见，完成四页 19 条视觉审计报告，补齐跨页归并、优先级、风险边界、后续验收与 Claude Code / Antigravity 交接提示词；同步任务与审计 Gotcha，交付仅含 Markdown 文档，未改代码、DESIGN.md 或复制头像，不合并 main | feature/site-visual-audit
+- 2026-08-28 | Antigravity | 完成 apps/site DESIGN.md v3.0.0 制定：基于 VISUAL_AUDIT.md 19 条用户注释明确用户硬性约束与 Antigravity 设计建议（名言艺术字选型/1.2s淡入淡出与6.0s停留/单屏极简与短屏例外/头像素材入库）；复制 /Users/aaron/avatar.jpg 至 apps/site/public/avatar.jpg；输出 implementation_plan 待用户确认后再行实施 | feature/site-design-v3
+- 2026-08-28 | Antigravity | 经用户确认后完成 apps/site 全站样式重构：引入得意黑（Smiley Sans）+楷宋兜底艺术字，名言4s停留+1.2s淡入淡出，页头与名片复用圆角正方形头像，落实首页极简单屏、项目页“练手项目”与斜体诗句（完整保留技术栈与双按钮）、文章列表去简介去按钮、文章详情文末精简；19条注释逐条验收，pnpm format 与 pnpm --filter site build 全绿通过 | feature/site-design-v3

@@ -175,21 +175,10 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
           <Content />
         </div>
 
-        <!-- Article Footer / Navigation -->
+        <!-- Article Footer / Navigation (ARTICLE-01: 移除文末两个操作按钮，保留感谢语) -->
         <footer class="article-footer">
           <div class="footer-notice">
             <p>感谢阅读。欢迎在 GitHub 探讨与交流。</p>
-          </div>
-          <div class="footer-actions">
-            <a href="/posts" class="btn btn-secondary"> &larr; 返回所有文章 </a>
-            <a
-              href="https://github.com/Aaron48615"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn btn-primary"
-            >
-              关注 GitHub
-            </a>
           </div>
         </footer>
       </article>
@@ -680,14 +669,6 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
 
   .footer-notice p {
     margin: 0;
-  }
-
-  .footer-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
   }
 
   /* Visibility Helpers */

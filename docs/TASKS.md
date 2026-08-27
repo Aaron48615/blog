@@ -5,9 +5,7 @@
 
 ## 待用户确认（当前阻塞，新会话接手先看这里）
 
-> project-2 部署与共享 AI 代理已合并，真实 key 联调通过；site Phase 3.6 视觉规范重做已完成；当前进入 Phase 4 收尾。
-
-> project-2 部署分支与共享 AI 代理分支均已合并到 main，服务端 DeepSeek 代理、前端无 key、IP 限流及本地兜底已验收，Preview 配置真实 key 后搜索联想与卖点生成功能正常；site Phase 3.6 视觉规范重做已合并，DESIGN.md 与全站样式已实现。剩余 Phase 4：全站 Lighthouse 走查（四项 ≥ 90）与各 AI 补充 AGENTS.md Gotchas。
+> apps/site DESIGN.md v3 规范制定与全站样式重构已全部完成，pnpm --filter site build 与 19 条注释逐条验收通过；待交 Claude Code review 并由用户/OpenCode 合并 feature/site-design-v3。
 
 ## Phase 1 — 脚手架与部署管线
 
@@ -35,9 +33,10 @@
 - [x] Site 博客结构改造（内容模型/路由/项目信息/名言数据） | owner: OpenCode | 验收: 四页路由 /,/posts,/posts/[slug],/projects 可访问、Content Collections 正常、项目页双按钮无内部路径、build 通过
 - [x] Site 视觉重设计与动效实现（官网风居中Hero、名言3.5s渐变轮播、项目双卡片独立跳转、文章双栏与动态目录） | owner: Antigravity | 验收: 四页视觉现代精致、名言淡入淡出轮播正常、移动端响应良好、build 通过
 
-## Phase 3.6 — 网站视觉规范与重做（待启动）
+## Phase 3.6 — 网站视觉规范与重做（v3 已完成）
 
-- [x] Site 视觉规范制定与基于 DESIGN.md 重做 | owner: Antigravity | 方法: 先按参考站（idle.space / vestris.ai / lukevoidx.com/zh / chirpy.cotes.page/）输出 DESIGN.md（配色板、字体层级、间距系统、动效规范、布局描述），用户确认后按规范重写样式；无旧 CSS 变量与旧配色残留 | 验收: DESIGN.md 经用户确认，全站重构为 Vestris 温润骨白/深松墨绿调色板、lukevoidx+idle 首页、chirpy 精简双栏文章页与两侧动态植物景深遮罩，build 通过 | 分支: feature/site-design-system
+- [x] Site 视觉规范制定与基于 DESIGN.md 重做 (v2) | owner: Antigravity | 验收: DESIGN.md 经用户确认，重构为 Vestris 调色板与精简双栏 | 分支: feature/site-design-system
+- [x] Site 视觉规范 DESIGN.md v3 制定与全站重构 | owner: Antigravity | 范围: 基于 VISUAL_AUDIT.md 19 条注释制定 v3 规范、复制头像入库、重写四页样式与动效 | 验收: 得意黑艺术字+楷宋兜底、1.2s淡入淡出+4s停留、头像素材复用、四页样式重写与单屏例外落实，pnpm --filter site build 通过，19 条注释逐条验收 | 分支: feature/site-design-v3
 
 ## Phase 4 — 收尾
 

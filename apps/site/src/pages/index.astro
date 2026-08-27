@@ -1,13 +1,30 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
-import FeaturedProjects from "../components/FeaturedProjects.astro";
 ---
 
 <BaseLayout
-  title="Aaron - 个人空间 · 前端工程与全栈探索"
-  description="Aaron 的个人空间与项目作品集。专注于现代 Web 架构、交互细节与高效开发流，基于 Astro 零 JS 极速呈现。"
+  title="Aaron - 个人空间"
+  description="Aaron 的个人空间。一个计算机界的新人，正在探索互联网海洋中。欢迎访问我的网站。"
 >
-  <Hero />
-  <FeaturedProjects />
+  <div class="home-single-screen">
+    <Hero />
+  </div>
 </BaseLayout>
+
+<style>
+  .home-single-screen {
+    min-height: calc(100vh - 180px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  @media (max-height: 680px) {
+    .home-single-screen {
+      min-height: auto;
+      padding: 1.5rem 0;
+    }
+  }
+</style>
