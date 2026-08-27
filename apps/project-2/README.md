@@ -45,6 +45,6 @@ pnpm --filter project-2 preview
 
 - `d1740b5` 已成功生成[预览部署](https://project-2-n17vpv11p-aaronsblog.vercel.app)。GitHub 的 Vercel deployment status 为 `success`。
 - 原版 11 项代理测试、构建及假密钥产物检查通过。图片修复后共 25 项测试和构建通过；本地实际调用三个首页接口，并通过新图片代理逐一读取 15 张去重后的真实轮播图/商品图，均返回图片。
-- 用户在已登录的内置浏览器确认旧预览 `/api/indexImgs` 正常，但页面缺图，尚不通过页面验收。修复后的新预览仍需检查首页、购物车、订单路由及图片；浏览器自动读取持续超时，不能用本地图片测试代替线上页面验收。未关闭部署保护。
-- `921a205` 的[图片修复预览](https://project-2-c0me2ahv2-aaronsblog.vercel.app) 已部署成功。在线 HTTP 检查三条 SPA 路由的应用 HTML、两个入口 JS、三个首页接口及 15 张真实 JPEG/PNG 图片均通过；假密钥注入后的 92 个产物文件未发现假密钥或常见真实 key 模式。上述检查不代表登录后的 DOM 渲染已验收，仍待用户目检。
+- 用户曾确认旧预览 `/api/indexImgs` 正常但页面缺图；已补充图片代理及首页分区错误处理。Codex 未关闭部署保护。
+- `921a205` 的[图片修复预览](https://project-2-c0me2ahv2-aaronsblog.vercel.app) 已部署成功。在线 HTTP 检查三条 SPA 路由的应用 HTML、两个入口 JS、三个首页接口及 15 张真实 JPEG/PNG 图片均通过；假密钥注入后的 92 个产物文件未发现假密钥或常见真实 key 模式。用户随后复验反馈“现在能加载出来了”；这是用户的页面加载确认，不代表自动化浏览器验收或下单/支付等全部业务已验证。
 - Dashboard Production 环境变量尚未修改，未上传真实 AI key；共享 AI 的安全替代范围待用户确认。
