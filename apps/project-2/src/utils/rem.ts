@@ -8,8 +8,8 @@ function setRem() {
   // 获取视口宽度
   const clientWidth =
     document.documentElement.clientWidth || document.body.clientWidth;
-  // 限制最大宽度
-  const width = Math.min(clientWidth, 750);
+  // 桌面端也按 375px 手机宽度显示，与全局容器的 10rem 对齐。
+  const width = Math.min(clientWidth, 375);
   // 计算当前的html fontsize：最大宽度 / 设计稿 * 根字体大小
   const fontSize = (width / baseWidth) * baseFontSize;
   document.documentElement.style.fontSize = `${fontSize}px`;

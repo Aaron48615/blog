@@ -19,11 +19,30 @@ pnpm --filter project-2 preview
 
 迁移保留严格类型检查，启用 `allowJs` 以兼容现有 JS API/AI 模块，并补充视图状态类型、必要空值保护和 `postcss-pxtorem` 类型声明。API 的响应外层已有类型，旧 JS 接口的 payload 仍沿用未细化的类型，不代表已完成接口校验。原有 `::v-deep` 写法产生非阻断弃用警告，视觉调整留待后续。
 
+## 桌面手机比例（2026-08-28）
+
+所有视口统一按 `min(视口宽度, 375px)` 计算 rem；设计稿仍为 750px，`postcss-pxtorem.rootValue` 仍为 75。`#app` 以 `10rem` 为最大宽度居中，桌面实际为 375px，两侧背景为 `#f5f5f5`；375px 及以下全宽。高度随视口和内容增长，不锁定 667px。
+
+`main.ts` 加载精简后的 `main.css`，不加载闲置模板 `base.css`，避免改变移动端已有字号和主题。Tabbar、登录/注册固定页面、提交栏、商品操作栏和地址页底部按钮与容器单独对齐；首页占位和商品详情图片使用 `100%`，不再用 `100vw`。
+
+本地浏览器验收：
+
+| CSS 视口 | 四页内容 / Tabbar 宽度 | 根字号 | 横向滚动 |
+| -------- | ---------------------- | ------ | -------- |
+| 1280×800 | 375px，居中            | 37.5px | 无       |
+| 376×667  | 375px，居中            | 37.5px | 无       |
+| 375×667  | 375px，全宽            | 37.5px | 无       |
+| 320×667  | 320px，全宽            | 32px   | 无       |
+
+四页指首页、分类、购物车、我的，均使用本地 dev server 的实际页面验证。首页 15 张轮播/商品图片成功加载；桌面与 375×667 下轮播图均为 351×185px、商品图为 102×102px、Tabbar 高度为 50px。`pnpm --filter project-2 build` 和 71 项测试通过，其中 8 项新测试覆盖 rem 封顶、窄屏、resize、orientationchange 与 body 宽度兜底。
+
+验收边界：购物车当前为空，未通过加购等写入操作构造测试数据，因此非空购物车结算栏仍需 reviewer/用户补验；未验证真机 Safari、软键盘或 Vercel Preview 的本轮布局。构建仍有既有 `::v-deep` 弃用警告，与本次改动无关。
+
 ## 配置与迁移边界
 
 - axios 固定使用同源 `/api`；`.env.development` 和 `.env.example` 的 `VITE_APP_URL=/api` 用于标明部署约定，不能通过它绕过代理改为外部地址。
 - 未迁入原 `.env.local`、真实 AI key、`node_modules/`、`dist/`、npm 锁文件、Vue 备份、系统文件、浏览器调试记录及学习笔记；原项目文件保持不变。
-- 未使用的 `amfe-flexible` 依赖已移除，继续使用原有 `src/utils/rem.ts`，不改变移动端布局逻辑。
+- 未使用的 `amfe-flexible` 依赖已移除，继续使用 `src/utils/rem.ts`；当前 375px 封顶规则见上节，375px 及以下保留原适配计算。
 - AI 仅调用同源 `/api/ai`，不再读取任何 `localStorage.ai_*` 或 `VITE_AI_*` 配置，也不构造客户端 Authorization。旧浏览器设置不再生效，可手动清除；共享密钥只配置为服务端 `DEEPSEEK_API_KEY`，禁止使用 `VITE_` 前缀。Vite 仅暴露 `VITE_APP_URL`。
 - 原登录 AES 常量随协议实现保留，浏览器端常量不能视为保密措施；本次不改登录协议。
 

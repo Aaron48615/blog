@@ -1,35 +1,31 @@
-@import "./base.css";
+:root {
+  /* 750 / 75 = 10rem；rem.ts 将根字号封顶为 37.5px，即最大 375px。
+     不直接写 375px，避免 postcss-pxtorem 将它转换后再次缩小一半。 */
+  --shop-viewport-width: 10rem;
+}
+
+body {
+  margin: 0;
+  background: #f5f5f5;
+}
 
 #app {
-  max-width: 1280px;
+  width: 100%;
+  max-width: var(--shop-viewport-width);
+  min-height: 100vh;
   margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+  background: #fff;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+/* 这些固定定位界面以视口为基准，需要与内容容器单独对齐。
+   不给 #app 添加 transform，以保留底部栏随视口固定的行为。 */
+#app .auth-page,
+#app .van-submit-bar,
+#app .van-action-bar,
+#app .van-address-list__bottom {
+  width: 100%;
+  max-width: var(--shop-viewport-width);
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
 }

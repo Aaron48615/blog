@@ -405,7 +405,7 @@ const goProdInfo = (val: prodItem) => {
 
 .space {
   height: 2.4rem;
-  width: 100vw;
+  width: 100%;
 }
 
 .products {
