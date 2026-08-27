@@ -34,6 +34,8 @@ pnpm --filter project-2 preview
 - 代理固定访问 `http://shop-api.edu.koobietech.com/*`，保留业务请求的方法、查询参数、请求体和 Authorization。`__path` 是内部路由参数，客户端业务查询不能使用它。
 - 代理不转发 Cookie、Vercel 内部头或上游 Set-Cookie，不跟随重定向，响应统一 `no-store`；上游超时返回 504，其余连接错误返回 502。
 - Vite 开发环境使用同目标的 `/api` 代理；`vite preview` 仅用于静态产物预览，线上 Serverless 行为以 Vercel 预览部署验收为准。
+- 旧图片域名 `shop-static.edu.koobietech.com` 的 HTTPS 证书不匹配。axios 响应统一把该域名的图片地址（含商品 HTML、图片数组/逗号串）转换为 `/shop-images/*`，由 `api/image.ts` 向固定 HTTP 来源读取。只支持 GET/HEAD、常见光栅图片、4 MiB 上限，不接受任意 URL、SVG/HTML，不跟随重定向，不转发 Cookie/Authorization/查询参数；仅成功图片可缓存。缓存及流量会占用 Vercel 额度，来源链路仍为 HTTP，长期应由上游修复 HTTPS。
+- 首页三个接口独立结算；某一区域失败时保留其他成功数据，显示失败区域及重试入口，不将接口异常伪装成正常空列表。
 - 浏览器到 Vercel 为 HTTPS，但 Vercel 到旧商城仍为 HTTP。认证 token 和业务请求在这段链路上不受 TLS 保护；后端 HTTPS 升级属于后续事项。
 - 验收至少覆盖 `/`、`/cart`、`/myorder` 和 `/api/indexImgs`；读取接口成功不代表登录、支付、订单等写入操作已联调。
 
@@ -42,6 +44,6 @@ pnpm --filter project-2 preview
 ### 当前验收记录（2026-08-27）
 
 - `d1740b5` 已成功生成[预览部署](https://project-2-n17vpv11p-aaronsblog.vercel.app)。GitHub 的 Vercel deployment status 为 `success`。
-- 本地 11 项代理测试、完整构建及假密钥注入后的产物检查通过；实际代理函数在本地访问 `/indexImgs` 返回 HTTP 200、`success: true`、3 条数据。
-- 线上 `/api/indexImgs` 当前返回 302 并转到 Vercel SSO；页面及线上业务接口验收尚未完成，未关闭部署保护。构建成功不等于业务验收通过。
+- 原版 11 项代理测试、构建及假密钥产物检查通过。图片修复后共 25 项测试和构建通过；本地实际调用三个首页接口，并通过新图片代理逐一读取 15 张去重后的真实轮播图/商品图，均返回图片。
+- 用户在已登录的内置浏览器确认旧预览 `/api/indexImgs` 正常，但页面缺图，尚不通过页面验收。修复后的新预览仍需检查首页、购物车、订单路由及图片；浏览器自动读取持续超时，不能用本地图片测试代替线上页面验收。未关闭部署保护。
 - Dashboard Production 环境变量尚未修改，未上传真实 AI key；共享 AI 的安全替代范围待用户确认。

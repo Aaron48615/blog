@@ -7,7 +7,7 @@
 
 > Phase 1 的 site 上线与 Phase 3 视觉打磨已完成；project-2 部署验收存在以下待确认项。
 
-> project-2 部署验收待用户协助：预览已成功构建，但 `/api/indexImgs` 被 Vercel Deployment Protection 以 302 转到 SSO；需要在已登录的浏览器完成访问验证。Production 环境变量尚未设置，真实 `VITE_AI_API_KEY` 与密钥安全验收冲突，待确认本轮 AI 先保留兜底、服务端共享 AI 代理另做。
+> project-2：用户已确认旧预览 `/api/indexImgs` 正常，但反馈页面缺少轮播图、商品图。已复现图片域名 HTTPS 证书不匹配并新增固定来源图片代理；另修复首页一项接口失败导致全区数据丢失的问题。25 项测试、build 和本地代理读取 15 张真实图片通过，新预览的页面显示仍待验收。Production 环境变量尚未设置，真实 `VITE_AI_API_KEY` 与密钥安全验收冲突，待确认本轮 AI 先保留兜底、服务端共享 AI 代理另做。
 
 ## Phase 1 — 脚手架与部署管线
 
@@ -20,7 +20,7 @@
 - [x] 旧项目迁移评估（技术栈/依赖/第三方 API/迁移步骤/环境变量） | owner: OpenCode Go | 验收: `docs/MIGRATION_PLAN.md` 已包含全部信息
 - [x] 旧项目 1 迁入 `apps/project-1`（来源：`/Users/aaron/LoveCoding/21_React/高阶/data-pilot`） | owner: Codex | 依赖: docs/MIGRATION_PLAN.md、API 路由方案确认（方案 B：Vercel rewrites） | 验收: build/test/lint 通过，Vercel 预览首页与深层路由可访问，`/api/auth/captcha` 调用正常
 - [x] 旧项目 2 基础迁移至 `apps/project-2`（来源：`/Users/aaron/LoveCoding/20_Vue3/mobile-shop`） | owner: Codex | 范围: 源码清理、pnpm workspace 依赖整合与本地构建；不含 API 代理和部署 | 验收: 根目录冻结锁文件安装、强制类型检查、`pnpm --filter project-2 build` 通过，无真实 AI 密钥与垃圾文件入库；project-1 build/22 项测试及 site build 回归通过 | 分支: `feature/migrate-project-2-base`（待 Claude Code 审查）
-- [~] 旧项目 2 API 代理与 Vercel 部署（第二段） | owner: Codex | 进度: Serverless 商城代理、同源 `/api`、SPA 回退已推送；11 项测试、build、假密钥注入后的产物检查通过；`d1740b5` 的 Vercel 预览构建成功，但在线验收被 SSO 访问保护阻断，Production 环境变量与 AI 安全替代范围待确认 | 验收: Vercel 预览首页与深层路由可访问，第三方 API 调用正常，无真实 AI 密钥打入前端产物 | 分支: `feature/migrate-project-2-deploy`
+- [~] 旧项目 2 API 代理与 Vercel 部署（第二段） | owner: Codex | 进度: 用户确认旧预览业务接口正常；补充固定来源 `/shop-images` 图片代理及全局图片地址转换、首页分区失败隔离与重试；25 项测试、build 和本地 3 个真实接口/15 张图片检查通过，修复版线上页面验收与 Production/AI 配置仍待确认 | 验收: Vercel 预览首页与深层路由可访问、图片正常，第三方 API 调用正常，无真实 AI 密钥打入前端产物 | 分支: `feature/migrate-project-2-deploy`
 - [~] 两个项目各自的 Vercel project 绑定 | owner: 用户 | 进度: project-1 已绑定，project-2 基础迁移完成，待 API 代理与部署 | 验收: push main 自动部署
 
 ## Phase 3 — 个人站内容施工

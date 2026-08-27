@@ -2,6 +2,10 @@
   <div class="home-page" :aria-busy="isLoading">
     <!-- 搜索，点击跳转搜索页面  -->
     <van-search placeholder="点此搜索" @click="goSearch"></van-search>
+    <div v-if="!isLoading && failedSections.length" role="alert">
+      {{ failedSections.join("、") }}加载失败
+      <van-button size="small" @click="init">重试</van-button>
+    </div>
 
     <!-- 首页数据加载完成前，骨架结构与真实轮播图保持同高 -->
     <van-skeleton
@@ -142,6 +146,7 @@
 import { ref, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { bannerInfo, noticeInfo, prodInfo } from "../api/home";
+import { loadHomeData } from "../utils/homeData";
 import {
   type banner,
   type notice,
@@ -155,6 +160,7 @@ const bannerList = ref<banner[]>([]);
 const noticeList = ref<notice[]>([]);
 const prodList = ref<prod[]>([]);
 const isLoading = ref(true);
+const failedSections = ref<string[]>([]);
 
 const goSearch = () => {
   router.push("/search");
@@ -165,17 +171,20 @@ onBeforeMount(() => {
 });
 const init = async () => {
   isLoading.value = true;
+  failedSections.value = [];
   try {
     // 三个首页接口互不依赖，并行请求可以缩短骨架屏停留时间
-    const [banner, notice, prod] = await Promise.all([
-      bannerInfo(),
-      noticeInfo(),
-      prodInfo(),
-    ]);
-    bannerList.value = banner.data;
-    noticeList.value = notice.data.records;
-    prodList.value = prod.data;
+    const data = await loadHomeData({
+      banners: bannerInfo,
+      notices: noticeInfo,
+      products: prodInfo,
+    });
+    bannerList.value = data.banners;
+    noticeList.value = data.notices;
+    prodList.value = data.products;
+    failedSections.value = data.failed;
   } catch (error) {
+    failedSections.value = ["首页数据"];
     console.error("首页数据加载失败：", error);
   } finally {
     // 请求失败时也必须结束骨架屏，避免页面一直处于加载状态

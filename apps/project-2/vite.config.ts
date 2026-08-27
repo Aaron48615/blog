@@ -14,6 +14,17 @@ export default defineConfig({
   envPrefix: ["VITE_APP_URL", "VITE_AI_API_BASE", "VITE_AI_API_MODEL"],
   server: {
     proxy: {
+      "/shop-images": {
+        target: "http://shop-static.edu.koobietech.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/shop-images(?=\/|\?|$)/, ""),
+        configure: (proxy) => {
+          proxy.on("proxyReq", (request) => {
+            request.removeHeader("cookie");
+            request.removeHeader("authorization");
+          });
+        },
+      },
       "/api": {
         target: "http://shop-api.edu.koobietech.com",
         changeOrigin: true,

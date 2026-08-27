@@ -1,6 +1,7 @@
 import axios from "axios";
 import type { AxiosInstance } from "axios";
-import { getToken } from "./auth";
+import { getToken } from "./auth.ts";
+import { rewriteShopImages } from "./shopImages.ts";
 
 interface apiResponse<T> {
   code: string;
@@ -45,7 +46,7 @@ instance.interceptors.response.use(
   (response) => {
     // 状态码在 2xx 范围内的响应会触发此函数
     // 处理响应数据
-    return response.data;
+    return rewriteShopImages(response.data);
   },
   function (error) {
     // 状态码不在 2xx 范围内的响应会触发此函数
