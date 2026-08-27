@@ -90,6 +90,8 @@ const { text, error } = await response.json();
 4. 配置 key 和有效模型并重新部署：分别实际触发搜索建议和商品卖点，确认 200 文本及 AI 标记、Network 请求中没有客户端 Authorization；限流命中时确认 429 与本地兜底。
 5. 保留 Deployment Protection；可通过已登录的浏览器访问。前端默认携带同源平台 Cookie 供 Vercel 验证，AI handler 不会向上游转发它们。不要为验收关闭保护或把真实 key 放进测试代码。
 
+AI 当前验证记录（2026-08-27）：`f4bcf11` 的[预览部署](https://project-2-7gqyu3q0d-aaronsblog.vercel.app)已构建成功；线上 `GET /api/ai` 返回 405/`Allow: POST`，正常格式 POST 返回 503/`AI service is not configured`，二者均为 JSON 且 `no-store`，确认没有进入商城代理或 SPA。63 项测试、build、92 文件双假密钥产物检查通过；扫描器用故意注入的 key 模式和配置值验证能正确报错。尚未配置真实 key，未验证真实上游生成或浏览器页面效果，也未修改 Production 环境或部署保护。
+
 ### 当前验收记录（2026-08-27）
 
 - `d1740b5` 已成功生成[预览部署](https://project-2-n17vpv11p-aaronsblog.vercel.app)。GitHub 的 Vercel deployment status 为 `success`。
