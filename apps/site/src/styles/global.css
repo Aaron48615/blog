@@ -16,6 +16,17 @@
   font-display: swap;
 }
 
+/* 得意黑 Smiley Sans Oblique v2.0.1 本地托管（文件/许可证见 public/fonts/）。
+   仅首页名言经 --font-quote-home 使用；全局 --font-quote 仍走上方 CDN 声明，其他页面不受影响。
+   单一静态字重故声明 400 800 范围覆盖 700 请求，避免合成加粗；字形自带倾斜，font-style 用 normal 避免二次倾斜。 */
+@font-face {
+  font-family: "Smiley Sans Oblique";
+  src: url("/fonts/SmileySans-Oblique.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Surfaces & Backgrounds (Vestris Warm Bone & Deep Forest) */
   --color-bg-base: #f2efe5;

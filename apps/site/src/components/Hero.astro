@@ -146,6 +146,10 @@ const quotes = [
   .hero-container {
     width: 100%;
     overflow-x: clip;
+    /* 首页名言专用字体：本地托管得意黑 + 楷体/宋体兜底；不动全局 --font-quote，避免扩散到其他页面 */
+    --font-quote-home:
+      "Smiley Sans Oblique", "Kaiti SC", "STKaiti", "KaiTi", "Songti SC",
+      "SimSun", "Source Han Serif SC", "Noto Serif CJK SC", "Georgia", serif;
   }
 
   .quote-screen {
@@ -236,7 +240,7 @@ const quotes = [
   }
 
   .quote-text {
-    font-family: var(--font-quote);
+    font-family: var(--font-quote-home);
     font-size: clamp(2.1rem, 4.8vw, 3.4rem);
     font-weight: 700;
     line-height: 1.35;
