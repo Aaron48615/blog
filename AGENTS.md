@@ -10,8 +10,8 @@
 2. **严禁在 `main` 分支上直接改文件、提交、push。** 所有代码和文档改动必须在 feature 分支完成。
 3. **只改自己任务范围内的文件**。默认地盘：
    - 视觉/样式/动效 → Antigravity (Gemini)
-   - 逻辑/结构/部署 → Codex (GPT)
-   - 内容页/迁移/杂活 → OpenCode Go（Qwen 3.7 Plus）
+   - 逻辑/结构/部署 → Codex (GPT)；Codex 额度不足或任务排不开时，可由 zcode (GLM 5.3 Flash) 替补
+   - 内容页/迁移/杂活/工程实现替补 → OpenCode Go（Qwen 3.7 Plus）/ zcode (GLM 5.3 Flash)
    - 总控/派活/合并 → OpenCode（Kimi K2.7 code）
    - 审查 → Claude Code（只 review，不写代码）
 4. **收工前必须更新 `docs/TASKS.md` 任务状态 + `docs/PROGRESS.md` 追加一行**（日期、AI 名、做了什么、分支/commit）。
