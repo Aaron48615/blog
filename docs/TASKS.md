@@ -62,6 +62,10 @@
 - [x] Site projects 页补充 project-2 在线预览链接 | owner: Codex（用户指定） | 范围: 仅 `apps/site/src/pages/projects.astro` 中拾光集移动商城卡片的 `previewLink`；不改卡片样式、布局、首页 FeaturedProjects 或其他页面 | 结果: `previewLink` 由 null 改为 `https://project-2-liard-mu.vercel.app`，复用现有双按钮模板 | 验收: `pnpm --filter site build` 与改动文件 Prettier 检查通过；本地 dev `http://localhost:4321/projects` 两张卡片均显示在线预览/查看源码，project-2 预览 href 正确且 `target="_blank"`、`rel="noopener noreferrer"`，点击后新标签页打开生产 `/home`（标题“拾光集 · Mobile Shop”）；project-1 双按钮及链接保持原样；`/`、`/posts`、`/posts/hello-blog` 均 HTTP 200，1280×720 浏览器目检布局正常，四页均无横向溢出 | 边界: 本轮仅验链接与桌面页面回归，不含商城业务链路、真机或本分支线上 Preview | 分支: `feature/site-project2-preview-link`（已合并到 main@53b019e）
 - [x] Site 功能小改动 | owner: OpenCode | 依赖: project-2 功能修复完成 | 范围: 首页名言随机起始并按顺序循环、首屏 1.2s 淡入、预加载本地得意黑并等待字体就绪后再显示，避免楷体 fallback 闪切；不改视觉样式与内容模型 | 验收: `pnpm --filter site build` 通过，改动文件格式检查通过，无回归 | 分支: `feature/site-quote-random-fade-font`
 
+## 紧急 — 国内访问修复
+
+- [ ] Vercel 项目国内访问恢复（自定义域名方案） | owner: 用户（购买域名）+ OpenCode（配置） | 依赖: 用户购买域名、Vercel 免费部署配额恢复 | 范围: 为 site / project-1 / project-2 配置自定义域名，DNS CNAME 指向 `cname-china.vercel-dns.com.`，验证大陆网络可访问；不改动代码 | 验收: 国内无 VPN 环境下三个项目首页均可正常打开；site 最终需部署最新 main（当前因配额未更新） | 分支: 待创建
+
 ## Phase 4 — 收尾
 
 - [x] Site 生产视觉审计与用户注释整理 | owner: Codex | 范围: 覆盖 `/`、`/projects`、`/posts`、`/posts/hello-blog`，整理为 `apps/site/docs/VISUAL_AUDIT.md`，供 Antigravity 制定 DESIGN.md v3；未改样式、组件、页面代码或 DESIGN.md | 结果: 四页 19 条注释全部整理，含原话/定位/事实/优先级/建议/验收口径、跨页边界与交接提示词；头像源文件已只读核验，复制留给 Antigravity；同步任务/进度与审计 Gotcha | 交接: 本审计分支提交推送后交 Claude Code 文档审查，再由 Antigravity 制定 v3、用户确认后实施；不代表改版验收完成 | 分支: `feature/site-visual-audit`
