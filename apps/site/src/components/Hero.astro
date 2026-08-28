@@ -10,69 +10,79 @@ const quotes = [
 ];
 ---
 
-<section class="hero-container animate-fade-in" aria-label="首页主要内容">
-  <!-- Centerpiece: Transparent Quotes Rotator (HOME-02: 4s stay, 1.2s crossfade) -->
-  <div
-    class="quote-wrapper"
-    id="quote-carousel"
-    aria-roledescription="carousel"
-    aria-label="名人名言轮播"
-  >
-    <div class="quote-stage">
-      {
-        quotes.map((item, index) => (
-          <div
-            class={`quote-slide ${index === 0 ? "is-active" : ""}`}
-            data-index={index}
-            aria-hidden={index === 0 ? "false" : "true"}
-          >
-            <blockquote class="quote-text">“{item.quote}”</blockquote>
-            <cite class="quote-author">—— {item.author}</cite>
-          </div>
-        ))
-      }
+<section class="hero-container" aria-label="首页主要内容">
+  <div class="quote-screen">
+    <!-- Centerpiece: Transparent Quotes Rotator (HOME-02: 4s stay, 1.2s crossfade) -->
+    <div
+      class="quote-wrapper"
+      id="quote-carousel"
+      aria-roledescription="carousel"
+      aria-label="名人名言轮播"
+    >
+      <div class="quote-stage">
+        {
+          quotes.map((item, index) => (
+            <div
+              class={`quote-slide ${index === 0 ? "is-active" : ""}`}
+              data-index={index}
+              aria-hidden={index === 0 ? "false" : "true"}
+            >
+              <blockquote class="quote-text">“{item.quote}”</blockquote>
+              <cite class="quote-author">—— {item.author}</cite>
+            </div>
+          ))
+        }
+      </div>
     </div>
+
+    <div class="scroll-cue" aria-hidden="true"></div>
   </div>
 
-  <!-- Self Introduction (HOME-03) -->
-  <p class="hero-desc animate-fade-in delay-2">
-    Hello，我是Aaron。一个计算机界的新人，正在探索互联网海洋中。欢迎访问我的网站。
-  </p>
+  <div class="hero-intro">
+    <!-- Self Introduction (HOME-03) -->
+    <p class="hero-desc">
+      <span class="hero-greeting"
+        >Hello，我是<span class="hero-name">Aaron</span></span
+      >
+      <span>一个计算机界的新人，正在探索互联网海洋中</span>
+      <span>欢迎访问我的网站</span>
+    </p>
 
-  <!-- CTA Action Buttons -->
-  <div class="hero-actions animate-fade-in delay-3">
-    <a href="/projects" class="btn btn-primary" aria-label="前往浏览项目作品">
-      <span>浏览项目作品</span>
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M5 12h14"></path>
-        <path d="m12 5 7 7-7 7"></path>
-      </svg>
-    </a>
-    <a href="/posts" class="btn btn-secondary" aria-label="前往阅读文章">
-      <span>阅读文章</span>
-      <svg
-        width="15"
-        height="15"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-      </svg>
-    </a>
+    <!-- CTA Action Buttons -->
+    <div class="hero-actions">
+      <a href="/projects" class="btn btn-primary" aria-label="前往浏览项目作品">
+        <span>浏览项目作品</span>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </a>
+      <a href="/posts" class="btn btn-secondary" aria-label="前往阅读文章">
+        <span>阅读文章</span>
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+        </svg>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -135,14 +145,49 @@ const quotes = [
 <style>
   .hero-container {
     width: 100%;
-    max-width: 860px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    overflow-x: clip;
+  }
+
+  .quote-screen {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding: 5rem 1.5rem;
     text-align: center;
-    padding: 2.5rem 1rem 2rem;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: max(1.75rem, env(safe-area-inset-bottom));
+    left: 50%;
+    translate: -50% 0;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    pointer-events: none;
+  }
+
+  .scroll-cue::before {
+    content: "";
+    width: 18px;
+    height: 12px;
+    background: var(--color-accent-forest);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    animation: cue-float 2.4s ease-in-out infinite;
+  }
+
+  @keyframes cue-float {
+    0%,
+    100% {
+      transform: translateY(-4px);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translateY(4px);
+      opacity: 0.85;
+    }
   }
 
   /* ==========================================================================
@@ -150,7 +195,7 @@ const quotes = [
      ========================================================================== */
   .quote-wrapper {
     width: 100%;
-    margin-bottom: 2rem;
+    max-width: 860px;
     position: relative;
     background: transparent;
     border: none;
@@ -168,6 +213,9 @@ const quotes = [
   .quote-slide {
     position: absolute;
     inset: 0;
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -203,6 +251,8 @@ const quotes = [
   }
 
   .quote-author {
+    align-self: flex-end;
+    text-align: right;
     font-family: var(--font-sans);
     font-size: clamp(0.95rem, 1.6vw, 1.15rem);
     font-style: normal;
@@ -214,62 +264,179 @@ const quotes = [
   /* ==========================================================================
      Self Introduction (HOME-03)
      ========================================================================== */
+  .hero-intro {
+    width: min(calc(100% - 4rem), 880px);
+    min-height: 80svh;
+    margin: 0 auto;
+    padding: 8rem 1.5rem;
+    display: grid;
+    grid-template-columns: minmax(0, max-content) 1px max-content;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.25rem, 3vw, 2rem);
+    view-timeline-name: --home-intro;
+    view-timeline-axis: block;
+  }
+
+  .hero-intro::before {
+    content: "";
+    grid-column: 2;
+    grid-row: 1;
+    width: 1px;
+    height: 10rem;
+    background: var(--color-border-medium);
+  }
+
   .hero-desc {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
     font-size: clamp(1.05rem, 2vw, 1.2rem);
     line-height: 1.8;
     color: var(--color-text-secondary);
     max-width: 48ch;
-    margin: 0 0 2.5rem;
+    margin: 0;
     font-weight: 450;
+    text-align: right;
+  }
+
+  .hero-greeting {
+    color: var(--color-text-forest);
+  }
+
+  .hero-name {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 750;
+    line-height: 1.2;
   }
 
   /* ==========================================================================
      CTA Actions
      ========================================================================== */
   .hero-actions {
+    grid-column: 3;
+    grid-row: 1;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
   .hero-actions .btn {
-    padding: 0.8rem 1.8rem;
+    padding: 0.8rem 1.5rem;
     font-size: 0.95rem;
   }
 
+  @supports (animation-timeline: view()) {
+    .quote-screen {
+      view-timeline: --home-quote block;
+    }
+
+    .scroll-cue {
+      animation: cue-scroll-away linear both;
+      animation-timeline: --home-quote;
+      animation-range: exit 0% exit 40%;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-desc > span,
+      .hero-actions > .btn {
+        animation: intro-enter linear both;
+        animation-timeline: --home-intro;
+        animation-range: entry 30% entry 65%;
+      }
+
+      .hero-desc > span:nth-child(2),
+      .hero-actions > .btn:nth-child(2) {
+        animation-range: entry 42% entry 77%;
+      }
+
+      .hero-desc > span:nth-child(3) {
+        animation-range: entry 54% entry 89%;
+      }
+
+      .hero-desc {
+        --entry-offset: clamp(-180px, -16vw, -48px);
+      }
+
+      .hero-actions {
+        --entry-offset: clamp(48px, 16vw, 180px);
+      }
+
+      /* Keyboard focus must never land on an invisible action. */
+      .hero-intro:focus-within .hero-desc > span,
+      .hero-intro:focus-within .hero-actions > .btn {
+        animation: none;
+      }
+    }
+  }
+
+  @keyframes cue-scroll-away {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(var(--cue-scroll-offset, -4rem));
+    }
+  }
+
+  @keyframes intro-enter {
+    from {
+      opacity: 0;
+      translate: var(--entry-offset) 0;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+
   @media (max-width: 640px) {
-    .hero-container {
-      padding: 1.5rem 0.5rem 1.5rem;
+    .quote-text {
+      font-size: clamp(1.75rem, 6vw, 2.2rem);
     }
 
-    .quote-stage {
-      min-height: 180px;
-    }
-
-    .quote-wrapper {
-      margin-bottom: 1.5rem;
+    .hero-intro {
+      width: calc(100% - 3rem);
+      min-height: 80svh;
+      grid-template-columns: minmax(0, 1fr);
+      align-content: center;
+      gap: 2rem;
+      padding: 8rem 0 5rem;
     }
 
     .hero-desc {
-      margin-bottom: 2rem;
-      font-size: 1rem;
+      font-size: 1.05rem;
+    }
+
+    .hero-intro::before {
+      grid-column: 1;
+      grid-row: 2;
+      width: 100%;
+      height: 1px;
     }
 
     .hero-actions {
-      width: 100%;
-      flex-direction: column;
+      grid-column: 1;
+      grid-row: 3;
       gap: 0.85rem;
-    }
-
-    .hero-actions .btn {
-      width: 100%;
-      max-width: 320px;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .scroll-cue {
+      --cue-scroll-offset: 0px;
+    }
+
+    .scroll-cue::before {
+      animation: none;
+    }
+
     .quote-slide {
       transition: opacity 0.1s ease !important;
       transform: none !important;
