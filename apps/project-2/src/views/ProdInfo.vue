@@ -782,6 +782,15 @@ const toPay = () => {
   border-radius: 0.586667rem;
 }
 
+:global(.purchase-sheet) {
+  /* fixed 浮层单独对齐手机容器；不覆盖 transform，保留 Vant 的纵向进出动画。 */
+  width: 100%;
+  max-width: var(--shop-viewport-width);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
 :global(.purchase-sheet .content) {
   padding-top: 0.266667rem;
 }

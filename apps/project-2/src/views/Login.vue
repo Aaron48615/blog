@@ -260,67 +260,6 @@ const pwdReg = (val: string) =>
   }
 }
 
-@media (min-width: 768px) {
-  .auth-page {
-    padding: 0.45rem 0;
-  }
-
-  .auth-shell {
-    width: 5.2rem;
-    min-height: calc(100vh - 0.9rem);
-    border: 0.02rem solid rgba(93, 69, 48, 0.12);
-    box-shadow: 0 0.28rem 0.8rem rgba(79, 58, 41, 0.1);
-  }
-
-  .auth-content {
-    width: 4.35rem;
-    padding-top: 1.15rem;
-  }
-
-  .brand-logo {
-    width: 1.08rem;
-    height: 1.08rem;
-  }
-
-  .brand-block h1 {
-    margin-top: 0.18rem;
-    font-size: 0.42rem;
-  }
-
-  .brand-block p {
-    font-size: 0.2rem;
-  }
-
-  .auth-form {
-    margin-top: 0.36rem;
-  }
-
-  :deep(.van-cell) {
-    min-height: 0.74rem;
-    padding: 0.16rem 0.04rem;
-  }
-
-  :deep(.van-field__label) {
-    width: 1.35rem;
-    font-size: 0.23rem;
-  }
-
-  :deep(.van-field__control) {
-    font-size: 0.23rem;
-  }
-
-  :deep(.submit-button.van-button) {
-    height: 0.7rem;
-    margin-top: 0.55rem;
-    font-size: 0.24rem;
-  }
-
-  .goRegister {
-    margin-top: 0.3rem;
-    font-size: 0.22rem;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .brand-block,
   .auth-form,
