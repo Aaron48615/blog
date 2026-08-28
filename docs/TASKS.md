@@ -45,7 +45,12 @@
 
 ## project-2 功能修复（迁移后回归）
 
-- [~] 旧项目 2 迁移后功能回归修复 | owner: Codex | 范围: 基于用户在浏览器页面注释，修复 project-2 各页面按钮点击、表单提交、弹窗交互等功能缺失问题；只改功能交互，不重做视觉 | 验收: 用户注释点全部修复，首页/分类/商品详情/购物车/我的/登录/注册核心操作可点击、可提交、有反馈，pnpm --filter project-2 test/build 通过，Vercel Preview 复验通过 | 分支: 待创建
+- [x] 旧项目 2 迁移后功能回归修复 | owner: Codex | 范围: 本轮用户注释对应的搜索清空、AI 建议兜底、地址列表顶栏限宽，以及另行授权的首页/两侧底色与 Production 服务端 AI 配置（见 DECISIONS）；不改路由/API 代理、不扩大至未标注组件 | 结果: 用户确认暂时没有新修改，要求提交收尾；清空按钮、过期建议保护、未知分类兜底、375px 地址顶栏及指定颜色均已实现，Production AI 接口已实测 200 和真实建议 | 验收: 最终 80 项测试、build/类型检查、改动文件格式检查通过；本地首页/分类/商品详情/购物车/我的/登录/注册已完成下述安全冒烟检查 | 边界: 完成标记表示本轮注释实现收尾，不代表全站所有按钮或真实交易链路均已验收；真机触屏、地址栏手机尺寸、有效账号登录/注册、非空购物车及提交订单、功能分支 Preview 待补验 | 分支: `feature/project-2-function-fix`（待 Claude Code review，再交 OpenCode/用户合并）
+  - 收尾本地复验（1018×779）：首页搜索入口正常，输入“茶叶”出现五条本地建议，鼠标点击清空后输入为空且建议面板消失；分类切换到美妆护肤后列表更新，商品可进入详情；购买弹窗可打开、切换 150ml/100ml、数量改为 2 并关闭，未加购/下单；购物车空态“去逛逛”返回首页；“我的 → 收货地址”入口正常，地址顶栏与内容同为 375px、左边界 321.5px，保持 fixed/top=0 且无横向溢出；登录/注册空表单提交均显示用户名/密码必填提示，两页往返正常。未创建账号、修改地址或执行真实交易；不是未标注按钮的全覆盖验收。
+  - 用户另行指定的首页颜色例外（见 DECISIONS）：`https://project-2-liard-mu.vercel.app/home`，1018×779，首页 Comment 1 标记 `.home-page`，要求底色 `#F7F4F2`；首页 Comment 2 标记 `body`，两侧颜色以随后的“换成纯白”更正为准。仅将 Home.vue 的页面背景变量改为 `#f7f4f2`、main.css 的 body 背景改为 `#fff`，保留卡片、导航栏及其他页面内部配色。本地 1018×779 实测首页/两侧分别为 `rgb(247, 244, 242)` / `rgb(255, 255, 255)`，白色卡片保留，内容与 Tabbar 均为 375px，无横向溢出；80 项测试、build/类型检查通过。未发布此颜色改动。
+  - 地址页 Comment 1：`https://project-2-liard-mu.vercel.app/address`，1018×779，`.addr-list > .van-nav-bar--fixed` 顶栏未匹配手机容器。线上几何断言复现顶栏宽 1018px、内容宽 375px；仅在 Address.vue 给列表固定顶栏添加共享宽度上限及左右自动居中，本地同一断言通过：顶栏与内容均为 375px、左边界均为 321.5px，保持 fixed/top=0，无横向溢出，三个标题/操作文本均在栏内。模板、业务逻辑、配色及新增/编辑页顶栏未改，未操作地址数据；80 项测试、build/类型检查通过。视口切换未实际生效，本条手机尺寸待补验；尚未合并或发布生产。
+  - 搜索页 Comment 1：`https://project-2-s68heljei-aaronsblog.vercel.app/search`，1018×779，搜索框最右侧清空图标（截图区域 x=609.02、y=63.63、24.05×23.90）。真实鼠标点击后输入未清空；当前 Vant 原生图标只绑定 `touchstart`。仅在 Search.vue 为该图标补充捕获阶段的鼠标/笔 pointerdown，保留 Vant 触屏处理；清空时取消待发送 AI 防抖、重置建议，过期请求不可回填。本地同一鼠标断言及 375×667 视口通过，真机触屏尚未验证，不推广到其他页面。
+  - 搜索页 Comment 2：同 URL、1018×779，`.search .ai-suggestion`。原部署 `/api/ai` 返回 503 / `AI service is not configured`；页面另有丢弃通用 fallback 的缺陷，已保留分类规则并接回通用建议，本地“茶叶”“输入”均显示五条可点击词条。用户随后授权 Production 配置，后台确认服务端变量原仅覆盖 Preview；已仅将 `DEEPSEEK_API_KEY`（Secret、不读取或重填明文）与 `DEEPSEEK_API_MODEL=deepseek-v4-flash` 扩展至 Production + Preview，不含 Development。Production 保留代码默认官方地址及每 IP 10 次/分钟、50 次/小时的实例内基础限流，未修改其余变量或代理。重部署已合并的 main@1b59883（`dpl_Gk2PesW98eGP3AsS9fwdiz5QGj7W`）Ready，新独立地址 `https://project-2-nemp0dxq6-aaronsblog.vercel.app`；生产域名 `https://project-2-liard-mu.vercel.app/api/ai` 实测 200、`error:null`、五条真实生成建议及 `no-store`。旧独立部署地址不自动获得新配置；新生产搜索页待用户登录后复验，清空/兜底代码仍在功能分支，未随此次生产重部署发布。
 
 ## site 后续调整（待 project-2 功能修复完成后启动）
 

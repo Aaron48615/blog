@@ -18,6 +18,8 @@
         v-model="keyWord"
         @search="onSearch"
         @update:model-value="onInput"
+        @pointerdown.capture="onSearchPointerDown"
+        @clear="onClear"
       >
         <template #action>
           <div @click="onClickButton">搜索</div>
@@ -203,7 +205,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import { useRouter } from "vue-router";
 import type { prodItem } from "../types/home";
 import { hotInfo, searchInfo } from "../api/search";
@@ -350,6 +352,7 @@ const tagSearch = async (text: string) => {
   await onSearch();
 };
 // 定义一个有防抖的函数，输入发生变化时触发，ai搜索建议功能
+let aiRequestVersion = 0;
 const requestAiSuggestion = debounce(async () => {
   // 去空
   if (!keyWord.value.trim()) {
@@ -358,6 +361,9 @@ const requestAiSuggestion = debounce(async () => {
   }
   // 非空
   const word = keyWord.value.trim();
+  const requestVersion = aiRequestVersion;
+  const isCurrentRequest = () =>
+    requestVersion === aiRequestVersion && word === keyWord.value.trim();
   const loadingStartedAt = Date.now();
   aiLoading.value = true;
   aiSuggestion.value = [];
@@ -365,7 +371,7 @@ const requestAiSuggestion = debounce(async () => {
   // 先等待 AI；AI 不可用或请求失败时，再展示本地兜底建议
   try {
     const main = await getSearchSuggestion(word);
-    if (word !== keyWord.value.trim()) return;
+    if (!isCurrentRequest()) return;
     if (main?.source == "openai" && typeof main.result === "string") {
       const suggestions = main.result
         .split("\n")
@@ -376,38 +382,73 @@ const requestAiSuggestion = debounce(async () => {
       aiSuggestion.value = suggestions;
     } else {
       aiSource.value = "fallback";
-      aiSuggestion.value = localList(word) || [];
+      aiSuggestion.value = localList(
+        word,
+        Array.isArray(main?.result) ? main.result : undefined,
+      );
     }
   } catch (err) {
-    if (word !== keyWord.value.trim()) return;
+    if (!isCurrentRequest()) return;
     aiSource.value = "fallback";
-    aiSuggestion.value = localList(word) || [];
+    aiSuggestion.value = localList(word);
     console.warn("AI搜索建议获取失败，已使用本地建议", err);
   } finally {
     // 保证“思考中”和骨架屏能被用户看到，再展示最终建议
     const restTime = Math.max(0, 400 - (Date.now() - loadingStartedAt));
     if (restTime) await new Promise((resolve) => setTimeout(resolve, restTime));
-    if (word === keyWord.value.trim()) aiLoading.value = false;
+    if (isCurrentRequest()) aiLoading.value = false;
   }
 }, 500);
 
 const onInput = () => {
+  aiRequestVersion++;
   const hasKeyWord = !!keyWord.value.trim();
   if (hasKeyWord) {
     hasAiSuggestionStarted.value = true;
     aiLoading.value = true;
   } else {
+    requestAiSuggestion.cancel();
     aiLoading.value = false;
-    // 尚未生成建议便清空输入时，恢复首次进入页面的状态
-    if (!aiSuggestion.value.length) hasAiSuggestionStarted.value = false;
+    aiSuggestion.value = [];
+    hasAiSuggestionStarted.value = false;
+    return;
   }
   requestAiSuggestion();
 };
+const onClear = () => {
+  keyWord.value = "";
+  onInput();
+};
+// Vant 的原生清空图标只监听 touchstart；在失焦隐藏图标前补齐鼠标/笔操作。
+const onSearchPointerDown = (event: PointerEvent) => {
+  if (event.pointerType === "touch") return;
+  if (
+    event.target instanceof Element &&
+    event.target.closest(".van-field__clear")
+  ) {
+    event.preventDefault();
+    onClear();
+  }
+};
+onBeforeUnmount(() => {
+  aiRequestVersion++;
+  requestAiSuggestion.cancel();
+});
 // ai失败本地函数
-const localList = (word: string) => {
+const localList = (word: string, fallback?: string[]) => {
   for (let [key, list] of Object.entries(SUGGEST_RULES)) {
     if (word.includes(key)) return list;
   }
+  // 不丢弃 AI 模块的通用兜底；未知分类也必须有可点击的建议。
+  if (fallback?.length) return fallback;
+  const keyword = word.trim().slice(0, 6) || "商品";
+  return [
+    keyword,
+    `${keyword}推荐`,
+    `${keyword}新品`,
+    `${keyword}热卖`,
+    `${keyword}优惠`,
+  ];
 };
 
 // 跳转商品详情
@@ -421,21 +462,18 @@ const goProdInfo = (val: prodItem) => {
 };
 
 // 防抖函数
-// 传入的函数可以接收任意数量、任意类型的参数，并且不要求返回结果
-function debounce(fn: (...args: any[]) => void, delay: number) {
-  let timer: any = null;
-  return function (...args: any[]) {
-    if (timer) {
-      clearTimeout(timer);
-    }
-    timer = setTimeout(() => {
-      fn(...args);
-    }, delay);
+function debounce(fn: () => void, delay: number) {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const cancel = () => clearTimeout(timer);
+  const debounced = () => {
+    cancel();
+    timer = setTimeout(fn, delay);
   };
+  debounced.cancel = cancel;
+  return debounced;
 }
 
 watch(keyWord, (newVal) => {
-  console.log(newVal);
   if (!newVal) {
     prodList.value = [];
     isShow.value = false;

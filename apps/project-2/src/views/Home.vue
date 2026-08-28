@@ -219,7 +219,7 @@ const goProdInfo = (val: prodItem) => {
   --shop-primary-dark: #ad3524;
   --shop-primary-light: #fff0eb;
   --shop-accent: #e9a23b;
-  --shop-page-bg: #f3eee6;
+  --shop-page-bg: #f7f4f2;
   --shop-surface: #fff;
   --shop-text: #2d2926;
   --shop-text-secondary: #716b66;
