@@ -73,3 +73,4 @@
 - 2026-08-29 | Codex | 仅将 projects.astro 中 project-2 的 previewLink 从 null 改为生产域名 `https://project-2-liard-mu.vercel.app`，未改模板、样式、文案、技术栈、首页组件或其他页面；site build 与改动文件 Prettier 检查通过。本地 dev 4321 实测两张卡片均有在线预览/查看源码，href、target、rel 正确，点击商城预览后新标签页打开生产 `/home`（标题“拾光集 · Mobile Shop”）；project-1 原链接不变；首页/文章列表/文章详情均 HTTP 200，1280×720 目检布局正常，四页无横向溢出。同步任务完成状态；不含商城业务、真机及本分支线上 Preview 验收，待 Claude Code 审查后交 OpenCode 合并，不推 main | feature/site-project2-preview-link
 
 - 2026-08-29 | OpenCode | 经 Claude Code 审查通过，合并 `feature/site-project2-preview-link` 至 main（merge commit 53b019e）；分支已双向删除，main 已 push，Vercel 生产部署自动触发；Site projects 页拾光集移动商城在线预览链接已发布；建议线上 /projects 补验一次第二张卡片预览按钮跳转 | main@53b019e
+- 2026-08-29 | OpenCode | 完成 site 首页名言功能小改动：随机起始并按顺序循环、首屏 1.2s 淡入、首页预加载本地得意黑 WOFF2 并等待字体就绪后再显示，避免楷体 fallback 闪切；`pnpm --filter site build` 与改动文件格式检查通过，未影响其他页面 | feature/site-quote-random-fade-font
