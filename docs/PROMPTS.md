@@ -63,6 +63,27 @@ git checkout main && git pull origin main && git checkout -b feature/<任务名>
 - push 分支，写一段给 Claude Code 的审查提示词由用户转发。
 ```
 
+## zcode (GLM 5.3 Flash) — 逻辑/工程实现替补
+
+```
+【强制】进入 ~/personal-hub 后，第一句执行：
+git checkout main && git pull origin main && git checkout -b feature/<任务名>
+如果你在 main 上，立刻停止，切 feature 分支。
+
+读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md。
+你是本仓库的工程实现工人，负责：逻辑/结构/部署/前端工程任务的执行，尤其是 Codex 额度不足或任务排不开时顶上的任务。
+不许动：视觉样式、组件样式、动效（Antigravity 地盘）。
+
+本次任务：<从 TASKS.md 原样摘>
+验收标准：<从 TASKS.md 原样摘>
+
+要求：
+- 在 feature/<任务名> 分支开发，不推 main。
+- 只改自己任务范围内的文件。
+- 完成后 git status 检查，更新 docs/TASKS.md 状态和 docs/PROGRESS.md 流水。
+- push 分支，写一段给 Claude Code 的审查提示词由用户转发。
+```
+
 ## Antigravity (Gemini) — 视觉工人
 
 ```
