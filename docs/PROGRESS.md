@@ -70,3 +70,4 @@
 - 2026-08-28 | OpenCode | 合并 `feature/site-triangle-scrollaway-fix` 至 main（merge commit df5a90f）；分支已双向删除，main 已 push，Vercel 生产部署自动触发；首页倒三角 scroll-away 生产构建修复已发布；建议线上首页补验一次倒三角滚动淡出 | main@df5a90f
 
 - 2026-08-29 | OpenCode | 用户发现 `/projects` 页面拾光集移动商城卡片缺少在线预览按钮（previewLink 为 null），指定由 Codex 处理；已在 TASKS.md 建立 `feature/site-project2-preview-link` 任务条目，范围限定 `apps/site/src/pages/projects.astro` 的 project-2 previewLink 字段 | feature/dispatch-site-project2-preview-link
+- 2026-08-29 | Codex | 仅将 projects.astro 中 project-2 的 previewLink 从 null 改为生产域名 `https://project-2-liard-mu.vercel.app`，未改模板、样式、文案、技术栈、首页组件或其他页面；site build 与改动文件 Prettier 检查通过。本地 dev 4321 实测两张卡片均有在线预览/查看源码，href、target、rel 正确，点击商城预览后新标签页打开生产 `/home`（标题“拾光集 · Mobile Shop”）；project-1 原链接不变；首页/文章列表/文章详情均 HTTP 200，1280×720 目检布局正常，四页无横向溢出。同步任务完成状态；不含商城业务、真机及本分支线上 Preview 验收，待 Claude Code 审查后交 OpenCode 合并，不推 main | feature/site-project2-preview-link
