@@ -183,3 +183,4 @@ git push -u origin feature/<任务名>
 - project-2 共享 AI 的 `/api/ai` rewrite 必须在商城 `/api/:path*` 之前；Vite dev 不运行 Serverless，应直接兜底，不能把 prompt 发到商城。限流是实例内存计数，不是全局费用上限；真实 key 仅放服务端 `DEEPSEEK_API_KEY`。DeepSeek 已公告旧 `deepseek-chat` 名称停用，部署时显式配置有效模型，细节和验收边界见 project-2 README。
 - site 视觉注释每页可能从 Comment 1 重新编号，报告需使用页面前缀并保留 URL、选择器及 CSS 视口；标记截图像素不等于 CSS 像素。删除范围以标记元素为准，不将首页技术栈/项目区或文章局部按钮的删除扩大到其他页面同名内容；静态截图也不能作为动效、移动端或改版验收通过的证据。
 - site 的“首屏只展示名言”指主体内容，不默认移走顶部导航。滚动入场需按实际滚动位置采样，不能用静态终态证明先后顺序；按钮入场用独立 `translate` 属性，避免覆盖 hover 的 `transform`。不支持 CSS 视图时间线时保留可读内容；声明字体名不等于字体实际加载，本地得意黑接入需单独验证且不通过全局 `--font-quote` 扩大到未授权页面。
+- Astro 7（Vite/Lightning CSS）生产构建会把 `animation-timeline` 长声明合并进 `animation` 简写（如 `animation: linear both cue-scroll-away --home-quote`），Chrome 不接受简写中的时间线组件，会整条丢弃声明导致动画静默失效，且 dev 模式不复现；滚动驱动动画必须复查构建产物中的声明是否存活，或改用 IntersectionObserver + 时间动画方案（site Hero 入场 2026-08-28 已按后者重写）。

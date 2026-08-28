@@ -10,6 +10,12 @@ const quotes = [
 ];
 ---
 
+<!-- Runs during parse so the entry pre-hide state (html.hero-js) is in place
+     before first paint; without JS nothing is hidden. -->
+<script is:inline>
+  document.documentElement.classList.add("hero-js");
+</script>
+
 <section class="hero-container" aria-label="首页主要内容">
   <div class="quote-screen">
     <!-- Centerpiece: Transparent Quotes Rotator (HOME-02: 4s stay, 1.2s crossfade) -->
@@ -135,10 +141,47 @@ const quotes = [
     startAutoPlay();
   }
 
+  function setupHeroEntry() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const intro = document.querySelector<HTMLElement>(".hero-intro");
+    if (!intro) return;
+
+    if (!("IntersectionObserver" in window)) {
+      intro.classList.add("is-entered");
+      return;
+    }
+
+    // Fires once the intro has scrolled ~25% up the viewport, matching the
+    // old "entry 30%" pacing; plays once, never reverses on scroll back.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          intro.classList.add("is-entered");
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -25% 0px" },
+    );
+
+    // Keyboard users can reach the buttons before scrolling; enter early
+    // instead of leaving the focus target invisible.
+    intro.addEventListener("focusin", () => {
+      intro.classList.add("is-entered");
+      observer.disconnect();
+    });
+
+    observer.observe(intro);
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", setupQuoteCarousel);
+    document.addEventListener("DOMContentLoaded", () => {
+      setupQuoteCarousel();
+      setupHeroEntry();
+    });
   } else {
     setupQuoteCarousel();
+    setupHeroEntry();
   }
 </script>
 
@@ -278,8 +321,6 @@ const quotes = [
     align-items: center;
     justify-content: center;
     gap: clamp(1.25rem, 3vw, 2rem);
-    view-timeline-name: --home-intro;
-    view-timeline-axis: block;
   }
 
   .hero-intro::before {
@@ -334,6 +375,8 @@ const quotes = [
     font-size: 0.95rem;
   }
 
+  /* The cue's scroll-away keeps using a scroll timeline where supported;
+     elsewhere the static floating cue (cue-float) remains. */
   @supports (animation-timeline: view()) {
     .quote-screen {
       view-timeline: --home-quote block;
@@ -344,37 +387,50 @@ const quotes = [
       animation-timeline: --home-quote;
       animation-range: exit 0% exit 40%;
     }
+  }
 
-    @media (prefers-reduced-motion: no-preference) {
-      .hero-desc > span,
-      .hero-actions > .btn {
-        animation: intro-enter linear both;
-        animation-timeline: --home-intro;
-        animation-range: entry 30% entry 65%;
-      }
+  /* Entry animation without scroll timelines: the observer adds .is-entered
+     to .hero-intro when it scrolls into view, then this time-based stagger
+     plays once. Items pre-hide only when JS is present (html.hero-js set
+     inline during parse), so no-JS and reduced-motion users see static
+     content. 0.7s per item with a 0.24s step reproduces the old entry-range
+     rhythm (35% duration, 12% stagger). */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-desc {
+      --entry-offset: clamp(-180px, -16vw, -48px);
+    }
 
-      .hero-desc > span:nth-child(2),
-      .hero-actions > .btn:nth-child(2) {
-        animation-range: entry 42% entry 77%;
-      }
+    .hero-actions {
+      --entry-offset: clamp(48px, 16vw, 180px);
+    }
 
-      .hero-desc > span:nth-child(3) {
-        animation-range: entry 54% entry 89%;
-      }
+    html.hero-js .hero-desc > span,
+    html.hero-js .hero-actions > .btn {
+      opacity: 0;
+    }
 
-      .hero-desc {
-        --entry-offset: clamp(-180px, -16vw, -48px);
-      }
+    html.hero-js .hero-intro.is-entered .hero-desc > span,
+    html.hero-js .hero-intro.is-entered .hero-actions > .btn {
+      animation: intro-enter 0.7s var(--ease-out-spring) both;
+    }
 
-      .hero-actions {
-        --entry-offset: clamp(48px, 16vw, 180px);
-      }
+    html.hero-js .hero-intro.is-entered .hero-desc > span:nth-child(2),
+    html.hero-js .hero-intro.is-entered .hero-actions > .btn:nth-child(2) {
+      animation-delay: 0.24s;
+    }
 
-      /* Keyboard focus must never land on an invisible action. */
-      .hero-intro:focus-within .hero-desc > span,
-      .hero-intro:focus-within .hero-actions > .btn {
-        animation: none;
-      }
+    html.hero-js .hero-intro.is-entered .hero-desc > span:nth-child(3) {
+      animation-delay: 0.48s;
+    }
+
+    /* Keyboard focus must never land on an invisible action. */
+    html.hero-js .hero-intro:not(.is-entered):focus-within .hero-desc > span,
+    html.hero-js
+      .hero-intro:not(.is-entered):focus-within
+      .hero-actions
+      > .btn {
+      animation: none;
+      opacity: 1;
     }
   }
 
