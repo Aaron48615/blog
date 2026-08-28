@@ -13,7 +13,15 @@ const quotes = [
 <!-- Runs during parse so the entry pre-hide state (html.hero-js) is in place
      before first paint; without JS nothing is hidden. -->
 <script is:inline>
-  document.documentElement.classList.add("hero-js");
+  (function () {
+    document.documentElement.classList.add("hero-js");
+    if (
+      !window.matchMedia ||
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      document.documentElement.classList.add("hero-quote-loading");
+    }
+  })();
 </script>
 
 <section class="hero-container" aria-label="首页主要内容">
@@ -97,6 +105,7 @@ const quotes = [
     const root = document.getElementById("quote-carousel");
     if (!root) return;
 
+    const stage = root.querySelector<HTMLElement>(".quote-stage");
     const slides = Array.from(
       root.querySelectorAll<HTMLElement>(".quote-slide"),
     );
@@ -138,7 +147,40 @@ const quotes = [
     root.addEventListener("focusin", stopAutoPlay);
     root.addEventListener("focusout", startAutoPlay);
 
-    startAutoPlay();
+    // 每次进入页面随机选一条名言起始，之后按顺序循环。
+    const startIndex = Math.floor(Math.random() * slides.length);
+    slides.forEach((slide) => {
+      slide.classList.remove("is-active");
+      slide.setAttribute("aria-hidden", "true");
+    });
+    currentIndex = startIndex;
+    slides[currentIndex]?.classList.add("is-active");
+    slides[currentIndex]?.setAttribute("aria-hidden", "false");
+
+    // 减少动态效果 / 无 JS 用户直接可见；否则等得意黑加载后再淡入，
+    // 避免先看到楷体 fallback 再闪切成艺术字。
+    if (
+      !stage ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      startAutoPlay();
+      return;
+    }
+
+    const fontLoad =
+      typeof document.fonts !== "undefined"
+        ? document.fonts.load('700 1em "Smiley Sans Oblique"')
+        : Promise.reject();
+    const timeout = new Promise<void>((resolve) =>
+      window.setTimeout(resolve, 2000),
+    );
+
+    Promise.race([fontLoad, timeout])
+      .catch(() => undefined)
+      .then(() => {
+        document.documentElement.classList.remove("hero-quote-loading");
+        startAutoPlay();
+      });
   }
 
   function setupHeroEntry() {
@@ -283,6 +325,11 @@ const quotes = [
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: opacity 1.2s ease-in-out;
+  }
+
+  html.hero-quote-loading .quote-stage {
+    opacity: 0;
   }
 
   .quote-slide {
