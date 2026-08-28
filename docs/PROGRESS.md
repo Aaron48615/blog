@@ -68,3 +68,5 @@
 - 2026-08-28 | zcode (GLM 5.3 Flash) | 修复首页倒三角 scroll-away 生产构建失效：按任务方向 1 将 Hero.astro 的 `--home-quote` 视图时间线与 `cue-scroll-away` 关键帧替换为 `setupScrollCue()` IntersectionObserver（threshold 0.9 观察 `.quote-screen`）toggle `.is-away`，在既有 `no-preference` 媒体块内用 0.5s opacity/transform 过渡实现上移 4rem 淡出、回顶可逆恢复；方向 2（调整声明写法躲压缩器）因未来可能换路径静默复发而弃用。基线构建复现了 `animation:linear both cue-scroll-away --home-quote` 合并产物；修复后 build 通过且产物 CSS 无任何滚动时间线声明、新增声明全部存活；preview 4324 滚动采样（顶/150/400/页底 728.5/回顶，中间态 0.667/-21px）与新起 dev 4321 完全一致；无 JS 模拟 cue 静态可见、轮播与入场回归通过、Prettier 通过；另发现陈旧 dev 进程模块图过期致 dev 首屏几何与生产不一致，已记入 AGENTS.md Gotchas 并重启 dev 复验 | feature/site-triangle-scrollaway-fix
 
 - 2026-08-28 | OpenCode | 合并 `feature/site-triangle-scrollaway-fix` 至 main（merge commit df5a90f）；分支已双向删除，main 已 push，Vercel 生产部署自动触发；首页倒三角 scroll-away 生产构建修复已发布；建议线上首页补验一次倒三角滚动淡出 | main@df5a90f
+
+- 2026-08-29 | OpenCode | 用户发现 `/projects` 页面拾光集移动商城卡片缺少在线预览按钮（previewLink 为 null），指定由 Codex 处理；已在 TASKS.md 建立 `feature/site-project2-preview-link` 任务条目，范围限定 `apps/site/src/pages/projects.astro` 的 project-2 previewLink 字段 | feature/dispatch-site-project2-preview-link
