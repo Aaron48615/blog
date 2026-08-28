@@ -174,14 +174,42 @@ const quotes = [
     observer.observe(intro);
   }
 
+  function setupScrollCue() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const quoteScreen = document.querySelector<HTMLElement>(".quote-screen");
+    const cue = document.querySelector<HTMLElement>(".scroll-cue");
+    if (!quoteScreen || !cue) return;
+    if (!("IntersectionObserver" in window)) return;
+
+    // Scroll timelines (animation-timeline) get folded into the `animation`
+    // shorthand by the production CSS minifier and Chrome then drops the
+    // whole declaration; see AGENTS.md Gotchas. Toggle a class instead and
+    // let the CSS transition play the fade.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          // ~10% of the first screen scrolled out: hide the cue; fully
+          // visible again: bring it back.
+          cue.classList.toggle("is-away", entry.intersectionRatio < 0.9);
+        }
+      },
+      { threshold: 0.9 },
+    );
+
+    observer.observe(quoteScreen);
+  }
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
       setupQuoteCarousel();
       setupHeroEntry();
+      setupScrollCue();
     });
   } else {
     setupQuoteCarousel();
     setupHeroEntry();
+    setupScrollCue();
   }
 </script>
 
@@ -375,20 +403,6 @@ const quotes = [
     font-size: 0.95rem;
   }
 
-  /* The cue's scroll-away keeps using a scroll timeline where supported;
-     elsewhere the static floating cue (cue-float) remains. */
-  @supports (animation-timeline: view()) {
-    .quote-screen {
-      view-timeline: --home-quote block;
-    }
-
-    .scroll-cue {
-      animation: cue-scroll-away linear both;
-      animation-timeline: --home-quote;
-      animation-range: exit 0% exit 40%;
-    }
-  }
-
   /* Entry animation without scroll timelines: the observer adds .is-entered
      to .hero-intro when it scrolls into view, then this time-based stagger
      plays once. Items pre-hide only when JS is present (html.hero-js set
@@ -432,16 +446,24 @@ const quotes = [
       animation: none;
       opacity: 1;
     }
-  }
 
-  @keyframes cue-scroll-away {
-    from {
-      opacity: 1;
-      transform: translateY(0);
+    /* Cue scroll-away without scroll timelines: scroll-driven
+       animation-timeline declarations get folded into the `animation`
+       shorthand by the production CSS minifier and Chrome drops the whole
+       declaration (see AGENTS.md Gotchas). Instead the observer toggles
+       .is-away once the quote screen is ~10% out of view; this transition
+       plays the fade/rise and reverses when the screen is fully visible
+       again. Without JS .is-away never exists and the static floating cue
+       (cue-float) remains. */
+    .scroll-cue {
+      transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
     }
-    to {
+
+    .scroll-cue.is-away {
       opacity: 0;
-      transform: translateY(var(--cue-scroll-offset, -4rem));
+      transform: translateY(-4rem);
     }
   }
 
@@ -489,10 +511,6 @@ const quotes = [
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .scroll-cue {
-      --cue-scroll-offset: 0px;
-    }
-
     .scroll-cue::before {
       animation: none;
     }
