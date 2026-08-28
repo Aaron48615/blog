@@ -43,6 +43,10 @@
 - [x] Site 视觉规范制定与基于 DESIGN.md 重做 (v2) | owner: Antigravity | 验收: DESIGN.md 经用户确认，重构为 Vestris 调色板与精简双栏 | 分支: feature/site-design-system
 - [x] Site 视觉规范 DESIGN.md v3 制定与全站重构 | owner: Antigravity | 范围: 基于 VISUAL_AUDIT.md 19 条注释制定 v3 规范、复制头像入库、重写四页样式与动效 | 验收: 得意黑艺术字+楷宋兜底、1.2s淡入淡出+4s停留、头像素材复用、四页样式重写与单屏例外落实，pnpm --filter site build 通过，19 条注释逐条验收 | 分支: feature/site-design-v3
 
+## project-2 功能修复（迁移后回归）
+
+- [~] 旧项目 2 迁移后功能回归修复 | owner: Codex | 范围: 基于用户在浏览器页面注释，修复 project-2 各页面按钮点击、表单提交、弹窗交互等功能缺失问题；只改功能交互，不重做视觉 | 验收: 用户注释点全部修复，首页/分类/商品详情/购物车/我的/登录/注册核心操作可点击、可提交、有反馈，pnpm --filter project-2 test/build 通过，Vercel Preview 复验通过 | 分支: 待创建
+
 ## Phase 4 — 收尾
 
 - [x] Site 生产视觉审计与用户注释整理 | owner: Codex | 范围: 覆盖 `/`、`/projects`、`/posts`、`/posts/hello-blog`，整理为 `apps/site/docs/VISUAL_AUDIT.md`，供 Antigravity 制定 DESIGN.md v3；未改样式、组件、页面代码或 DESIGN.md | 结果: 四页 19 条注释全部整理，含原话/定位/事实/优先级/建议/验收口径、跨页边界与交接提示词；头像源文件已只读核验，复制留给 Antigravity；同步任务/进度与审计 Gotcha | 交接: 本审计分支提交推送后交 Claude Code 文档审查，再由 Antigravity 制定 v3、用户确认后实施；不代表改版验收完成 | 分支: `feature/site-visual-audit`
