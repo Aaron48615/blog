@@ -47,6 +47,10 @@
 
 - [~] 旧项目 2 迁移后功能回归修复 | owner: Codex | 范围: 基于用户在浏览器页面注释，修复 project-2 各页面按钮点击、表单提交、弹窗交互等功能缺失问题；只改功能交互，不重做视觉 | 验收: 用户注释点全部修复，首页/分类/商品详情/购物车/我的/登录/注册核心操作可点击、可提交、有反馈，pnpm --filter project-2 test/build 通过，Vercel Preview 复验通过 | 分支: 待创建
 
+## site 样式后续调整（待 project-2 功能修复完成后启动）
+
+- [ ] Site 样式进一步调整 | owner: Antigravity | 依赖: project-2 功能修复完成 | 范围: 基于用户在浏览器页面注释，对个人站 `apps/site` 进行下一轮视觉/样式微调；只改样式，不改内容模型与路由 | 验收: 用户注释点全部落实，四页视觉一致，`pnpm --filter site build` 通过 | 分支: 待创建
+
 ## Phase 4 — 收尾
 
 - [x] Site 生产视觉审计与用户注释整理 | owner: Codex | 范围: 覆盖 `/`、`/projects`、`/posts`、`/posts/hello-blog`，整理为 `apps/site/docs/VISUAL_AUDIT.md`，供 Antigravity 制定 DESIGN.md v3；未改样式、组件、页面代码或 DESIGN.md | 结果: 四页 19 条注释全部整理，含原话/定位/事实/优先级/建议/验收口径、跨页边界与交接提示词；头像源文件已只读核验，复制留给 Antigravity；同步任务/进度与审计 Gotcha | 交接: 本审计分支提交推送后交 Claude Code 文档审查，再由 Antigravity 制定 v3、用户确认后实施；不代表改版验收完成 | 分支: `feature/site-visual-audit`
