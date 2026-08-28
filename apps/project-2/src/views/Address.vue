@@ -454,6 +454,14 @@ const searchResult = ref([]);
   background: rgba(255, 255, 255, 0.98);
 }
 
+.addr-list > :deep(.van-nav-bar--fixed) {
+  width: 100%;
+  max-width: var(--shop-viewport-width);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
 .address-page :deep(.van-nav-bar::after) {
   border-color: var(--shop-border);
 }
