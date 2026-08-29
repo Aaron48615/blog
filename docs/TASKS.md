@@ -66,7 +66,7 @@
 
 ## 紧急 — 国内访问修复
 
-- [ ] Vercel 项目国内访问恢复（自定义域名方案） | owner: 用户（购买域名）+ OpenCode（配置） | 依赖: 用户购买域名、Vercel 免费部署配额恢复 | 范围: 为 site / project-1 / project-2 配置自定义域名，DNS CNAME 指向 `cname-china.vercel-dns.com.`，验证大陆网络可访问；不改动代码 | 验收: 国内无 VPN 环境下三个项目首页均可正常打开；site 最终需部署最新 main（当前因配额未更新） | 分支: 待创建
+- [~] Vercel 项目国内访问恢复（自定义域名方案） | owner: 用户（购买域名）+ OpenCode（配置） | 依赖: 用户购买域名、Vercel 免费部署配额恢复 | 范围: 为 site / project-1 / project-2 配置自定义域名，DNS CNAME 指向 `cname-china.vercel-dns.com.`，验证大陆网络可访问；本次仅更新 site 项目页中的预览链接，不改动其他代码 | 结果: 用户已购买域名 aaronsite.top 并完成阿里云 DNS + Vercel 绑定（www/city/shop）；site 项目页拾光集与云枢的 previewLink 已改为自定义域名 | 验收: 国内无 VPN 环境下三个项目首页均可正常打开；site 最终需部署最新 main（当前 Vercel 免费部署配额仍可能受限） | 分支: `feature/site-project-links-custom-domain`
 
 ## Phase 4 — 收尾
 
