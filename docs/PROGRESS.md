@@ -82,3 +82,5 @@
 - 2026-08-29 | OpenCode | 经 Claude Code 审查通过，合并 `feature/site-style-polish-round3` 至 main（merge commit 9661a6c）；分支已双向删除，main 已 push，Vercel 生产部署自动触发；Site projects 页测试账号、卡片顺序与样式调整已发布；建议线上 /projects 验证两张卡片顺序、账号显示及链接跳转 | main@9661a6c
 - 2026-08-29 | OpenCode | 用户已购买域名 aaronsite.top 并完成阿里云 DNS + Vercel 绑定；从 main 切出 `feature/site-project-links-custom-domain`，仅将 projects.astro 中拾光集移动商城 previewLink 改为 `https://shop.aaronsite.top`、云枢智慧城市 previewLink 改为 `https://city.aaronsite.top`；`pnpm --filter site build` 通过，Prettier 无改动；同步更新 TASKS.md 国内访问修复任务为进行中并补充域名/链接状态；交 Claude Code review | feature/site-project-links-custom-domain
 - 2026-08-29 | OpenCode | 经 Claude Code 审查通过，合并 `feature/site-project-links-custom-domain` 至 main（merge commit 35e535d）；分支已双向删除，main 已 push，Vercel 生产部署自动触发；Site projects 页预览链接已改为自定义域名；待配额恢复后线上 /projects 验证无 VPN 跳转 shop/city.aaronsite.top | main@35e535d
+- 2026-08-29 | 用户 | 确认 www.aaronsite.top、shop.aaronsite.top、city.aaronsite.top 在国内无 VPN 环境下均可正常访问；自定义域名方案验收通过 | main@35e535d
+- 2026-08-29 | OpenCode | 应用户要求，将 project-2 移动商城退出登录按钮功能缺失问题派发给 Codex；在 TASKS.md 登记任务，范围限定 `apps/project-2` 退出登录功能修复，不改样式/布局/API 代理/路由/其他页面 | feature/update-tasks-logout-dispatch

@@ -47,6 +47,7 @@
   - 地址页 Comment 1：`https://project-2-liard-mu.vercel.app/address`，1018×779，`.addr-list > .van-nav-bar--fixed` 顶栏未匹配手机容器。线上几何断言复现顶栏宽 1018px、内容宽 375px；仅在 Address.vue 给列表固定顶栏添加共享宽度上限及左右自动居中，本地同一断言通过：顶栏与内容均为 375px、左边界均为 321.5px，保持 fixed/top=0，无横向溢出，三个标题/操作文本均在栏内。模板、业务逻辑、配色及新增/编辑页顶栏未改，未操作地址数据；80 项测试、build/类型检查通过。视口切换未实际生效，本条手机尺寸待补验；尚未合并或发布生产。
   - 搜索页 Comment 1：`https://project-2-s68heljei-aaronsblog.vercel.app/search`，1018×779，搜索框最右侧清空图标（截图区域 x=609.02、y=63.63、24.05×23.90）。真实鼠标点击后输入未清空；当前 Vant 原生图标只绑定 `touchstart`。仅在 Search.vue 为该图标补充捕获阶段的鼠标/笔 pointerdown，保留 Vant 触屏处理；清空时取消待发送 AI 防抖、重置建议，过期请求不可回填。本地同一鼠标断言及 375×667 视口通过，真机触屏尚未验证，不推广到其他页面。
   - 搜索页 Comment 2：同 URL、1018×779，`.search .ai-suggestion`。原部署 `/api/ai` 返回 503 / `AI service is not configured`；页面另有丢弃通用 fallback 的缺陷，已保留分类规则并接回通用建议，本地“茶叶”“输入”均显示五条可点击词条。用户随后授权 Production 配置，后台确认服务端变量原仅覆盖 Preview；已仅将 `DEEPSEEK_API_KEY`（Secret、不读取或重填明文）与 `DEEPSEEK_API_MODEL=deepseek-v4-flash` 扩展至 Production + Preview，不含 Development。Production 保留代码默认官方地址及每 IP 10 次/分钟、50 次/小时的实例内基础限流，未修改其余变量或代理。重部署已合并的 main@1b59883（`dpl_Gk2PesW98eGP3AsS9fwdiz5QGj7W`）Ready，新独立地址 `https://project-2-nemp0dxq6-aaronsblog.vercel.app`；生产域名 `https://project-2-liard-mu.vercel.app/api/ai` 实测 200、`error:null`、五条真实生成建议及 `no-store`。旧独立部署地址不自动获得新配置；新生产搜索页待用户登录后复验，清空/兜底代码仍在功能分支，未随此次生产重部署发布。
+- [ ] project-2 退出登录按钮功能修复 | owner: Codex（用户本轮指定） | 范围: 仅修复 `apps/project-2` 中退出登录按钮的点击功能；清除本地登录态并跳转登录页；不改样式/布局/API 代理/路由/其他页面功能 | 验收: `pnpm --filter project-2 build`、类型检查与相关测试通过；本地 dev 登录后可在对应页面点击退出登录按钮，清除 token/登录态并跳转 `/login`；不破坏其他功能 | 边界: 仅修复按钮功能缺失问题，不扩大至未点名的登录/注册/购物车/交易链路；线上 Preview 与真机待补验 | 分支: 待创建
 
 ## site 后续调整（待 project-2 功能修复完成后启动）
 
@@ -66,7 +67,7 @@
 
 ## 紧急 — 国内访问修复
 
-- [~] Vercel 项目国内访问恢复（自定义域名方案） | owner: 用户（购买域名）+ OpenCode（配置） | 依赖: 用户购买域名、Vercel 免费部署配额恢复 | 范围: 为 site / project-1 / project-2 配置自定义域名，DNS CNAME 指向 `cname-china.vercel-dns.com.`，验证大陆网络可访问；本次仅更新 site 项目页中的预览链接，不改动其他代码 | 结果: 用户已购买域名 aaronsite.top 并完成阿里云 DNS + Vercel 绑定（www/city/shop）；site 项目页拾光集与云枢的 previewLink 已改为自定义域名 | 验收: 国内无 VPN 环境下三个项目首页均可正常打开；site 最终需部署最新 main（当前 Vercel 免费部署配额仍可能受限） | 分支: `feature/site-project-links-custom-domain`
+- [x] Vercel 项目国内访问恢复（自定义域名方案） | owner: 用户（购买域名）+ OpenCode（配置） | 依赖: 用户购买域名、Vercel 免费部署配额恢复 | 范围: 为 site / project-1 / project-2 配置自定义域名，DNS CNAME 指向 `cname-china.vercel-dns.com.`，验证大陆网络可访问；本次仅更新 site 项目页中的预览链接，不改动其他代码 | 结果: 用户已购买域名 aaronsite.top 并完成阿里云 DNS + Vercel 绑定（www/city/shop）；site 项目页拾光集与云枢的 previewLink 已改为自定义域名；用户确认国内无 VPN 环境下 www/shop/city.aaronsite.top 均可正常打开 | 验收: 国内无 VPN 环境下三个项目首页均可正常打开 | 分支: `feature/site-project-links-custom-domain`（已合并到 main@35e535d）
 
 ## Phase 4 — 收尾
 
