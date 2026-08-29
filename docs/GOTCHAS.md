@@ -16,3 +16,4 @@
 - site 的“首屏只展示名言”指主体内容，不默认移走顶部导航。滚动入场需按实际滚动位置采样，不能用静态终态证明先后顺序；按钮入场用独立 `translate` 属性，避免覆盖 hover 的 `transform`。不支持 CSS 视图时间线时保留可读内容；声明字体名不等于字体实际加载，本地得意黑接入需单独验证且不通过全局 `--font-quote` 扩大到未授权页面。
 - Astro 7（Vite/Lightning CSS）生产构建会把 `animation-timeline` 长声明合并进 `animation` 简写（如 `animation: linear both cue-scroll-away --home-quote`），Chrome 不接受简写中的时间线组件，会整条丢弃声明导致动画静默失效，且 dev 模式不复现；滚动驱动动画必须复查构建产物中的声明是否存活，或改用 IntersectionObserver + 时间动画方案（site Hero 入场与首页倒三角 scroll-away 2026-08-28 均已按后者重写，site 内已无滚动时间线声明）。
 - site 的陈旧 `astro dev` 进程可能持有过期模块图：2026-08-28 实测一个早前遗留的 dev 进程（4323）不应用 index.astro 的首页 header fixed 覆盖与 site-main padding 归零（header 仍 sticky 占位、`.quote-screen` top=98px、maxScroll 比生产多 170px），首屏几何与生产构建不一致会直接干扰动效采样结论；几何对不上时先停掉旧 dev 进程重启再对比。
+- Vercel 的 monorepo `Skip deployment` 依赖 workspace 图，不是简单按 Root Directory 过滤；workspace 外的 `docs/*`、根 `AGENTS.md`、`.gitignore` 等会被视为全局变化。`docs/` 已注册为无 app 依赖的 `@personal-hub/docs` workspace，高频任务/进度/决策/Gotchas 应写入该目录；根级配置变化仍允许触发三个 app。
