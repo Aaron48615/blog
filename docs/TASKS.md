@@ -8,6 +8,7 @@
 - [x] apps/site Astro 脚手架 + 基础布局（首页/关于/项目列表） | owner: OpenCode Go | 验收: `pnpm --filter site dev` 可跑，三页可访问
 - [x] 根目录格式化与 lint 配置（Prettier + 各 app 自带 lint） | owner: Codex | 验收: 全仓库 `pnpm format` 通过
 - [x] Vercel 绑定：site 先上线（Hello World 即可） | owner: Codex | 验收: push main 自动部署，域名可访问
+- [~] Vercel monorepo 文档 workspace 隔离 | owner: Codex | 范围: 将 `docs/` 注册为独立 pnpm workspace，把高频 Gotchas 从根 `AGENTS.md` 迁入文档分册并同步所有 AI 入口 | 验收: pnpm workspace/锁文件识别 `@personal-hub/docs`，现有 Gotchas 无丢失，纯 `docs/*` 提交不再被 Vercel 视为三个 app 的全局变更 | 分支: `feature/vercel-skip-docs-workspace`
 
 ## Phase 2 — 旧项目迁移
 
@@ -74,4 +75,4 @@
 
 - [x] Site 生产视觉审计与用户注释整理 | owner: Codex | 范围: 覆盖 `/`、`/projects`、`/posts`、`/posts/hello-blog`，整理为 `apps/site/docs/VISUAL_AUDIT.md`，供 Antigravity 制定 DESIGN.md v3；未改样式、组件、页面代码或 DESIGN.md | 结果: 四页 19 条注释全部整理，含原话/定位/事实/优先级/建议/验收口径、跨页边界与交接提示词；头像源文件已只读核验，复制留给 Antigravity；同步任务/进度与审计 Gotcha | 交接: 本审计分支提交推送后交 Claude Code 文档审查，再由 Antigravity 制定 v3、用户确认后实施；不代表改版验收完成 | 分支: `feature/site-visual-audit`
 - [ ] 全站 Lighthouse 走查（性能/SEO/无障碍） | owner: claude-code review + 用户拍板 | 验收: 四项 ≥ 90
-- [ ] 各 AI 把踩坑写进 AGENTS.md 的 Gotchas | owner: 全体 | 验收: 至少各 1 条
+- [ ] 各 AI 把踩坑写进 `docs/GOTCHAS.md` | owner: 全体 | 验收: 至少各 1 条

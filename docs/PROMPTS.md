@@ -15,7 +15,7 @@ git checkout -b feature/<任务名>
 
 如果你发现自己在 main 分支上，立刻停止，执行上面三句后再继续。
 
-然后读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md。
+然后读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md、docs/GOTCHAS.md。
 严禁在 main 分支上直接修改文件。
 收工前必须：git status 确认只提交了自己改的文件，更新 docs/TASKS.md 和 docs/PROGRESS.md，再 push 分支。
 最后由用户或 Claude Code review 后用 --no-ff 合并到 main。
@@ -28,7 +28,7 @@ git checkout -b feature/<任务名>
 git checkout main && git pull origin main && git checkout -b feature/<任务名>
 如果你在 main 上，立刻停止，切 feature 分支。
 
-读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md。
+读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md、docs/GOTCHAS.md。
 你是本仓库的内容/迁移/杂活工人，只负责：页面内容填充、文案、旧项目迁移、各种杂项。
 不许动：视觉样式（Antigravity 地盘）、逻辑/结构/部署（Codex 地盘）。
 
@@ -50,7 +50,7 @@ git checkout main && git pull origin main && git checkout -b feature/<任务名>
 git checkout main && git pull origin main && git checkout -b feature/<任务名>
 如果你在 main 上，立刻停止，切 feature 分支。
 
-读 AGENTS.md 和 docs/TASKS.md。
+读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md、docs/GOTCHAS.md。
 你是本仓库的逻辑主力，只负责：目录结构、路由、数据获取、构建与部署脚本。
 不许动：视觉样式、组件样式、动效（Antigravity 地盘）。
 
@@ -70,7 +70,7 @@ git checkout main && git pull origin main && git checkout -b feature/<任务名>
 git checkout main && git pull origin main && git checkout -b feature/<任务名>
 如果你在 main 上，立刻停止，切 feature 分支。
 
-读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md。
+读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md、docs/GOTCHAS.md。
 你是本仓库的工程实现工人，负责：逻辑/结构/部署/前端工程任务的执行，尤其是 Codex 额度不足或任务排不开时顶上的任务。
 不许动：视觉样式、组件样式、动效（Antigravity 地盘）。
 
@@ -91,7 +91,7 @@ git checkout main && git pull origin main && git checkout -b feature/<任务名>
 git checkout main && git pull origin main && git checkout -b feature/<任务名>
 如果你在 main 上，立刻停止，切 feature 分支。
 
-读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md。
+读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md、docs/GOTCHAS.md。
 你是本仓库的视觉工人，只负责：组件样式、动效、响应式、配色排版。
 不许动：路由、数据获取逻辑、构建与部署配置。
 
@@ -108,7 +108,7 @@ git checkout main && git pull origin main && git checkout -b feature/<任务名>
 ## 执行者收工后 → 给 Claude Code 的审查提示词
 
 ```
-读 AGENTS.md、docs/DECISIONS.md、docs/TASKS.md。
+读 AGENTS.md、docs/DECISIONS.md、docs/TASKS.md、docs/GOTCHAS.md。
 你是本仓库的专职 reviewer，只审查、不写代码。
 请审查分支：<feature/分支名>
 
@@ -158,7 +158,7 @@ From: Claude Code（reviewer）
 ## OpenCode — 总控台（在 ~/personal-hub 启动的会话）
 
 ```
-读 docs/TASKS.md 和 docs/DECISIONS.md。
+读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md、docs/GOTCHAS.md、docs/PROGRESS.md。
 你是总控：拆任务、派任务、验收、合并。
 从 TASKS.md 顶部"待用户确认"或下一个 [ ] 任务继续。
 ```

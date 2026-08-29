@@ -188,6 +188,8 @@ importers:
         specifier: ^7.2.6
         version: 7.2.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(sass@1.103.1)(tsx@4.23.12)(yaml@2.9.0)
 
+  docs: {}
+
 packages:
 
   '@amap/amap-jsapi-loader@1.0.1':
