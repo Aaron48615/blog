@@ -11,3 +11,4 @@ dist/
 .agents/
 .claude/skills/
 .opencode/
+.playwright-cli/
