@@ -77,3 +77,4 @@
 - 2026-08-29 | OpenCode | 经 Claude Code 审查通过，合并 `feature/site-quote-random-fade-font` 至 main（merge commit fc6ba8d）；分支已双向删除，main 已 push，Vercel 生产部署自动触发；Site 首页名言随机起始、1.2s 淡入与得意黑防闪切已发布；建议线上首页刷新几次验证随机起始与无 fallback 闪现 | main@fc6ba8d
 - 2026-08-29 | OpenCode | 将 Vercel 国内访问修复（自定义域名 + cname-china 方案）列为最高优先级任务；等待用户购买域名，当前 site 生产版本因部署配额未更新，project-1/project-2 同样受 *.vercel.app 国内屏蔽影响 | feature/task-custom-domain-china
 - 2026-08-29 | OpenCode | 合并 `feature/task-custom-domain-china` 至 main（merge commit f9976fd）；分支已双向删除，main 已 push；国内访问修复任务已写入任务看板最前列 | main@f9976fd
+- 2026-08-29 | OpenCode | 应用户要求，将 `apps/site` 第三轮注释驱动样式微调派发给 Codex；在 TASKS.md 登记 `feature/site-style-polish-round3` 任务，范围限定用户在线注释对应的样式/布局，不改内容模型/路由/数据/功能逻辑 | feature/dispatch-site-style-polish-round3
