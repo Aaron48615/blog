@@ -177,6 +177,7 @@ git push -u origin feature/<任务名>
 - Astro 构建时如遇到 `~/Library/Preferences/astro/config.json` 权限问题（沙箱/CI 环境），可设置环境变量 `ASTRO_TELEMETRY_DISABLED=1` 禁用遥测配置写入。
 - Vercel 首次导入 GitHub 仓库时需安装 GitHub App；应选“Only select repositories”限制到目标仓库，并在 Deploy 前复核 monorepo Root Directory（如 `apps/site`）。
 - project-1 的 `http://116.62.230.90:9999` 是 API 文档服务，不是业务 API；配置代理前应以实际接口（如验证码）验证目标，当前业务请求需保留 `/api` 前缀并转发到端口 80。
+- project-1 自定义域名静态页可访问不代表外部 HTTP rewrite 稳定：2026-08-29 实测 `city.aaronsite.top/api/auth/captcha` 在真实浏览器 10 秒超时、curl 12 秒零字节超时，而端口 80 上游连续 5 次约 0.16–0.20 秒。生产代理已改为 `api/[...path].ts` Vercel Function；排查此类问题需分别量化直连上游与同源代理，并在 Preview 验证 Function 路由，不要仅提高 Axios 超时掩盖链路故障。
 - project-2 迁移需保留 `vue-tsc --build` 验收：旧项目混用 JS API 与 TS 视图，要启用 `allowJs` 并显式标注空数组/对象状态类型；`postcss-pxtorem` 需配套类型声明，Sass 引入的 `@parcel/watcher` 安装脚本需在根 `allowBuilds` 单独许可。Vite 自动生成的声明文件不做 Prettier 格式化，避免每次 build 弄脏工作区。
 - project-2 的 `VITE_AI_API_KEY` 不得填写共享真实密钥，Dashboard 中的 `VITE_*` 同样可能被打包；客户端已移除该变量读取并限制 `envPrefix`。商城代理只转发业务 Authorization，不转发 Vercel Cookie/内部头，不跟随重定向且禁用缓存；Vercel 到旧后端仍是 HTTP，不能视为端到端加密。
 - project-2 的 JSON 接口成功不代表图片可加载：`shop-static.edu.koobietech.com` 返回 HTTP 图片地址，2026-08-27 实测 HTTPS 证书域名不匹配；由 `/shop-images/*` 固定来源代理提供图片，禁止转发凭据或代理 SVG/HTML。首页接口需隔离失败，避免一个公告请求失败让轮播图与商品一起消失；部署验收要实际检查图片及部分接口失败场景。
