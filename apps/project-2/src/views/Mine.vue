@@ -77,7 +77,9 @@
     </section>
 
     <div class="logout-area">
-      <van-button class="logout-button" type="danger">退出登录</van-button>
+      <van-button class="logout-button" type="danger" @click="logout">
+        退出登录
+      </van-button>
     </div>
   </main>
 </template>
@@ -86,6 +88,7 @@
 import { ref, reactive, onMounted } from "vue";
 import { orderCountInfo, collectionCountInfo } from "../api/mine";
 import { useRouter } from "vue-router";
+import { delToken } from "../utils/auth";
 
 const router = useRouter();
 // const countList = ref([]);
@@ -125,6 +128,10 @@ const goAddr = () => {
 };
 const goMyOrder = () => {
   router.push("/myorder");
+};
+const logout = () => {
+  delToken();
+  router.push("/login");
 };
 </script>
 
