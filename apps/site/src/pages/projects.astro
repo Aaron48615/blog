@@ -3,6 +3,27 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const projects = [
   {
+    name: "拾光集移动商城系统",
+    stack: [
+      "Vue 3",
+      "JavaScript",
+      "TypeScript",
+      "Vant 4",
+      "Vite",
+      "Axios",
+      "Sass",
+      "PostCSS(pxtorem)",
+      "CryptoJS",
+      "DeepSeek 大模型",
+    ],
+    description:
+      "拾光集移动商城系统是一款面向 C 端消费者的移动电商应用。项目实现了用户注册登录、首页推荐、商品分类与搜索、商品详情等功能，并在功能页面接入大模型实现商品搜索联想和卖点生成。",
+    testAccount: "ceshizhanghu",
+    testPassword: "@abc123",
+    previewLink: "https://project-2-liard-mu.vercel.app",
+    repoLink: "https://github.com/Aaron48615/blog/tree/main/apps/project-2",
+  },
+  {
     name: "云枢智慧城市数据平台",
     stack: [
       "React 19",
@@ -20,27 +41,10 @@ const projects = [
     ],
     description:
       "该平台是一套面向城市运营人员和数据分析人员的智慧城市数据可视化平台。实现了城市运行数据的集中展示，提供城市运行指标总览、交通拥堵排行、公共设施与城市事件分析的数据可视化与多维交互。",
+    testAccount: "TestNA",
+    testPassword: "testna123",
     previewLink: "https://project-1-jade-omega.vercel.app",
     repoLink: "https://github.com/Aaron48615/blog/tree/main/apps/project-1",
-  },
-  {
-    name: "拾光集移动商城系统",
-    stack: [
-      "Vue 3",
-      "JavaScript",
-      "TypeScript",
-      "Vant 4",
-      "Vite",
-      "Axios",
-      "Sass",
-      "PostCSS(pxtorem)",
-      "CryptoJS",
-      "DeepSeek 大模型",
-    ],
-    description:
-      "拾光集移动商城系统是一款面向 C 端消费者的移动电商应用。项目实现了用户注册登录、首页推荐、商品分类与搜索、商品详情等功能，并在功能页面接入大模型实现商品搜索联想和卖点生成。",
-    previewLink: "https://project-2-liard-mu.vercel.app",
-    repoLink: "https://github.com/Aaron48615/blog/tree/main/apps/project-2",
   },
 ];
 ---
@@ -70,6 +74,10 @@ const projects = [
             </div>
 
             <p class="project-description">{project.description}</p>
+            <p class="project-test-account">
+              <span>测试账号：{project.testAccount}</span>
+              <span>测试账号密码：{project.testPassword}</span>
+            </p>
 
             <div class="project-footer">
               <div class="stack-wrap">
@@ -209,8 +217,19 @@ const projects = [
     font-size: 1rem;
     color: var(--color-text-secondary);
     line-height: 1.8;
-    margin-bottom: 2rem;
+    margin-bottom: 0.75rem;
     max-width: 82ch;
+  }
+
+  .project-test-account {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.25rem;
+    margin: 0 0 2rem;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    font-style: italic;
+    line-height: 1.7;
   }
 
   .project-footer {
