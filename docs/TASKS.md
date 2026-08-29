@@ -8,7 +8,7 @@
 - [x] apps/site Astro 脚手架 + 基础布局（首页/关于/项目列表） | owner: OpenCode Go | 验收: `pnpm --filter site dev` 可跑，三页可访问
 - [x] 根目录格式化与 lint 配置（Prettier + 各 app 自带 lint） | owner: Codex | 验收: 全仓库 `pnpm format` 通过
 - [x] Vercel 绑定：site 先上线（Hello World 即可） | owner: Codex | 验收: push main 自动部署，域名可访问
-- [~] Vercel monorepo 文档 workspace 隔离 | owner: Codex | 范围: 将 `docs/` 注册为独立 pnpm workspace，把高频 Gotchas 从根 `AGENTS.md` 迁入文档分册并同步所有 AI 入口 | 验收: pnpm workspace/锁文件识别 `@personal-hub/docs`，现有 Gotchas 无丢失，纯 `docs/*` 提交不再被 Vercel 视为三个 app 的全局变更 | 分支: `feature/vercel-skip-docs-workspace`
+- [x] Vercel monorepo 文档 workspace 隔离 | owner: Codex | 范围: 将 `docs/` 注册为独立 pnpm workspace，把高频 Gotchas 从根 `AGENTS.md` 迁入文档分册并同步所有 AI 入口 | 结果: 根 package 补齐唯一名称/private/packageManager，pnpm workspace 与锁文件新增 `@personal-hub/docs`，14 条既有 Gotchas 逐字迁移且 OpenCode/执行者/reviewer 提示词全部指向新分册；三个 app 生产构建通过 | 验收: 纯 docs 提交 `42ea134` 的 Vercel GitHub 状态中 project-1、aaron-site、project-2 均为 `Skipped - Not affected`，确认不创建无关构建 | 边界: 根 `AGENTS.md`、`.gitignore`、workspace 配置等根级变化仍按全局变化处理 | 分支: `feature/vercel-skip-docs-workspace`
 
 ## Phase 2 — 旧项目迁移
 
