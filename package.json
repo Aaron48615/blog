@@ -1,4 +1,7 @@
 {
+  "name": "@personal-hub/root",
+  "private": true,
+  "packageManager": "pnpm@11.10.0",
   "scripts": {
     "format": "prettier --write ."
   },
