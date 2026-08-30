@@ -1,5 +1,5 @@
 <template>
-  <div class="category" :aria-busy="isInitialLoading || isProductLoading">
+  <main class="category" :aria-busy="isInitialLoading || isProductLoading">
     <!-- 搜索，点击跳转搜索页面  -->
     <van-search placeholder="点此搜索" @click="goSearch"></van-search>
 
@@ -44,6 +44,10 @@
       @click-nav="handleNav"
     >
       <template #content>
+        <van-image
+          :src="list[activeIndex]?.pic"
+          :alt="list[activeIndex]?.categoryName || '商品分类'"
+        />
         <!-- 切换分类时只替换右侧内容，保留左侧菜单 -->
         <van-skeleton
           v-if="isProductLoading"
@@ -53,7 +57,6 @@
           animate
         />
         <template v-else>
-          <van-image :src="list[activeIndex]?.pic" />
           <van-card
             v-for="item in prodList"
             :key="item.prodId"
@@ -61,13 +64,23 @@
             :price="item.price"
             :desc="item.brief"
             :title="item.prodName"
-            :thumb="item.pic"
             @click="goProdInfo(item)"
-          />
+          >
+            <template #thumb>
+              <van-image
+                width="100%"
+                height="100%"
+                fit="cover"
+                :src="item.pic"
+                :alt="item.prodName"
+                lazy-load
+              />
+            </template>
+          </van-card>
         </template>
       </template>
     </van-tree-select>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -148,6 +161,7 @@ const init = async () => {
     console.log(activeIndex.value);
     // 刚进页面就要把右侧商品数据拿到，不然不能渲染
     const category = list.value[activeIndex.value];
+    isInitialLoading.value = false;
     if (category) await changeList(category.categoryId);
   } catch (err: any) {
     console.error("分类页数据加载失败：", err);
@@ -362,6 +376,6 @@ const goProdInfo = (val: prodItem) => {
 }
 
 .category :deep(.van-card__num) {
-  color: var(--shop-text-muted);
+  color: var(--shop-text-secondary);
 }
 </style>

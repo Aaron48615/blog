@@ -39,7 +39,6 @@
       <van-empty
         v-else-if="!cartGroups.length"
         class="cart-empty"
-        image="https://fastly.jsdelivr.net/npm/@vant/assets/custom-empty-image.png"
         description="购物车还是空的"
       >
         <van-button round class="cart-empty__button" to="/home"
@@ -609,7 +608,7 @@ const submitOrder = () => {
   }
 
   :deep(.van-empty__description) {
-    color: #8c8780;
+    color: #655f58;
     font-size: 28px;
   }
 

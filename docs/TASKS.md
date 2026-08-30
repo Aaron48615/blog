@@ -74,5 +74,5 @@
 ## Phase 4 — 收尾
 
 - [x] Site 生产视觉审计与用户注释整理 | owner: Codex | 范围: 覆盖 `/`、`/projects`、`/posts`、`/posts/hello-blog`，整理为 `apps/site/docs/VISUAL_AUDIT.md`，供 Antigravity 制定 DESIGN.md v3；未改样式、组件、页面代码或 DESIGN.md | 结果: 四页 19 条注释全部整理，含原话/定位/事实/优先级/建议/验收口径、跨页边界与交接提示词；头像源文件已只读核验，复制留给 Antigravity；同步任务/进度与审计 Gotcha | 交接: 本审计分支提交推送后交 Claude Code 文档审查，再由 Antigravity 制定 v3、用户确认后实施；不代表改版验收完成 | 分支: `feature/site-visual-audit`
-- [ ] 全站 Lighthouse 走查（性能/SEO/无障碍） | owner: claude-code review + 用户拍板 | 验收: 四项 ≥ 90
+- [~] 全站 Lighthouse 走查（性能/SEO/无障碍） | owner: Codex（执行）+ Claude Code（review）+ 用户拍板 | 验收: 四项 ≥ 90
 - [ ] 各 AI 把踩坑写进 `docs/GOTCHAS.md` | owner: 全体 | 验收: 至少各 1 条

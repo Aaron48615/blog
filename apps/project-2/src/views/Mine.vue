@@ -6,8 +6,8 @@
         width="2.133333rem"
         height="2.133333rem"
         fit="cover"
-        src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-        alt="张三的头像"
+        src="../assets/shiguang-logo.svg"
+        alt="拾光集用户头像"
       >
         <template #error>
           <van-icon class="avatar-placeholder" name="contact" />
@@ -237,7 +237,7 @@ const logout = () => {
 .view-all {
   font-size: 0.346667rem;
   line-height: 0.48rem;
-  color: var(--shop-text-muted);
+  color: var(--shop-text-secondary);
 }
 
 .order-list {
@@ -352,7 +352,7 @@ const logout = () => {
   width: 2.346667rem;
   height: 1.173333rem;
   padding: 0;
-  color: var(--shop-primary);
+  color: var(--shop-primary-dark);
   background: var(--shop-primary-light);
   border-color: transparent;
   border-radius: 0.266667rem;
