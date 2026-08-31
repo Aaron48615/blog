@@ -3,14 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no"
+      name="description"
+      content="拾光集移动商城，提供商品推荐、分类、搜索、购物车与个人中心等移动购物体验。"
     />
+    <style>
+      html {
+        font-size: min(10vw, 2.34375em);
+      }
+
+      body {
+        margin: 0;
+        background: #fff;
+      }
+
+      #app {
+        width: 100%;
+        max-width: 10rem;
+        min-height: 100vh;
+        margin: 0 auto;
+        background: #fff;
+      }
+
+      .app-boot-placeholder {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        color: #5f695f;
+        font:
+          500 0.426667rem/1.5 system-ui,
+          sans-serif;
+      }
+    </style>
     <title>拾光集 · Mobile Shop</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div class="app-boot-placeholder" role="status" aria-label="页面加载中">
+        拾光集
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

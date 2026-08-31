@@ -128,6 +128,14 @@
   color: rgba(203, 194, 225, 0.5);
 }
 
+.form .ant-input-password-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
 .fieldIcon {
   display: inline-grid;
   width: 16px;
@@ -148,7 +156,7 @@
   background: linear-gradient(100deg, #716dff, #9a68f5) !important;
 }
 
-.form>.ant-form-item:last-child {
+.form > .ant-form-item:last-child {
   margin-bottom: 0;
 }
 
@@ -181,7 +189,7 @@
 }
 
 .spin {
-  left: calc(50% - 20px)
+  left: calc(50% - 20px);
 }
 
 .captchaImg {
@@ -189,5 +197,5 @@
   height: 60px;
   margin: 0 auto;
   display: block;
-  background: #F0F1F5;
+  background: #f0f1f5;
 }

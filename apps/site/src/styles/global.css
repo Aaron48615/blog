@@ -3,21 +3,8 @@
    apps/site Phase 3.6 | Pure CSS, Zero Runtime JS Overheads
    ========================================================================== */
 
-/* Smiley Sans (得意黑) - Open Source SIL OFL 1.1 Webfont */
-@font-face {
-  font-family: "Smiley Sans";
-  src:
-    local("Smiley Sans"),
-    local("SmileySans-Oblique"),
-    url("https://cdn.jsdelivr.net/npm/smiley-sans@1.1.1/dist/smiley-sans.woff2")
-      format("woff2");
-  font-weight: 400 800;
-  font-style: normal, oblique;
-  font-display: swap;
-}
-
 /* 得意黑 Smiley Sans Oblique v2.0.1 本地托管（文件/许可证见 public/fonts/）。
-   仅首页名言经 --font-quote-home 使用；全局 --font-quote 仍走上方 CDN 声明，其他页面不受影响。
+   仅首页名言经 --font-quote-home 使用；其他引文使用系统楷体/宋体栈，避免下载未使用的大字体。
    单一静态字重故声明 400 800 范围覆盖 700 请求，避免合成加粗；字形自带倾斜，font-style 用 normal 避免二次倾斜。 */
 @font-face {
   font-family: "Smiley Sans Oblique";
@@ -49,7 +36,7 @@
   --color-text-primary: #1d1d1d;
   --color-text-forest: #233426;
   --color-text-secondary: #556157;
-  --color-text-muted: #7e8a80;
+  --color-text-muted: #5f695f;
   --color-text-dim: #a0aba2;
   --color-text-on-dark-primary: #f8faf6;
   --color-text-on-dark-secondary: #c4d1c6;
@@ -84,8 +71,8 @@
     "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei",
     sans-serif;
   --font-quote:
-    "Smiley Sans", "Kaiti SC", "STKaiti", "KaiTi", "Songti SC",
-    "Source Han Serif SC", "Noto Serif CJK SC", "Georgia", serif;
+    "Kaiti SC", "STKaiti", "KaiTi", "Songti SC", "Source Han Serif SC",
+    "Noto Serif CJK SC", "Georgia", serif;
   --font-serif:
     "Instrument Serif", Georgia, "Songti SC", "Source Han Serif SC", serif;
   --font-mono:

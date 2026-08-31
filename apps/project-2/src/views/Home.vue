@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page" :aria-busy="isLoading">
+  <main class="home-page" :aria-busy="isLoading">
     <!-- 搜索，点击跳转搜索页面  -->
     <van-search placeholder="点此搜索" @click="goSearch"></van-search>
     <div v-if="!isLoading && failedSections.length" role="alert">
@@ -24,12 +24,18 @@
     <van-swipe
       v-else
       class="my-swipe"
-      :autoplay="3000"
+      :autoplay="8000"
       indicator-color="white"
       lazy-render
     >
-      <van-swipe-item v-for="item in bannerList" :key="item.seq">
-        <van-image width="100%" height="185" :src="item.imgUrl" />
+      <van-swipe-item v-for="(item, bannerIndex) in bannerList" :key="item.seq">
+        <img
+          class="banner-image"
+          :src="item.imgUrl"
+          :alt="`商城轮播图 ${bannerIndex + 1}`"
+          :fetchpriority="bannerIndex === 0 ? 'high' : 'auto'"
+          decoding="async"
+        />
       </van-swipe-item>
     </van-swipe>
     <!-- 商品导航 -->
@@ -123,23 +129,30 @@
         <van-grid :column-num="3" :center="false" :border="false" :gutter="5">
           <van-grid-item
             class="prod-item"
-            v-for="item in prodList[index]?.productDtoList"
-            :key="item.prodId"
-            @click="goProdInfo(item)"
+            v-for="product in prodList[index]?.productDtoList"
+            :key="product.prodId"
+            @click="goProdInfo(product)"
           >
-            <van-image width="2.72rem" height="2.72rem" :src="item.pic" />
+            <van-image
+              width="2.72rem"
+              height="2.72rem"
+              fit="cover"
+              :src="product.pic"
+              :alt="product.prodName"
+              lazy-load
+            />
             <van-text-ellipsis
               class="prod-title"
-              :content="item.prodName"
+              :content="product.prodName"
               rows="2"
             />
-            <p class="prod-price">¥{{ item.price }}</p>
+            <p class="prod-price">¥{{ product.price }}</p>
           </van-grid-item>
         </van-grid>
       </div>
     </template>
     <div class="space"></div>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -357,6 +370,13 @@ const goProdInfo = (val: prodItem) => {
   text-align: center;
 }
 
+.banner-image {
+  display: block;
+  width: 100%;
+  height: 4.933333rem;
+  object-fit: cover;
+}
+
 .my-swipe {
   width: calc(100% - 0.64rem);
   margin: 0 0.32rem;
@@ -439,7 +459,7 @@ const goProdInfo = (val: prodItem) => {
 
 .prod-more {
   font-size: 0.4rem;
-  color: var(--shop-text-muted);
+  color: var(--shop-text-secondary);
   float: right;
 }
 

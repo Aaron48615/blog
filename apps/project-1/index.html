@@ -4,10 +4,37 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="云枢智慧城市数据平台，提供城市运行指标、交通、设施与事件数据的可视化分析。"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+
+      #root {
+        min-height: 100vh;
+      }
+
+      .app-boot-placeholder {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        color: #30344a;
+        font:
+          600 28px/1.4 system-ui,
+          sans-serif;
+      }
+    </style>
     <title>云枢智慧城市数据平台</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="app-boot-placeholder" role="status" aria-label="页面加载中">
+        云枢智慧城市数据平台
+      </div>
+    </div>
     <!-- AMAP_SECURITY -->
     <script type="module" src="/src/main.tsx"></script>
   </body>

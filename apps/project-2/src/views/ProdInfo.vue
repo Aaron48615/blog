@@ -1,5 +1,5 @@
 <template>
-  <div class="prod-info-page" :aria-busy="isInitialLoading || aiLoading">
+  <main class="prod-info-page" :aria-busy="isInitialLoading || aiLoading">
     <!-- 商品主体加载前显示简化骨架，AI 卖点使用原有独立加载状态 -->
     <van-skeleton v-if="isInitialLoading" class="prod-info-skeleton" animate>
       <template #template>
@@ -35,9 +35,20 @@
 
     <template v-else>
       <!-- 轮播 -->
-      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-        <van-swipe-item v-for="item in skuList" :key="item.skuId">
-          <van-image :src="item.pic" width="100%" height="10rem" fit="cover" />
+      <van-swipe
+        class="my-swipe"
+        :autoplay="8000"
+        indicator-color="white"
+        lazy-render
+      >
+        <van-swipe-item v-for="(item, imageIndex) in skuList" :key="item.skuId">
+          <img
+            class="product-hero-image"
+            :src="item.pic"
+            :alt="`${prodList.prodName || '商品'}图片 ${imageIndex + 1}`"
+            :fetchpriority="imageIndex === 0 ? 'high' : 'auto'"
+            decoding="async"
+          />
         </van-swipe-item>
       </van-swipe>
       <div class="container">
@@ -155,7 +166,11 @@
           <div class="context">
             <h3>{{ prodList.prodName }}</h3>
             <div class="desc">{{ prodList.brief }}</div>
-            <van-image :src="prodList.pic" />
+            <van-image
+              :src="prodList.pic"
+              :alt="prodList.prodName || '商品图片'"
+              lazy-load
+            />
           </div>
         </div>
         <!-- 购物面板 -->
@@ -224,7 +239,7 @@
         </van-action-sheet>
       </div>
     </template>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -322,6 +337,8 @@ const init = async () => {
     loadSku();
     isShow.value = data.content != "";
     formatHtmlValue.value = formatHtml(data.content);
+    // 商品主体先展示，收藏和评价等辅助数据继续并行加载，避免阻塞首屏商品图。
+    isInitialLoading.value = false;
 
     // 收藏和评价互不依赖，并行加载
     const [collection, comment] = await Promise.all([
@@ -527,6 +544,13 @@ const toPay = () => {
   background: var(--shop-surface);
 }
 
+.product-hero-image {
+  display: block;
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+}
+
 .my-swipe :deep(.van-swipe__indicator--active) {
   background: var(--shop-primary);
 }
@@ -662,7 +686,7 @@ const toPay = () => {
 }
 
 .custom-value {
-  color: var(--shop-text-muted);
+  color: var(--shop-text-secondary);
 }
 
 .comment-option {

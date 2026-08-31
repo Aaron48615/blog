@@ -1,47 +1,84 @@
-import * as echarts from 'echarts';
-import type { EChartsOption, EChartsType } from 'echarts';
-import { memo, useEffect, useRef } from 'react';
-import type { CSSProperties } from 'react';
-import type { RootState } from '@/store';
-import { useSelector } from 'react-redux';
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
+import type { EChartsOption } from "echarts";
 
 interface ChartRenderProps {
-    option: EChartsOption;
-    height?: CSSProperties['height'];
+  option: EChartsOption;
+  height?: CSSProperties["height"];
 }
 
-const ChartRender = memo(({ option, height = 300 }: ChartRenderProps) => {
-    // dom的ref
-    const chartRef = useRef<HTMLDivElement | null>(null);
-    // echarts示例
-    const instanceRef = useRef<EChartsType | null>(null);
-    // 引入themeSlice数据
-    const { mode } = useSelector((s: RootState) => s.themeSlice)
-    // 风格变化
-    useEffect(() => {
-        // const instance = echarts.init(chartRef.current);
-        if (!chartRef.current) return;
-        const instance = mode == 'light' ? echarts.init(chartRef.current) : echarts.init(chartRef.current, 'dark');
-        instanceRef.current = instance
-        const handleResize = () => instance.resize();
-        window.addEventListener('resize', handleResize)
-        return () => { 
-            window.removeEventListener('resize', handleResize);
-            instance.dispose();
-            instanceRef.current = null;
-        }
-    }, [mode])
+const ChartRenderImpl = lazy(() => import("./ChartRenderImpl"));
 
-    // option变化
-    useEffect(() => {
-        if (option && instanceRef.current) {
-            instanceRef.current.setOption(option, true)
-        }
-    }, [option,mode])
+export default function ChartRender(props: ChartRenderProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
 
-    return (
-        <div ref={chartRef} style={{width: '100%', height}}></div>
-    )
-})
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || typeof IntersectionObserver === "undefined") {
+      setShouldLoad(true);
+      return;
+    }
+    let isNearViewport = false;
+    let hasInteraction = window.scrollY > 0;
+    const maybeLoad = () => {
+      if (isNearViewport && hasInteraction) {
+        setShouldLoad(true);
+        observer.disconnect();
+        removeInteractionListeners();
+      }
+    };
+    const handleInteraction = () => {
+      hasInteraction = true;
+      maybeLoad();
+    };
+    const interactionEvents = [
+      "pointerdown",
+      "keydown",
+      "focusin",
+      "wheel",
+      "touchmove",
+    ];
+    const removeInteractionListeners = () => {
+      for (const event of interactionEvents) {
+        window.removeEventListener(event, handleInteraction);
+      }
+      document.removeEventListener("scroll", handleInteraction, true);
+    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isNearViewport = entry.isIntersecting;
+        maybeLoad();
+      },
+      { rootMargin: "200px" },
+    );
+    observer.observe(container);
+    for (const event of interactionEvents) {
+      window.addEventListener(event, handleInteraction, {
+        once: true,
+        passive: true,
+      });
+    }
+    document.addEventListener("scroll", handleInteraction, {
+      capture: true,
+      once: true,
+      passive: true,
+    });
+    return () => {
+      observer.disconnect();
+      removeInteractionListeners();
+    };
+  }, []);
 
-export default ChartRender
+  return (
+    <div ref={containerRef} style={{ minHeight: props.height ?? 300 }}>
+      {shouldLoad ? (
+        <Suspense fallback={<div>图表加载中...</div>}>
+          <ChartRenderImpl {...props} />
+        </Suspense>
+      ) : (
+        <div>图表加载中...</div>
+      )}
+    </div>
+  );
+}

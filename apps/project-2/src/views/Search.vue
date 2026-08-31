@@ -1,5 +1,5 @@
 <template>
-  <div
+  <main
     class="search"
     :aria-busy="isInitialLoading || isSearchLoading || aiLoading"
   >
@@ -201,7 +201,7 @@
         >
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -502,7 +502,7 @@ watch(keyWord, (newVal) => {
   --van-card-price-color: var(--shop-primary);
   --van-search-background: var(--shop-page-bg);
   --van-search-content-background: var(--shop-surface);
-  --van-search-action-text-color: var(--shop-primary);
+  --van-search-action-text-color: var(--shop-primary-dark);
 
   min-height: 100vh;
   color: var(--shop-text);
