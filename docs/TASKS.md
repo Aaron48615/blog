@@ -74,5 +74,5 @@
 ## Phase 4 — 收尾
 
 - [x] Site 生产视觉审计与用户注释整理 | owner: Codex | 范围: 覆盖 `/`、`/projects`、`/posts`、`/posts/hello-blog`，整理为 `apps/site/docs/VISUAL_AUDIT.md`，供 Antigravity 制定 DESIGN.md v3；未改样式、组件、页面代码或 DESIGN.md | 结果: 四页 19 条注释全部整理，含原话/定位/事实/优先级/建议/验收口径、跨页边界与交接提示词；头像源文件已只读核验，复制留给 Antigravity；同步任务/进度与审计 Gotcha | 交接: 本审计分支提交推送后交 Claude Code 文档审查，再由 Antigravity 制定 v3、用户确认后实施；不代表改版验收完成 | 分支: `feature/site-visual-audit`
-- [~] 全站 Lighthouse 走查（性能/SEO/无障碍） | owner: Codex（执行）+ Claude Code（review）+ 用户拍板 | 已完成: 三站生产基线、最小化源码修复、本地 production build 复测、project-1/project-2 Preview 复测；无障碍/最佳实践已稳定 ≥ 90，商城 CLS 已归零 | 待完成: site Preview 受 Deployment Protection 阻挡；Preview 自带 noindex 且冷缓存/API/第三方图片使性能与 SEO 不可作为生产终验，需 review 合并发布后复测三个自定义域名，低于 90 的第三方依赖项由用户确认例外或另开基础设施任务 | 分支: `feature/lighthouse-audit`（代码 `b901e77`、`b95837b`）
+- [~] 全站 Lighthouse 走查（性能/SEO/无障碍） | owner: Codex（执行）+ Claude Code（review）+ 用户拍板 | 生产复测: 12 个目标页面移动/桌面各 3 次取中位数；project-2 六页全部四项 ≥90，site 除首页移动性能外全部通过，project-1 登录页及桌面仪表盘通过 | 本分支修复: site 首页 1.15MiB 完整 CJK 字体改为约 8KiB/54 字符子集，保留原字形与淡入逻辑；本地 production build 移动端 3 次均 100/100/100/100，待合并发布后补跑生产首页 | 待用户确认例外: project-1 仪表盘移动 Performance 中位数 82（Ant Design table/color/select 首屏依赖与异步路由链，继续提升需另开 UI 依赖瘦身/架构任务） | 报告: `apps/site/docs/LIGHTHOUSE_AUDIT.md` | 分支: `feature/lighthouse-production-recheck`
 - [ ] 各 AI 把踩坑写进 `docs/GOTCHAS.md` | owner: 全体 | 验收: 至少各 1 条
