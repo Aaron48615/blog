@@ -105,3 +105,4 @@
 - 2026-09-03 | OpenCode | 经 Claude Code 审查通过，合并 `feature/lighthouse-production-recheck` 至 main；`main@6333174` 部署稳定后，对 `https://www.aaronsite.top/` 首页移动端串行运行 Lighthouse 13.4.1 三次，中位数 100/100/100/100，FCP 1.2s、LCP 1.3s、CLS 0、TBT 0ms，字体子集 `SmileySans-QuoteSubset.woff2` 传输 8,237 字节并确认在生产生效；更新 `apps/site/docs/LIGHTHOUSE_AUDIT.md` 关闭 site 首页未达标项
 - 2026-09-03 | 用户 / OpenCode | 用户确认接受 project-1 仪表盘移动 Performance 82 为例外，原因归结为 Ant Design 首屏依赖；`docs/TASKS.md` 中全站 Lighthouse 任务标记为 `[x]` 完成，`apps/site/docs/LIGHTHOUSE_AUDIT.md` 同步更新终验结论；Phase 4 仅剩「各 AI 补充 `docs/GOTCHAS.md`」一项
 - 2026-09-03 | OpenCode Go | Phase 4 收尾：统一整理并追加 5 条踩坑到 `docs/GOTCHAS.md`（Antigravity/Codex/OpenCode Go/zcode 各 ≥1 条），同步更新 `docs/TASKS.md` 与 `docs/PROGRESS.md`；`pnpm format` 与 `git diff --check` 通过后提交 push | feature/gotchas-round
+- 2026-09-03 | OpenCode | 经 Claude Code 审查通过，合并 `feature/gotchas-round` 至 main；`docs/GOTCHAS.md` 新增 5 条 AI 踩坑记录，`docs/TASKS.md` 中 Phase 4 三项任务全部标记为 `[x]`；分支已双向删除，整个 Phase 4 收尾完成
