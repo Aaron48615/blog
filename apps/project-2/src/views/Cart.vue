@@ -29,12 +29,13 @@
       </template>
     </van-cell>
 
-    <section class="cart-content" aria-live="polite">
-      <template v-if="isLoading">
-        <div v-for="index in 2" :key="index" class="cart-skeleton">
-          <van-skeleton title :row="2" avatar avatar-shape="square" />
-        </div>
-      </template>
+    <section class="cart-content" aria-live="polite" :aria-busy="isLoading">
+      <SkeletonList
+        v-if="isLoading"
+        class="cart-skeleton"
+        :count="2"
+        avatar-size="0.853333rem"
+      />
 
       <van-empty
         v-else-if="!cartGroups.length"
@@ -150,6 +151,7 @@
 </template>
 
 <script setup lang="ts">
+import SkeletonList from "../components/SkeletonList.vue";
 import { computed, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { showFailToast, showSuccessToast, showToast } from "vant";
@@ -592,10 +594,11 @@ const submitOrder = () => {
 }
 
 .cart-skeleton {
-  margin-bottom: 24px;
-  padding: 48px 32px;
-  background: var(--cart-paper);
-  border-radius: 24px;
+  --skeleton-card-gap: 0.32rem;
+  --skeleton-card-padding: 0.64rem 0.426667rem;
+  --skeleton-card-background: var(--cart-paper);
+  --skeleton-card-radius: 0.32rem;
+  --skeleton-row-height: 0.426667rem;
 }
 
 .cart-empty {
