@@ -30,18 +30,11 @@
     <!-- 商品展示 -->
     <div class="main">
       <!-- 搜索请求期间显示简化商品卡片骨架 -->
-      <div class="search-result-skeleton" v-if="isSearchLoading">
-        <van-skeleton
-          v-for="item in 3"
-          :key="item"
-          class="search-result-skeleton__card"
-          title
-          :row="2"
-          avatar
-          avatar-shape="square"
-          animate
-        />
-      </div>
+      <SkeletonList
+        v-if="isSearchLoading"
+        class="search-result-skeleton"
+        avatar-size="2.346667rem"
+      />
       <!-- 商品卡 -->
       <div class="prod-list" v-else-if="prodList.length">
         <van-card
@@ -205,6 +198,7 @@
 </template>
 
 <script setup lang="ts">
+import SkeletonList from "../components/SkeletonList.vue";
 import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import { useRouter } from "vue-router";
 import type { prodItem } from "../types/home";
@@ -546,15 +540,9 @@ watch(keyWord, (newVal) => {
 
 .search-result-skeleton {
   padding: 0 0.32rem;
-}
-
-.search-result-skeleton__card {
-  padding: 0.32rem;
-  margin-bottom: 0.213333rem;
-  background: var(--shop-surface);
-  border-radius: 0.213333rem;
-  --van-skeleton-avatar-size: 2.346667rem;
-  --van-skeleton-paragraph-height: 0.32rem;
+  --skeleton-card-padding: 0.32rem;
+  --skeleton-card-gap: 0.213333rem;
+  --skeleton-card-radius: 0.213333rem;
 }
 
 .search-hot-skeleton {

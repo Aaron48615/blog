@@ -14,18 +14,12 @@
     <van-tabs v-model:active="active" sticky @click-tab="onClickTab">
       <van-tab v-for="item in tabs" :key="item.status" :title="item.title">
         <!-- 每个标签页首次加载时显示简化订单骨架 -->
-        <div v-if="item.state.initialLoading" class="my-order-skeleton">
-          <van-skeleton
-            v-for="index in 2"
-            :key="index"
-            class="my-order-skeleton__card"
-            title
-            :row="3"
-            avatar
-            avatar-shape="square"
-            animate
-          />
-        </div>
+        <SkeletonList
+          v-if="item.state.initialLoading"
+          class="my-order-skeleton"
+          :count="2"
+          :row="3"
+        />
         <!-- 空状态 -->
         <van-empty
           class="order-empty"
@@ -81,6 +75,7 @@
 </template>
 
 <script setup lang="ts">
+import SkeletonList from "../components/SkeletonList.vue";
 import { ref, reactive, onMounted } from "vue";
 import { myOrderInfo, payInfo, receiptInfo } from "../api/order";
 import { showDialog } from "vant";
@@ -309,15 +304,7 @@ const onClickLeft = () => history.back();
 
 .my-order-skeleton {
   padding: 0.32rem;
-}
-
-.my-order-skeleton__card {
-  padding: 0.4rem;
-  margin-bottom: 0.32rem;
-  background: var(--shop-surface);
-  border-radius: 0.266667rem;
-  --van-skeleton-avatar-size: 2.133333rem;
-  --van-skeleton-paragraph-height: 0.32rem;
+  --skeleton-card-gap: 0.32rem;
 }
 
 .order-empty {

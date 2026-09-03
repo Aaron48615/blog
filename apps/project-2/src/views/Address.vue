@@ -17,18 +17,11 @@
       />
 
       <!-- 地址列表加载前显示简化卡片骨架 -->
-      <div v-if="isInitialLoading" class="address-skeleton">
-        <van-skeleton
-          v-for="item in 3"
-          :key="item"
-          class="address-skeleton__card"
-          title
-          :row="2"
-          avatar
-          avatar-shape="square"
-          animate
-        />
-      </div>
+      <SkeletonList
+        v-if="isInitialLoading"
+        class="address-skeleton"
+        avatar-size="1.6rem"
+      />
 
       <van-address-list
         v-else
@@ -88,6 +81,7 @@
 </template>
 
 <script setup lang="ts">
+import SkeletonList from "../components/SkeletonList.vue";
 import { ref, computed, onMounted } from "vue";
 import {
   addrInfo,
@@ -479,15 +473,6 @@ const searchResult = ref([]);
 .address-skeleton {
   padding: 1.546667rem 0.32rem 0.32rem;
   background: var(--shop-page-bg);
-}
-
-.address-skeleton__card {
-  padding: 0.4rem;
-  margin-bottom: 0.266667rem;
-  background: var(--shop-surface);
-  border-radius: 0.266667rem;
-  --van-skeleton-avatar-size: 1.6rem;
-  --van-skeleton-paragraph-height: 0.32rem;
 }
 
 .address-list {

@@ -16,6 +16,7 @@ declare module 'vue' {
     OrderAddressCard: typeof import('./src/components/OrderAddressCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SkeletonList: typeof import('./src/components/SkeletonList.vue')['default']
     SkuTags: typeof import('./src/components/SkuTags.vue')['default']
     Tabbar: typeof import('./src/components/Tabbar.vue')['default']
     VanActionBar: typeof import('vant/es')['ActionBar']
