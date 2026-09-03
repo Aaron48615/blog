@@ -595,7 +595,7 @@ const submitOrder = () => {
 
 .cart-skeleton {
   --skeleton-card-gap: 0.32rem;
-  --skeleton-card-padding: 0.64rem 0.853333rem;
+  --skeleton-card-padding: 0.64rem 0.426667rem;
   --skeleton-card-background: var(--cart-paper);
   --skeleton-card-radius: 0.32rem;
   --skeleton-row-height: 0.426667rem;

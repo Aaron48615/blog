@@ -42,6 +42,8 @@
 
 ## project-2 功能修复（迁移后回归）
 
+- [x] project-2 公共骨架屏审查修正 | owner: Codex | 范围: 按 Claude Code 对 517e2c0 的唯一反馈，将 Cart 骨架水平 padding 从原任务给定的 0.853333rem 修正为 0.426667rem，与 main 原 32px 经 rootValue 75 换算后的尺寸一致；其余实现不变 | 验收: `pnpm --filter project-2 build`（含类型检查）、改动文件格式/diff 检查通过；独立 Chrome 对生产构建仅复验购物车 375×667 / 320×568，左右 padding 分别为 16px / 13.6533px，纵向/间距/圆角与原换算一致，均显示 2 卡且无横向溢出，两张截图目检及请求结束恢复空态通过；未重跑上一条实现记录中的 24 组矩阵，未验线上或真机 | 分支: `feature/project-2-shared-skeleton`（待 Claude Code 复核本处修正，再交 OpenCode/用户合并）
+
 - [x] project-2 公共列表骨架屏实现与本地验收 | owner: Codex | 范围: 新增 SkeletonList.vue，接入 Search/Cart/MyOrder/Address 列表占位并补齐组件声明；保留专用骨架、loading/请求/异常处理/空态分支，不加依赖 | 验收: 修改前后 `pnpm --filter project-2 type-check --force` 均通过，无已有或新增类型错误；`pnpm --filter project-2 build`、改动文件 Prettier 与 diff 检查通过。独立 Chrome 对本地生产构建在 375×667 / 320×568 完成四页×非空/空数据/失败共 24 组检查：搜索/地址 3 卡、购物车/订单 2 卡，rem 尺寸与 CSS 变量生效，无横向溢出，地址避开固定导航，结束后骨架消失并恢复原有分支，购物车 aria-busy 正确复位；另验两种视口下全部 4 个订单标签首次加载与已加载标签返回。8 张骨架截图已目检 | 边界: 所有接口均在独立浏览器模拟，模拟数据/占位 token/测试脚本未写入业务代码；未验真实账号/真机/跨浏览器/线上 Preview 或生产域名，生产发布仍待审查合并 | 分支: `feature/project-2-shared-skeleton`（待 Claude Code 审查，再由 OpenCode/用户合并上线）
 
 - [x] 旧项目 2 迁移后功能回归修复 | owner: Codex | 范围: 本轮用户注释对应的搜索清空、AI 建议兜底、地址列表顶栏限宽，以及另行授权的首页/两侧底色与 Production 服务端 AI 配置（见 DECISIONS）；不改路由/API 代理、不扩大至未标注组件 | 结果: 用户确认暂时没有新修改，要求提交收尾；清空按钮、过期建议保护、未知分类兜底、375px 地址顶栏及指定颜色均已实现，Production AI 接口已实测 200 和真实建议 | 验收: 最终 80 项测试、build/类型检查、改动文件格式检查通过；本地首页/分类/商品详情/购物车/我的/登录/注册已完成下述安全冒烟检查 | 边界: 完成标记表示本轮注释实现收尾，不代表全站所有按钮或真实交易链路均已验收；真机触屏、地址栏手机尺寸、有效账号登录/注册、非空购物车及提交订单、功能分支 Preview 待补验 | 分支: `feature/project-2-function-fix`（Claude Code 审查通过，已合并到 main）
