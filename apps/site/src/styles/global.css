@@ -3,12 +3,12 @@
    apps/site Phase 3.6 | Pure CSS, Zero Runtime JS Overheads
    ========================================================================== */
 
-/* 得意黑 Smiley Sans Oblique v2.0.1 本地托管（文件/许可证见 public/fonts/）。
-   仅首页名言经 --font-quote-home 使用；其他引文使用系统楷体/宋体栈，避免下载未使用的大字体。
+/* 得意黑 Smiley Sans Oblique v2.0.1 首页名言字符子集（生成范围/许可证见 public/fonts/）。
+   仅首页名言经 --font-quote-home 使用；其他引文使用系统楷体/宋体栈，避免下载完整 CJK 字体。
    单一静态字重故声明 400 800 范围覆盖 700 请求，避免合成加粗；字形自带倾斜，font-style 用 normal 避免二次倾斜。 */
 @font-face {
-  font-family: "Smiley Sans Oblique";
-  src: url("/fonts/SmileySans-Oblique.woff2") format("woff2");
+  font-family: "Aaron Quote Subset";
+  src: url("/fonts/SmileySans-QuoteSubset.woff2") format("woff2");
   font-weight: 400 800;
   font-style: normal;
   font-display: swap;
