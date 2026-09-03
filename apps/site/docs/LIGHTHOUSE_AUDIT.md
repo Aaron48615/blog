@@ -157,8 +157,8 @@
 
 - 12 个目标页面中，project-2 六页两端全部通过；site 四页全部通过（首页字体子集合并后补测 100/100/100/100）；project-1 登录页与桌面仪表盘通过。
 - 未关闭项 1：**已关闭**。site 生产首页移动 Performance 在 `main@6333174` 发布后补测三次，中位数 100，字体子集 `SmileySans-QuoteSubset.woff2` 仅 8,237 字节。
-- 未关闭项 2：project-1 生产仪表盘移动 Performance 中位数 82；待用户确认接受 Ant Design 第三方依赖例外，或另开 UI 依赖/路由拆包任务。
-- 因未关闭项 2 尚未闭环，本轮仍不能宣称“所有生产页面四项 ≥90”，`docs/TASKS.md` 中 Lighthouse 任务保持 `[~]`。
+- 未关闭项 2：**用户已接受例外**。project-1 生产仪表盘移动 Performance 中位数 82，根因为 Ant Design table/color/select 首屏依赖与 Layout → Dashboard 异步路由链；继续提升到 ≥90 需要拆分/替换 Ant Design 组件或重构路由加载，超出本轮最小修复范围。
+- 终验结论：除 project-1 仪表盘移动端因上述第三方依赖限制为 82 外，其余 11 个目标页面两端四项指标均 ≥90；`docs/TASKS.md` 中 Lighthouse 任务按用户决策标记为完成。
 
 ## 工程验收
 
