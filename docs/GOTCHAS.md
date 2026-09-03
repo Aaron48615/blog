@@ -19,3 +19,8 @@
 - Vercel 的 monorepo `Skip deployment` 依赖 workspace 图，不是简单按 Root Directory 过滤；workspace 外的 `docs/*`、根 `AGENTS.md`、`.gitignore` 等会被视为全局变化。`docs/` 已注册为无 app 依赖的 `@personal-hub/docs` workspace，高频任务/进度/决策/Gotchas 应写入该目录；根级配置变化仍允许触发三个 app。
 - project-2 的 `postcss-pxtorem` 也会转换 `index.html` 内联 `<style>`：首帧根字号写成 `37.5px` 会在构建后变成 `0.5rem`，浏览器先算出 8px、再被 `rem.ts` 改为 37.5px，导致全站约 0.16 CLS。首帧根字号应使用不会被该插件再次换算的表达式（当前为 `min(10vw, 2.34375em)`），并在改动后直接检查 `dist/index.html` 与 Lighthouse CLS。
 - 首页固定中文文案不要直接预加载并等待完整 CJK 字体再显示：site 的 1.15MiB 得意黑在 Lighthouse 移动节流下把 LCP 推至 6.7s、Performance 中位数降至 73。固定文案应生成字符子集并记录字符范围；本轮 54 个 Unicode 字符的 WOFF2 约 8KiB，本地 production build 三次移动 Lighthouse 均为 100、LCP 1.1s。名言内容变化时必须同步重生成子集，并同时用字体 cmap 覆盖断言和真实浏览器 `document.fonts` 检查缺字回退；只检查字体加载状态会漏掉单字回退。
+- Antigravity 视角：视觉重设计前必须把用户注释按“硬性约束 / 设计建议”分级并落进 DESIGN.md，否则执行者容易把建议当强制要求硬编码，导致过度约束（如 v3 单屏要求与短屏例外的反复修正）。实施前应让用户确认分级，避免直接按审计清单逐条无差别实现。
+- Codex 视角：Vercel Deployment Protection 开启时，未登录访客访问 Branch Preview 会被 302 重定向到 Vercel SSO，Lighthouse 会误把登录页当目标页。在线验收前应先检查项目设置，必要时临时关闭保护或使用已登录会话共享 Preview；不要把 302 跳转直接归咎于代码或网络问题。
+- Codex 视角：Vercel Preview 默认响应 `X-Robots-Tag: noindex` 且边缘缓存未预热，其 Lighthouse SEO 与性能结果不能代表生产域名。源码修复、CLS、语义和无障碍可在 Preview 验证，但性能基线与 SEO 抓取必须以自定义域名生产环境为准，并串行多次取中位数。
+- OpenCode Go 视角：国内访问修复不要只改代码或链接，要先确认 `*.vercel.app` 在大陆网络层被屏蔽，再为每个项目绑定独立自定义域名并把 DNS CNAME 指向 `cname-china.vercel-dns.com.`。最终验收必须在无 VPN 的中国大陆环境实测所有目标域名首页，而不是以 `.vercel.app` 可访问作为通过标准。
+- zcode 视角：把 CSS 滚动时间线动画改写为 IntersectionObserver + CSS 时间动画时，不能只改源码，还要在 build 产物里全局检查 `animation-timeline` / `view-timeline` 是否被压缩进 `animation` 简写而静默失效。验收时应直接查看 `dist/_astro/*.css`，确保滚动时间线声明已完全消失，且触发类、过渡声明和静态降级全部存活。
