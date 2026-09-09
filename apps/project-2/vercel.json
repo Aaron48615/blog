@@ -14,7 +14,8 @@
       "maxDuration": 20
     },
     "api/compare.ts": {
-      "maxDuration": 60
+      "maxDuration": 60,
+      "supportsCancellation": true
     }
   },
   "rewrites": [

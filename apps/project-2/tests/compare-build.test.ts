@@ -59,3 +59,10 @@ test("emitted Node ESM function imports resolve without source TypeScript files"
     rmSync(directory, { recursive: true, force: true });
   }
 });
+
+test("Vercel opts the streaming function into client cancellation", () => {
+  const config = JSON.parse(
+    readFileSync(new URL("../vercel.json", import.meta.url), "utf8"),
+  );
+  assert.equal(config.functions["api/compare.ts"].supportsCancellation, true);
+});

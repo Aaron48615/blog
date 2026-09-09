@@ -123,7 +123,7 @@ AI 当前验证记录（2026-08-27）：`f4bcf11` 的[预览部署](https://proj
 
 首页、分类、搜索和详情可选择任意两件商品，在 `/compare` 查看动态规格、库存、原价与现价。沿用登录路由守卫。浏览器持久化仅包含商品/SKU ID，恢复后重新读取详情；对比栏可收起，不新增页面底部占位。SKU `price` 按用户与后端确认的原价语义处理，详情顶层 `price` 为现价；预算按所选规格原价比较，SKU 原价自身 ≤0.01 或无效时待核实。
 
-生产 `POST /api/compare/advice` rewrite 至 `api/compare.ts`，使用 Web Response SSE（meta/delta/done/error），复用 `DEEPSEEK_API_KEY`、`DEEPSEEK_API_BASE`、`DEEPSEEK_API_MODEL` 服务端配置，默认模型 `deepseek-v4-flash`。客户端不能指定模型、价格、上游地址或 prompt，服务端从固定商城接口重新校验商品、SKU 归属和库存。每次请求独立取消，55 秒总时限，Vercel 函数 60 秒上限。参考 [Vercel 流式函数文档](https://vercel.com/docs/functions/streaming-functions)。
+生产 `POST /api/compare/advice` rewrite 至 `api/compare.ts`，使用 Web Response SSE（meta/delta/done/error），复用 `DEEPSEEK_API_KEY`、`DEEPSEEK_API_BASE`、`DEEPSEEK_API_MODEL` 服务端配置，默认模型 `deepseek-v4-flash`。客户端不能指定模型、价格、上游地址或 prompt，服务端从固定商城接口重新校验商品、SKU 归属和库存。该函数单独启用 `supportsCancellation`，将客户端断开信号传到商城及模型 fetch（[Vercel 取消文档](https://vercel.com/docs/functions/functions-api-reference#cancel-requests)）。每次请求独立取消，55 秒总时限，Vercel 函数 60 秒上限。参考 [Vercel 流式函数文档](https://vercel.com/docs/functions/streaming-functions)。
 
 沿用匿名 IP 双窗口保护，默认 10 次/分钟、50 次/小时，由 `AI_RATE_LIMIT_PER_MINUTE` / `AI_RATE_LIMIT_PER_HOUR` 调整。新端点独立实例内计数，与旧 `/api/ai` 不共享全局额度，也不是费用硬上限。无全进程单锁。旧搜索联想与智能卖点保持原实现。
 
