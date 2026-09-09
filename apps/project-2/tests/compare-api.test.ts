@@ -45,6 +45,7 @@ const fake: typeof fetch = async (url, options) => {
   const body = JSON.parse(String(options?.body));
   const payload = JSON.parse(body.messages[1].content);
   assert.equal(payload.products[0].sku.originalPrice, 1199);
+  assert.equal(payload.products[0].budgetStatus, "所选规格原价超出预算");
   assert.equal(body.model, "deepseek-v4-flash");
   assert.deepEqual(body.thinking, { type: "disabled" });
   assert.equal(payload.products[0].price, undefined);

@@ -115,3 +115,5 @@
 - 2026-09-09 | Codex | 适配全品类双商品对比、ID/SKU 持久化、可收起浮栏、动态规格与预算、详情 SKU 预选及 Vercel 流式选购接口；保留线上图片、首屏、骨架、搜索兜底与购买弹窗修复。初轮构建/强制类型检查及100项测试通过；继续浏览器与 Preview 真实接口验收、自审 | feature/project2-compare-ai-shopping
 
 - 2026-09-09 | Codex | Preview 暴露 ESM 相对 .ts 导入未改写的运行时故障：GET/POST 均500，日志 ERR_MODULE_NOT_FOUND。新增 JS-only 转译加载回归测试先复现失败，再启用根 tsconfig rewriteRelativeImportExtensions；继续同一路径 Preview 验证 | feature/project2-compare-ai-shopping
+
+- 2026-09-09 | Codex | 商品对比自审与验收：102项测试、强制类型/构建/97文件AI产物检查、四档视口及入口/持久化/失败恢复/流竞争浏览器验证通过；Preview真实两鞋分析200、193网络块、done，取消配置后跨品类280个delta、done及客户端中止通过。真实回答出现预算概括矛盾，补服务端程序计算budgetStatus；按用户授权收尾合并，详见PROJECT2_COMPARE_ACCEPTANCE.md | feature/project2-compare-ai-shopping（9ab5472、82a8dff、ca7961e）

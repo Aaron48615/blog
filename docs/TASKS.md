@@ -83,4 +83,4 @@
 
 ## project-2 商品对比与 AI 选购助手
 
-- [~] 全品类双商品对比与流式 AI 选购助手 | owner: Codex | 范围: 按本地参考适配线上入口、SKU、持久化、对比页及 Vercel 流式服务；保留线上修复 | 验收: 类型/构建/测试、移动交互及真实线上流式验证、自审后按用户本轮授权合并 | 分支: `feature/project2-compare-ai-shopping`
+- [x] 全品类双商品对比与流式 AI 选购助手 | owner: Codex | 范围: 按本地参考适配线上入口、SKU、持久化、对比页及 Vercel 流式服务；保留线上修复 | 验收: 102项测试、类型/构建/AI产物检查、四档视口及交互/失败恢复通过，Preview真实流式分析200并done；自审通过，按用户本轮授权合并，详见docs/PROJECT2_COMPARE_ACCEPTANCE.md | 分支: `feature/project2-compare-ai-shopping`
