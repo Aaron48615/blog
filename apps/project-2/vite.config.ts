@@ -31,7 +31,9 @@ export default defineConfig({
         // Vite alone does not run Serverless functions. Use local fallback and
         // never send AI prompts to the unrelated shop backend during development.
         bypass: (request) =>
-          /^\/api\/ai(?:\/|\?|$)/.test(request.url || "") ? false : undefined,
+          /^\/api\/(?:ai|compare)(?:\/|\?|$)/.test(request.url || "")
+            ? false
+            : undefined,
         rewrite: (path) => path.replace(/^\/api(?=\/|\?|$)/, ""),
       },
     },

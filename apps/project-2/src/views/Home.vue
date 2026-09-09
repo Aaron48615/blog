@@ -147,6 +147,7 @@
               rows="2"
             />
             <p class="prod-price">¥{{ product.price }}</p>
+            <CompareButton :prod-id="product.prodId" />
           </van-grid-item>
         </van-grid>
       </div>
@@ -156,6 +157,7 @@
 </template>
 
 <script setup lang="ts">
+import CompareButton from "../components/CompareButton.vue";
 import { ref, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { bannerInfo, noticeInfo, prodInfo } from "../api/home";

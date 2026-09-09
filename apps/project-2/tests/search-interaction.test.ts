@@ -59,6 +59,13 @@ function loadSearch(t: TestContext, remote = false) {
         };
       if (name === "vue-router")
         return { useRouter: () => ({ push: () => {} }) };
+      if (
+        [
+          "../components/CompareButton.vue",
+          "../components/SkeletonList.vue",
+        ].includes(name)
+      )
+        return {};
       if (name === "../ai/search") return { getSearchSuggestion };
       if (name === "../api/search")
         return {

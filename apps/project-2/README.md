@@ -118,3 +118,13 @@ AI 当前验证记录（2026-08-27）：`f4bcf11` 的[预览部署](https://proj
 - 用户曾确认旧预览 `/api/indexImgs` 正常但页面缺图；已补充图片代理及首页分区错误处理。Codex 未关闭部署保护。
 - `921a205` 的[图片修复预览](https://project-2-c0me2ahv2-aaronsblog.vercel.app) 已部署成功。在线 HTTP 检查三条 SPA 路由的应用 HTML、两个入口 JS、三个首页接口及 15 张真实 JPEG/PNG 图片均通过；假密钥注入后的 92 个产物文件未发现假密钥或常见真实 key 模式。用户随后复验反馈“现在能加载出来了”；这是用户的页面加载确认，不代表自动化浏览器验收或下单/支付等全部业务已验证。
 - Dashboard Production 环境变量尚未修改，未上传真实 AI key；共享 AI 的安全替代范围待用户确认。
+
+## 商品对比与流式 AI 选购助手
+
+首页、分类、搜索和详情可选择任意两件商品，在 `/compare` 查看动态规格、库存、原价与现价。沿用登录路由守卫。浏览器持久化仅包含商品/SKU ID，恢复后重新读取详情；对比栏可收起，不新增页面底部占位。SKU `price` 按用户与后端确认的原价语义处理，详情顶层 `price` 为现价；预算按所选规格原价比较，SKU 原价自身 ≤0.01 或无效时待核实。
+
+生产 `POST /api/compare/advice` rewrite 至 `api/compare.ts`，使用 Web Response SSE（meta/delta/done/error），复用 `DEEPSEEK_API_KEY`、`DEEPSEEK_API_BASE`、`DEEPSEEK_API_MODEL` 服务端配置，默认模型 `deepseek-v4-flash`。客户端不能指定模型、价格、上游地址或 prompt，服务端从固定商城接口重新校验商品、SKU 归属和库存。每次请求独立取消，55 秒总时限，Vercel 函数 60 秒上限。参考 [Vercel 流式函数文档](https://vercel.com/docs/functions/streaming-functions)。
+
+沿用匿名 IP 双窗口保护，默认 10 次/分钟、50 次/小时，由 `AI_RATE_LIMIT_PER_MINUTE` / `AI_RATE_LIMIT_PER_HOUR` 调整。新端点独立实例内计数，与旧 `/api/ai` 不共享全局额度，也不是费用硬上限。无全进程单锁。旧搜索联想与智能卖点保持原实现。
+
+`pnpm dev` 不运行 Vercel 函数，对比请求会被本地代理阻止，不会将需求转发商城。客观对比仍可用；真实流式验证需部署 Preview 或使用 Vercel 运行环境。凭据只配置于 Vercel 服务端环境，不复制参考项目 `.env.local`，不设置共享 `VITE_*` 密钥。

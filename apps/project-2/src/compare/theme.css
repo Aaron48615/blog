@@ -1,0 +1,15 @@
+/* 对比功能沿用商城的暖米色底、鲑鱼红主色和暖灰正文。 */
+.compare-page,
+.compare-dock,
+.compare-handle,
+.compare-add {
+  --compare-primary: #c9432e;
+  --compare-primary-dark: #ad3524;
+  --compare-primary-light: #fff0eb;
+  --compare-bg: #f7f5f2;
+  --compare-surface: #fff;
+  --compare-text: #2d2926;
+  --compare-muted: #716b66;
+  --compare-border: #e9e3dd;
+  --compare-accent-border: #efd7ca;
+}

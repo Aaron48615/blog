@@ -76,6 +76,9 @@
                 lazy-load
               />
             </template>
+            <template #footer
+              ><CompareButton :prod-id="item.prodId"
+            /></template>
           </van-card>
         </template>
       </template>
@@ -84,6 +87,7 @@
 </template>
 
 <script setup lang="ts">
+import CompareButton from "../components/CompareButton.vue";
 import { ref, reactive, onMounted } from "vue";
 import type { prodItem } from "../types/home";
 import { categoryInfo, pageProdInfo } from "../api/category";

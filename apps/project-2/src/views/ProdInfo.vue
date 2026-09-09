@@ -34,6 +34,12 @@
     </van-skeleton>
 
     <template v-else>
+      <div class="prod-image-actions">
+        <button class="prod-back" aria-label="返回上一页" @click="goBack">
+          <van-icon name="arrow-left" />
+        </button>
+        <CompareButton v-if="prodList.prodId" :prod-id="prodList.prodId" />
+      </div>
       <!-- 轮播 -->
       <van-swipe
         class="my-swipe"
@@ -243,6 +249,8 @@
 </template>
 
 <script setup lang="ts">
+import { matches, properties } from "../compare/model";
+import CompareButton from "../components/CompareButton.vue";
 import { ref, reactive, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import type { prodItem } from "../types/home";
@@ -261,12 +269,15 @@ import SkuTags from "../components/SkuTags.vue";
 
 const route = useRoute();
 const router = useRouter();
+const goBack = () =>
+  router.options.history.state.back ? router.back() : router.replace("/home");
 const prodId = route.query.ids;
 interface Sku {
   skuId: number;
   skuName: string;
   pic: string;
-  properties: string;
+  properties: string | null;
+  stocks: number;
 }
 interface CommentSummary {
   positiveRating: number;
@@ -333,7 +344,12 @@ const init = async () => {
     productData = data;
     prodList.value = data;
     skuList.value = data.skuList;
-    defaultProd.value = skuList.value[0] ?? {};
+    defaultProd.value =
+      skuList.value.find(
+        (s) => s.skuId === Number(route.query.skuId) && s.stocks > 0,
+      ) ??
+      skuList.value.find((s) => s.stocks > 0) ??
+      {};
     loadSku();
     isShow.value = data.content != "";
     formatHtmlValue.value = formatHtml(data.content);
@@ -383,37 +399,22 @@ const changeCollection = async () => {
 const onClickCart = () => router.push("/cart");
 const onClickHome = () => router.push("/");
 const loadSku = () => {
-  skuList.value.map((item) => {
-    item.properties.split(";").forEach((prop) => {
-      const [key, value] = prop.split(":");
-      if (!key || value === undefined) return;
-      if (!map.value[key]) {
-        map.value[key] = new Set();
-      }
-      map.value[key].add(value);
-    });
-  });
-  const firstProp = skuList.value[0]?.properties;
-  if (!firstProp) return;
-  // console.log(firstProp);
-  firstProp.split(";").forEach((item) => {
-    const [key, value] = item.split(":");
-    if (!key || value === undefined) return;
-    selectTag.value[key] = value;
-  });
+  map.value = {};
+  for (const item of skuList.value) {
+    for (const [key, value] of Object.entries(properties(item.properties))) {
+      (map.value[key] ??= new Set()).add(value);
+    }
+  }
+  selectTag.value = properties(defaultProd.value.properties);
 };
 const selectTagFn = (key: string, value: string) => {
-  selectTag.value[key] = value;
-  const targetProp = Object.entries(selectTag.value)
-    .map(([x, y]) => {
-      return `${x}:${y}`;
-    })
-    .join(";");
-  const result = skuList.value.find((item) => item.properties == targetProp);
-  // console.log(result);
-  if (result) {
-    defaultProd.value = result;
-  }
+  const selection = { ...selectTag.value, [key]: value };
+  const result = skuList.value.find(
+    (item) => matches(item.properties, selection) && item.stocks > 0,
+  );
+  selectTag.value = selection;
+  defaultProd.value = result ?? {};
+  if (!result) showToast("该规格组合暂无库存，请继续选择");
 };
 const onClickButton = () => {
   open.value = true;
@@ -467,6 +468,7 @@ const toPay = () => {
 
 <style scoped lang="scss">
 .prod-info-page {
+  position: relative;
   --shop-primary: #c9432e;
   --shop-primary-dark: #ad3524;
   --shop-primary-light: #fff0eb;
@@ -537,6 +539,56 @@ const toPay = () => {
 .prod-info-skeleton__row {
   height: 0.426667rem;
   margin-top: 0.32rem;
+}
+
+.prod-image-actions {
+  position: absolute;
+  z-index: 3;
+  top: calc(0.32rem + env(safe-area-inset-top));
+  left: 0.32rem;
+  right: 0.32rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.prod-image-actions .prod-back,
+.prod-image-actions :deep(.compare-add) {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0.026667rem solid #efd7ca;
+  border-radius: 0.08rem;
+  background: rgba(255, 247, 237, 0.96);
+  color: var(--shop-primary);
+  box-shadow: 0 0.04rem 0.16rem rgba(85, 44, 30, 0.12);
+  font: inherit;
+  font-size: 0.28rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.prod-image-actions :deep(.compare-add) {
+  width: auto;
+  padding: 0 0.24rem;
+}
+.prod-image-actions :deep(.compare-add):active {
+  background: #ffe4d9;
+}
+.prod-image-actions .prod-back {
+  border: 0;
+  background: rgba(65, 65, 65, 0.5);
+  color: #fff;
+  font-size: 0.44rem;
+}
+.prod-image-actions .prod-back:active {
+  background: rgba(65, 65, 65, 0.7);
 }
 
 .my-swipe {

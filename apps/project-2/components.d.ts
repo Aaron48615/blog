@@ -12,6 +12,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AddressCard: typeof import('./src/components/AddressCard.vue')['default']
+    CompareButton: typeof import('./src/components/CompareButton.vue')['default']
+    CompareDock: typeof import('./src/components/CompareDock.vue')['default']
     Layout: typeof import('./src/components/Layout.vue')['default']
     OrderAddressCard: typeof import('./src/components/OrderAddressCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
