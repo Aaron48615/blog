@@ -45,7 +45,8 @@
           :title="item.prodName"
           :thumb="item.pic"
           @click="goProdInfo(item)"
-        />
+          ><template #footer><CompareButton :prod-id="item.prodId" /></template
+        ></van-card>
       </div>
       <!-- 搜索为空 -->
       <van-empty v-else-if="isShow" image="search" description="什么都没有">
@@ -198,6 +199,7 @@
 </template>
 
 <script setup lang="ts">
+import CompareButton from "../components/CompareButton.vue";
 import SkeletonList from "../components/SkeletonList.vue";
 import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import { useRouter } from "vue-router";

@@ -4,17 +4,40 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "dist",
   "functions": {
-    "api/proxy.ts": { "maxDuration": 20 },
-    "api/image.ts": { "maxDuration": 20 },
-    "api/ai.ts": { "maxDuration": 20 }
+    "api/proxy.ts": {
+      "maxDuration": 20
+    },
+    "api/image.ts": {
+      "maxDuration": 20
+    },
+    "api/ai.ts": {
+      "maxDuration": 20
+    },
+    "api/compare.ts": {
+      "maxDuration": 60,
+      "supportsCancellation": true
+    }
   },
   "rewrites": [
-    { "source": "/api/ai", "destination": "/api/ai" },
+    {
+      "source": "/api/compare/advice",
+      "destination": "/api/compare"
+    },
+    {
+      "source": "/api/ai",
+      "destination": "/api/ai"
+    },
     {
       "source": "/shop-images/:path*",
       "destination": "/api/image?__path=:path*"
     },
-    { "source": "/api/:path*", "destination": "/api/proxy?__path=:path*" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/api/:path*",
+      "destination": "/api/proxy?__path=:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }

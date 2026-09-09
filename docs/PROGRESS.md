@@ -111,3 +111,11 @@
 - 2026-09-03 | OpenCode | 经 Claude Code 审查通过，合并 `feature/project-2-shared-skeleton` 至 main；`main@ecdb5c2` 部署稳定后，用测试账号 `ceshizhanghu / @abc123` 在生产域名 `https://shop.aaronsite.top` 复验四页骨架屏：375×667 / 320×568 下搜索/地址各 3 张卡片、购物车/订单各 2 张卡片，均有 `.skeleton-list` 容器；加载完成后骨架消失、购物车 `aria-busy` 复位；分支已双向删除
 - 2026-09-03 | Codex | 修复 Claude Code 对 517e2c0 的唯一审查反馈：Cart 骨架水平 padding 从原任务给定的 0.853333rem 改为 0.426667rem，按 rootValue 75 保持 main 原 32px 的实际尺寸；无视觉稿依据支持原值加宽。仅改此 CSS 值及任务/进度文档；生产构建（含类型检查）、格式/diff 检查通过。独立 Chrome 对生产构建在 375×667 / 320×568 实测左右 padding 为 16px / 13.6533px，纵向/间距/圆角与原换算一致，2 张卡片无横向溢出，截图目检与结束恢复空态通过；临时测试存储与拦截已清理，未重跑上一轮 24 组矩阵，未验线上/真机。提交后交 Claude Code 复核，再由 OpenCode/用户合并发布 | feature/project-2-shared-skeleton
 - 2026-09-05 | OpenCode | 清理 apps/project-1 中不再使用的过期文档文件，保留 `测试账号.md` 与 `README.md`；project-2 未改动 | feature/cleanup-project1-docs
+
+- 2026-09-09 | Codex | 适配全品类双商品对比、ID/SKU 持久化、可收起浮栏、动态规格与预算、详情 SKU 预选及 Vercel 流式选购接口；保留线上图片、首屏、骨架、搜索兜底与购买弹窗修复。初轮构建/强制类型检查及100项测试通过；继续浏览器与 Preview 真实接口验收、自审 | feature/project2-compare-ai-shopping
+
+- 2026-09-09 | Codex | Preview 暴露 ESM 相对 .ts 导入未改写的运行时故障：GET/POST 均500，日志 ERR_MODULE_NOT_FOUND。新增 JS-only 转译加载回归测试先复现失败，再启用根 tsconfig rewriteRelativeImportExtensions；继续同一路径 Preview 验证 | feature/project2-compare-ai-shopping
+
+- 2026-09-09 | Codex | 商品对比自审与验收：102项测试、强制类型/构建/97文件AI产物检查、四档视口及入口/持久化/失败恢复/流竞争浏览器验证通过；Preview真实两鞋分析200、193网络块、done，取消配置后跨品类280个delta、done及客户端中止通过。真实回答出现预算概括矛盾，补服务端程序计算budgetStatus；按用户授权收尾合并，详见PROJECT2_COMPARE_ACCEPTANCE.md | feature/project2-compare-ai-shopping（9ab5472、82a8dff、ca7961e）
+
+- 2026-09-09 | Codex | 最终预算复验：真实跨品类分析200/done，正确复述服务端给定的2000元超预算与890元预算内；修复Vue数字输入0被当空值的边界，浏览器确认请求前拒绝。最终build与AI产物检查通过，进入授权合并 | feature/project2-compare-ai-shopping

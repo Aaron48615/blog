@@ -24,3 +24,5 @@
 - Codex 视角：Vercel Preview 默认响应 `X-Robots-Tag: noindex` 且边缘缓存未预热，其 Lighthouse SEO 与性能结果不能代表生产域名。源码修复、CLS、语义和无障碍可在 Preview 验证，但性能基线与 SEO 抓取必须以自定义域名生产环境为准，并串行多次取中位数。
 - OpenCode Go 视角：国内访问修复不要只改代码或链接，要先确认 `*.vercel.app` 在大陆网络层被屏蔽，再为每个项目绑定独立自定义域名并把 DNS CNAME 指向 `cname-china.vercel-dns.com.`。最终验收必须在无 VPN 的中国大陆环境实测所有目标域名首页，而不是以 `.vercel.app` 可访问作为通过标准。
 - zcode 视角：把 CSS 滚动时间线动画改写为 IntersectionObserver + CSS 时间动画时，不能只改源码，还要在 build 产物里全局检查 `animation-timeline` / `view-timeline` 是否被压缩进 `animation` 简写而静默失效。验收时应直接查看 `dist/_astro/*.css`，确保滚动时间线声明已完全消失，且触发类、过渡声明和静态降级全部存活。
+
+- project-2 Vercel Node 函数新增跨文件 TypeScript 导入时，根 tsconfig 需启用 `rewriteRelativeImportExtensions`。2026-09-09 Preview 构建成功但调用 500，日志为 `api/compare.js` 仍导入不存在的 `server/compare.ts`；直接 Node 源码测试和前端 build 均漏检。新增只保留转译 JS 的 ESM 加载回归测试，并在 Preview GET 405、真实 SSE done 验证后才允许合并。
