@@ -304,7 +304,7 @@ const facts = computed(() => {
         const price = originalPrice(chosen(p));
         if (!chosen(p)) return "暂无可用规格";
         if (price === null) return "原价待核实";
-        return budget.value && Number(budget.value) > 0
+        return budget.value !== "" && Number(budget.value) > 0
           ? price <= Number(budget.value)
             ? "原价在预算内"
             : "原价超出预算"
@@ -342,7 +342,7 @@ function stop() {
 async function analyze() {
   if (!allAvailable.value) return;
   if (
-    budget.value &&
+    budget.value !== "" &&
     (!Number.isFinite(Number(budget.value)) || Number(budget.value) <= 0)
   ) {
     error.value = "请填写有效的正数预算";
@@ -364,7 +364,7 @@ async function analyze() {
         items: store.selected,
         needs: needs.value,
         size: size.value,
-        budget: budget.value ? Number(budget.value) : null,
+        budget: budget.value !== "" ? Number(budget.value) : null,
       }),
     });
     if (!response.ok) {

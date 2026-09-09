@@ -117,3 +117,5 @@
 - 2026-09-09 | Codex | Preview 暴露 ESM 相对 .ts 导入未改写的运行时故障：GET/POST 均500，日志 ERR_MODULE_NOT_FOUND。新增 JS-only 转译加载回归测试先复现失败，再启用根 tsconfig rewriteRelativeImportExtensions；继续同一路径 Preview 验证 | feature/project2-compare-ai-shopping
 
 - 2026-09-09 | Codex | 商品对比自审与验收：102项测试、强制类型/构建/97文件AI产物检查、四档视口及入口/持久化/失败恢复/流竞争浏览器验证通过；Preview真实两鞋分析200、193网络块、done，取消配置后跨品类280个delta、done及客户端中止通过。真实回答出现预算概括矛盾，补服务端程序计算budgetStatus；按用户授权收尾合并，详见PROJECT2_COMPARE_ACCEPTANCE.md | feature/project2-compare-ai-shopping（9ab5472、82a8dff、ca7961e）
+
+- 2026-09-09 | Codex | 最终预算复验：真实跨品类分析200/done，正确复述服务端给定的2000元超预算与890元预算内；修复Vue数字输入0被当空值的边界，浏览器确认请求前拒绝。最终build与AI产物检查通过，进入授权合并 | feature/project2-compare-ai-shopping
