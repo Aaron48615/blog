@@ -113,3 +113,5 @@
 - 2026-09-05 | OpenCode | 清理 apps/project-1 中不再使用的过期文档文件，保留 `测试账号.md` 与 `README.md`；project-2 未改动 | feature/cleanup-project1-docs
 
 - 2026-09-09 | Codex | 适配全品类双商品对比、ID/SKU 持久化、可收起浮栏、动态规格与预算、详情 SKU 预选及 Vercel 流式选购接口；保留线上图片、首屏、骨架、搜索兜底与购买弹窗修复。初轮构建/强制类型检查及100项测试通过；继续浏览器与 Preview 真实接口验收、自审 | feature/project2-compare-ai-shopping
+
+- 2026-09-09 | Codex | Preview 暴露 ESM 相对 .ts 导入未改写的运行时故障：GET/POST 均500，日志 ERR_MODULE_NOT_FOUND。新增 JS-only 转译加载回归测试先复现失败，再启用根 tsconfig rewriteRelativeImportExtensions；继续同一路径 Preview 验证 | feature/project2-compare-ai-shopping
