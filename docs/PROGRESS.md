@@ -133,3 +133,5 @@
 - 2026-09-13 | Codex | site 动效已按用户授权合并上线（main@cce5f36）；GitHub Vercel 状态 Deployment has completed，正式域名四路由 HTTP 200、首页含 quote-char 且两份 CSS 与本地构建逐字节一致；project-1/project-2 均 Skipped - Not affected；完成分支清理 | `feature/site-motion-redesign`
 
 - 2026-09-13 | Codex | 复现并修复首页名言鼠标悬停无限暂停：区域外正常、移入停住、移出恢复，字体与前台状态正常；取消 hover 暂停并略延长逐字过渡，换句仍为 5.2 秒；新增实际鼠标回归脚本先红后绿，build 与三档布局/减少动态效果验收通过；本地预览待用户审查、不推送 | `feature/site-quote-timing`
+
+- 2026-09-13 | Codex | 用户确认名言轮播修复与过渡时长版本 `f4625ee`，授权合并推送上线；按 --no-ff 合并，随后核验 Vercel 生产状态与正式域名资源 | `feature/site-quote-timing`
