@@ -129,3 +129,5 @@
 - 2026-09-13 | Codex | site「展开手札」动效本地版：名言逐字与标点绑定、介绍细线/左右错峰、树叶指针响应、项目/文章差异入场及键盘/减少动态效果兜底；生产 build 和 32 组响应式检查通过，已在内置浏览器展示；只本地提交、不推送，待用户目检后交 Claude Code review | `feature/site-motion-redesign`
 
 - 2026-09-13 | Codex | 用户审查通过 site 动效版本 `9e6e921`，明确授权 Codex 代替 OpenCode 合并并部署；按 --no-ff 合并到 main，推送触发 Vercel 生产部署，随后核验线上状态 | `feature/site-motion-redesign`
+
+- 2026-09-13 | Codex | site 动效已按用户授权合并上线（main@cce5f36）；GitHub Vercel 状态 Deployment has completed，正式域名四路由 HTTP 200、首页含 quote-char 且两份 CSS 与本地构建逐字节一致；project-1/project-2 均 Skipped - Not affected；完成分支清理 | `feature/site-motion-redesign`
