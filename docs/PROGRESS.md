@@ -125,3 +125,5 @@
 - 2026-09-13 | OpenCode | 经用户确认审查通过，以 --no-ff 合并 feature/project1-api-address 至 main（merge commit f43961f）并推送；Vercel project-1 生产部署成功。Playwright 验证生产登录页验证码接口 200、SVG 渲染正常、控制台无报错；未验证完整登录/业务数据/地图，VITE_AMAP_KEY 未在产物中命中需补齐 | main@f43961f
 
 - 2026-09-13 | 用户 | 线上确认 `https://city.aaronsite.top` 地图可正常查看，Vercel Production 中 `VITE_AMAP_KEY` 与 `VITE_AMAP_SECURITY_KEY` 均已配置，无需重新添加；完整登录与登录后业务数据由用户自行抽验 | main@a68b9cf
+
+- 2026-09-13 | Codex | site「展开手札」动效本地版：名言逐字与标点绑定、介绍细线/左右错峰、树叶指针响应、项目/文章差异入场及键盘/减少动态效果兜底；生产 build 和 32 组响应式检查通过，已在内置浏览器展示；只本地提交、不推送，待用户目检后交 Claude Code review | `feature/site-motion-redesign`
