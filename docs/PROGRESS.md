@@ -123,3 +123,5 @@
 - 2026-09-13 | Codex | 新上游验证码连续三次 HTTP/业务码 200、captchaId/SVG 有效，文档 /docs/ 与 /docs 为 404；更新 project-1 Vite/Vercel 代理至 182.92.74.1:8080，保留 /api，构建与22项测试通过。未验完整登录及线上代理，待 Claude Code 审查、OpenCode/用户合并 | feature/project1-api-address
 
 - 2026-09-13 | OpenCode | 经用户确认审查通过，以 --no-ff 合并 feature/project1-api-address 至 main（merge commit f43961f）并推送；Vercel project-1 生产部署成功。Playwright 验证生产登录页验证码接口 200、SVG 渲染正常、控制台无报错；未验证完整登录/业务数据/地图，VITE_AMAP_KEY 未在产物中命中需补齐 | main@f43961f
+
+- 2026-09-13 | 用户 | 线上确认 `https://city.aaronsite.top` 地图可正常查看，Vercel Production 中 `VITE_AMAP_KEY` 与 `VITE_AMAP_SECURITY_KEY` 均已配置，无需重新添加；完整登录与登录后业务数据由用户自行抽验 | main@a68b9cf

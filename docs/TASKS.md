@@ -87,4 +87,4 @@
 
 ## project-1 接口地址更新
 
-- [x] 更新开发及 Vercel 代理至 `http://182.92.74.1:8080` | owner: Codex / OpenCode 合并 | 验收: 已合并至 main 并发布；生产 `https://city.aaronsite.top/login` 验证码接口 HTTP/业务码 200、SVG 正常渲染；登录与业务数据需用户凭 TestNA/testna123 复验；地图安全密钥已注入，AMap Key 待补齐后重部署 | 分支: `feature/project1-api-address`（已合并到 main@f43961f）
+- [x] 更新开发及 Vercel 代理至 `http://182.92.74.1:8080` | owner: Codex / OpenCode 合并 | 验收: 已合并至 main 并发布；生产 `https://city.aaronsite.top/login` 验证码接口 HTTP/业务码 200、SVG 正常渲染；用户线上确认 Vercel Production 已配置 `VITE_AMAP_KEY` / `VITE_AMAP_SECURITY_KEY` 且地图可正常查看；完整登录与登录后业务数据仍建议用户用 TestNA/testna123 抽验 | 分支: `feature/project1-api-address`（已合并到 main@f43961f）
