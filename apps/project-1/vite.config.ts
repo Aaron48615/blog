@@ -10,11 +10,11 @@ import path from 'path'
 //   server: {
 //     // 当前端口号
 //     port: 5173,
-//     // 前端请求 http://116.62.230.90/login => /api/login
+//     // 前端请求 http://182.92.74.1:8080/login => /api/login
 //     proxy: {
 //       "/api": {
 //         // 要代理的服务端路径
-//         target: "http://116.62.230.90",
+//         target: "http://182.92.74.1:8080",
 //         // 是否允许重写路径
 //         changeOrigin: true
 //       }
@@ -48,7 +48,7 @@ export default defineConfig(({ mode }) => {
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://116.62.230.90',
+        target: 'http://182.92.74.1:8080',
         changeOrigin: true,
       }
     }

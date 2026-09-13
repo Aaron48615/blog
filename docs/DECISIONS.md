@@ -26,3 +26,5 @@
 - 2026-08-29 | 记忆体系扩展：根 `AGENTS.md` 继续作为所有 AI 的唯一入口和稳定总纲，高频踩坑迁入 `docs/GOTCHAS.md`；`docs/` 注册为独立 pnpm workspace，OpenCode、执行者和 reviewer 开工时均需读取 Gotchas 分册 | Vercel 会把 workspace 外的 `docs/*` 视为全局变化，导致三个 app 同时部署；将高频记忆归入无 app 依赖的 docs workspace 可保留统一记忆并减少无关部署，根级配置变化仍按全局变化处理 | 用户明确同意完整迁移 + Codex 实施
 
 - 2026-09-09 | 用户授权 Codex 按本地迁移说明适配 project-2 全品类商品对比与流式 AI 选购助手，并允许自审通过后自行合并；限定扩展现有 Vercel AI 服务，保留线上改动，不整体覆盖文件 | 新接口复用 DEEPSEEK 服务端配置和既有匿名 IP 限流约定，SKU price 为原价、详情顶层 price 为页面现价，预算按所选 SKU 有效原价比较 | 用户明确本轮授权 + Codex 适配
+
+- 2026-09-13 | 按用户提供的新服务器，将 project-1 开发 Vite proxy 与生产 Vercel rewrite 上游更新为 `http://182.92.74.1:8080/api/*`，保留前端 `/api` 和现有 rewrite 方案 | 用户补充要求先验证，不可用则不换；直连验证码连续三次成功、响应结构兼容，文档地址 404 不代表业务接口不可用 | 用户授权 + Codex 验证
