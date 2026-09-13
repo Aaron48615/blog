@@ -143,3 +143,5 @@
 - 2026-09-13 | Codex | 用户授权提交并推送植物细节版本 `a21eac0`；推送 feature 分支供审查，尚未合并 main 或发布生产 | `feature/site-botanical-detail`
 
 - 2026-09-13 | Codex | 用户确认植物细节版本无问题，授权直接合并；按 --no-ff 合并 main 并推送触发 Vercel 生产部署，随后核验正式域名 | `feature/site-botanical-detail`
+
+- 2026-09-13 | Codex | 植物细节优化生产验收完成：main@111299f，Vercel Deployment has completed；www.aaronsite.top 四路由 HTTP 200 且均含新版左右枝叶 SVG，project-1/project-2 均 Skipped - Not affected；清理已合并分支 | `feature/site-botanical-detail`
