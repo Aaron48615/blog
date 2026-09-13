@@ -139,3 +139,5 @@
 - 2026-09-13 | Codex | 名言轮播修复上线验收完成：main@83abde9，Vercel 状态 Deployment has completed；www.aaronsite.top HTTP 200，线上两份 CSS 与本地审查构建逐字节一致；其他两个 app Skipped - Not affected，清理已合并分支 | `feature/site-quote-timing`
 
 - 2026-09-13 | Codex | 按用户要求细化两侧植物：复用 SVG 组件绘制不对称叶形、叶脉、叶面渐变和渐细枝干，坐标沿主枝曲线对齐；调整装饰层级与透明度，保留既有摇摆和指针响应、不增加依赖；build、32 组响应式检查、动态降级与桌面/手机目检通过；本地展示待用户审查，不推送 | `feature/site-botanical-detail`
+
+- 2026-09-13 | Codex | 用户授权提交并推送植物细节版本 `a21eac0`；推送 feature 分支供审查，尚未合并 main 或发布生产 | `feature/site-botanical-detail`
