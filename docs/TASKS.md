@@ -89,4 +89,4 @@
 
 - [x] 更新开发及 Vercel 代理至 `http://182.92.74.1:8080` | owner: Codex / OpenCode 合并 | 验收: 已合并至 main 并发布；生产 `https://city.aaronsite.top/login` 验证码接口 HTTP/业务码 200、SVG 正常渲染；用户线上确认 Vercel Production 已配置 `VITE_AMAP_KEY` / `VITE_AMAP_SECURITY_KEY` 且地图可正常查看；完整登录与登录后业务数据仍建议用户用 TestNA/testna123 抽验 | 分支: `feature/project1-api-address`（已合并到 main@f43961f）
 
-- [x] site 动效重新设计与本地预览 | owner: Codex（用户本轮指定） | 范围: 首页、公共动效、项目/文章入场；不推送 | 验收: build/格式检查通过；4 路由 × 4 宽度 × 普通/减少动态效果共 32 组无横向溢出，名言/滚动介绍可见，控制台无错误；真实滚轮/指针、键盘可见焦点、无 JS 与运行中切换减少动态效果通过；静态首帧仅一条名言；内置浏览器已打开 127.0.0.1:4325 | 边界: 本机帧间隔采样中位数 8.3ms、P95 9.2ms，不代表真机性能；待用户目检，未推送 | 分支: `feature/site-motion-redesign`
+- [x] site 动效重新设计与本地预览 | owner: Codex（用户本轮指定） | 范围: 首页、公共动效、项目/文章入场；用户目检通过后授权 Codex 代替 OpenCode 合并部署 | 验收: build/格式检查通过；4 路由 × 4 宽度 × 普通/减少动态效果共 32 组无横向溢出，名言/滚动介绍可见，控制台无错误；真实滚轮/指针、键盘可见焦点、无 JS 与运行中切换减少动态效果通过；静态首帧仅一条名言；内置浏览器已打开 127.0.0.1:4325 | 边界: 本机帧间隔采样中位数 8.3ms、P95 9.2ms，不代表真机性能；用户已审查通过，授权按 --no-ff 合并并推送生产 | 分支: `feature/site-motion-redesign`

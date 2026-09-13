@@ -127,3 +127,5 @@
 - 2026-09-13 | 用户 | 线上确认 `https://city.aaronsite.top` 地图可正常查看，Vercel Production 中 `VITE_AMAP_KEY` 与 `VITE_AMAP_SECURITY_KEY` 均已配置，无需重新添加；完整登录与登录后业务数据由用户自行抽验 | main@a68b9cf
 
 - 2026-09-13 | Codex | site「展开手札」动效本地版：名言逐字与标点绑定、介绍细线/左右错峰、树叶指针响应、项目/文章差异入场及键盘/减少动态效果兜底；生产 build 和 32 组响应式检查通过，已在内置浏览器展示；只本地提交、不推送，待用户目检后交 Claude Code review | `feature/site-motion-redesign`
+
+- 2026-09-13 | Codex | 用户审查通过 site 动效版本 `9e6e921`，明确授权 Codex 代替 OpenCode 合并并部署；按 --no-ff 合并到 main，推送触发 Vercel 生产部署，随后核验线上状态 | `feature/site-motion-redesign`
