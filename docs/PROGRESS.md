@@ -145,3 +145,7 @@
 - 2026-09-13 | Codex | 用户确认植物细节版本无问题，授权直接合并；按 --no-ff 合并 main 并推送触发 Vercel 生产部署，随后核验正式域名 | `feature/site-botanical-detail`
 
 - 2026-09-13 | Codex | 植物细节优化生产验收完成：main@111299f，Vercel Deployment has completed；www.aaronsite.top 四路由 HTTP 200 且均含新版左右枝叶 SVG，project-1/project-2 均 Skipped - Not affected；清理已合并分支 | `feature/site-botanical-detail`
+
+- 2026-09-13 | Codex | 修复名言首次进入仍整块渐入：旧 stage 透明度过渡叠加加载态选择器优先级不足，遮盖逐字动作；统一首次/轮播文字状态，增加首次/换句/缓存刷新回归检查并通过，build、减少动态效果、375px/无 JS 可读通过；本地预览待审查，不推送 | `feature/site-quote-first-entry`
+
+- 2026-09-13 | Codex | 用户确认名言首次入场修复 `dd51e26`，授权提交推送合并；按 --no-ff 合并 main 并推送触发生产部署，随后核验状态 | `feature/site-quote-first-entry`

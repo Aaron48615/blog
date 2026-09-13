@@ -180,7 +180,7 @@ const quotes = [
     slides[currentIndex]?.classList.add("is-active");
     slides[currentIndex]?.setAttribute("aria-hidden", "false");
 
-    // 减少动态效果 / 无 JS 用户直接可见；否则等得意黑加载后再淡入，
+    // 减少动态效果 / 无 JS 用户直接可见；否则等得意黑加载后逐字入场，
     // 避免先看到楷体 fallback 再闪切成艺术字。
     if (
       !stage ||
@@ -201,8 +201,14 @@ const quotes = [
     Promise.race([fontLoad, timeout])
       .catch(() => undefined)
       .then(() => {
-        document.documentElement.classList.remove("hero-quote-loading");
-        startAutoPlay();
+        // Commit the initial letter pose even when the font is already cached.
+        // The same character transition then runs on first entry and each rotation.
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            document.documentElement.classList.remove("hero-quote-loading");
+            startAutoPlay();
+          });
+        });
       });
   }
 
@@ -348,11 +354,10 @@ const quotes = [
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 1.2s ease-in-out;
   }
 
   html.hero-quote-loading .quote-stage {
-    opacity: 0;
+    visibility: hidden;
   }
 
   .quote-slide {
@@ -600,6 +605,9 @@ const quotes = [
       transition: opacity 0.6s ease;
       transform: none;
     }
+    .quote-slide.is-active {
+      transition: none;
+    }
     .quote-char {
       opacity: 0;
       transform: translateY(0.55em) rotate(3deg);
@@ -613,9 +621,13 @@ const quotes = [
       transition-duration: 0.85s, 1.2s;
       transition-delay: calc(var(--char) * 30ms);
     }
-    html.hero-quote-loading .quote-char {
+    html.hero-quote-loading .quote-slide.is-active .quote-char {
       opacity: 0;
-      transform: translateY(0.55em);
+      transform: translateY(0.55em) rotate(3deg);
+    }
+    html.hero-quote-loading .quote-slide.is-active .quote-author {
+      opacity: 0;
+      translate: 12px 0;
     }
     .quote-author {
       transition:
