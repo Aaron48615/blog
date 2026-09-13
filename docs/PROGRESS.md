@@ -149,3 +149,5 @@
 - 2026-09-13 | Codex | 修复名言首次进入仍整块渐入：旧 stage 透明度过渡叠加加载态选择器优先级不足，遮盖逐字动作；统一首次/轮播文字状态，增加首次/换句/缓存刷新回归检查并通过，build、减少动态效果、375px/无 JS 可读通过；本地预览待审查，不推送 | `feature/site-quote-first-entry`
 
 - 2026-09-13 | Codex | 用户确认名言首次入场修复 `dd51e26`，授权提交推送合并；按 --no-ff 合并 main 并推送触发生产部署，随后核验状态 | `feature/site-quote-first-entry`
+
+- 2026-09-13 | Codex | 首次逐字入场修复上线验收完成：main@c0906b3，Vercel Deployment has completed；正式首页 HTTP 200、两份线上 CSS 与本地审查构建逐字节一致；project-1/project-2 均 Skipped - Not affected；清理已合并分支 | `feature/site-quote-first-entry`
