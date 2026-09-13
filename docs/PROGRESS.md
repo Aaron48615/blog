@@ -141,3 +141,5 @@
 - 2026-09-13 | Codex | 按用户要求细化两侧植物：复用 SVG 组件绘制不对称叶形、叶脉、叶面渐变和渐细枝干，坐标沿主枝曲线对齐；调整装饰层级与透明度，保留既有摇摆和指针响应、不增加依赖；build、32 组响应式检查、动态降级与桌面/手机目检通过；本地展示待用户审查，不推送 | `feature/site-botanical-detail`
 
 - 2026-09-13 | Codex | 用户授权提交并推送植物细节版本 `a21eac0`；推送 feature 分支供审查，尚未合并 main 或发布生产 | `feature/site-botanical-detail`
+
+- 2026-09-13 | Codex | 用户确认植物细节版本无问题，授权直接合并；按 --no-ff 合并 main 并推送触发 Vercel 生产部署，随后核验正式域名 | `feature/site-botanical-detail`
