@@ -121,3 +121,5 @@
 - 2026-09-09 | Codex | 最终预算复验：真实跨品类分析200/done，正确复述服务端给定的2000元超预算与890元预算内；修复Vue数字输入0被当空值的边界，浏览器确认请求前拒绝。最终build与AI产物检查通过，进入授权合并 | feature/project2-compare-ai-shopping
 
 - 2026-09-13 | Codex | 新上游验证码连续三次 HTTP/业务码 200、captchaId/SVG 有效，文档 /docs/ 与 /docs 为 404；更新 project-1 Vite/Vercel 代理至 182.92.74.1:8080，保留 /api，构建与22项测试通过。未验完整登录及线上代理，待 Claude Code 审查、OpenCode/用户合并 | feature/project1-api-address
+
+- 2026-09-13 | OpenCode | 经用户确认审查通过，以 --no-ff 合并 feature/project1-api-address 至 main（merge commit f43961f）并推送；Vercel project-1 生产部署成功。Playwright 验证生产登录页验证码接口 200、SVG 渲染正常、控制台无报错；未验证完整登录/业务数据/地图，VITE_AMAP_KEY 未在产物中命中需补齐 | main@f43961f
