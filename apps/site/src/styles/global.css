@@ -178,15 +178,15 @@ body::before {
 .ambient-foliage {
   position: fixed;
   pointer-events: none;
-  z-index: 10;
-  opacity: 0.85;
+  z-index: 0;
+  opacity: 0.46;
   transition: opacity 0.5s ease;
 }
 
 .foliage-left {
   top: 15vh;
   left: -20px;
-  width: clamp(140px, 16vw, 240px);
+  width: clamp(165px, 19vw, 270px);
   transform-origin: top left;
   animation: windSwayLeft 14s ease-in-out infinite alternate;
 }
@@ -194,7 +194,7 @@ body::before {
 .foliage-right {
   top: 25vh;
   right: -20px;
-  width: clamp(150px, 18vw, 260px);
+  width: clamp(175px, 20vw, 285px);
   transform-origin: top right;
   animation: windSwayRight 17s ease-in-out infinite alternate;
 }
@@ -225,7 +225,7 @@ body::before {
 
 @media (max-width: 768px) {
   .ambient-foliage {
-    opacity: 0.35;
+    opacity: 0.23;
   }
   .foliage-left {
     left: -40px;

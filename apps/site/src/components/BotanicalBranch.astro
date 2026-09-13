@@ -1,0 +1,153 @@
+---
+interface Props {
+  side: "left" | "right";
+}
+const { side } = Astro.props;
+const id = `botanical-${side}`;
+// Leaf attachments follow the stem; varied angles expose both faces of the foliage.
+const leaves = [
+  [27.54, 570, -27, 1.06, 0],
+  [50.06, 537, -151, 0.88, 1],
+  [77.26, 489, -42, 1.12, 2],
+  [93.96, 449, -164, 0.94, 0],
+  [105.32, 404, -33, 1.04, 1],
+  [108.04, 361, -143, 0.92, 2],
+  [103.7, 314, -48, 1.02, 0],
+  [98.15, 277, -161, 0.8, 1],
+  [91.57, 231, -37, 0.92, 2],
+  [87.92, 189, -132, 0.78, 0],
+  [87.35, 144, -49, 0.8, 1],
+  [90.09, 99, -127, 0.64, 2],
+  [95.24, 57, -73, 0.56, 0],
+];
+const shapes = [
+  "M12 0C30-15 55-28 83-19C96-15 103-11 114-10C92-2 75 18 51 15C32 13 23 5 12 0Z",
+  "M12 0C29-8 42-25 67-23C90-22 101-12 116-14C98-4 78 12 56 11C36 10 23 2 12 0Z",
+  "M12 0C36-20 57-18 78-15C95-11 102-5 112-7C91 1 73 21 49 13C31 8 22 3 12 0Z",
+];
+---
+
+<div class={`ambient-foliage foliage-${side}`} aria-hidden="true">
+  <svg
+    class="foliage-svg botanical-branch"
+    viewBox="0 0 260 640"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <linearGradient
+        id={`${id}-front`}
+        x1="34"
+        y1="-24"
+        x2="61"
+        y2="20"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#a7b38a"></stop>
+        <stop offset=".42" stop-color="#72865d"></stop>
+        <stop offset=".52" stop-color="#536b49"></stop>
+        <stop offset="1" stop-color="#889673"></stop>
+      </linearGradient>
+      <linearGradient
+        id={`${id}-back`}
+        x1="38"
+        y1="-26"
+        x2="67"
+        y2="18"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#c0c4a4"></stop>
+        <stop offset=".48" stop-color="#9da98a"></stop>
+        <stop offset=".54" stop-color="#879677"></stop>
+        <stop offset="1" stop-color="#b3b99a"></stop>
+      </linearGradient>
+      <linearGradient
+        id={`${id}-stem`}
+        x1="25"
+        y1="600"
+        x2="105"
+        y2="70"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#7a7050"></stop>
+        <stop offset=".5" stop-color="#8d8d67"></stop>
+        <stop offset="1" stop-color="#a2aa83"></stop>
+      </linearGradient>
+      {
+        shapes.map((shape, variant) => (
+          <g id={`${id}-leaf-${variant}`}>
+            <path
+              d="M0 0Q8 2 19-1"
+              stroke="#8d8c65"
+              stroke-width="1.1"
+              stroke-linecap="round"
+            />
+            <path
+              d={shape}
+              fill={`url(#${id}-${variant === 1 ? "back" : "front"})`}
+              stroke="#60704e"
+              stroke-opacity=".24"
+              stroke-width=".6"
+            />
+            <path
+              d="M14 0C44 1 76-9 109-10"
+              stroke="#d4d5ad"
+              stroke-width=".85"
+              stroke-linecap="round"
+              opacity=".8"
+            />
+            <path
+              d="M16 1C44 2 76-8 106-9"
+              stroke="#465e40"
+              stroke-width=".5"
+              opacity=".35"
+            />
+            <g
+              stroke="#d0d3aa"
+              stroke-width=".5"
+              stroke-linecap="round"
+              opacity=".48"
+            >
+              <path d="M29 0Q31-7 37-12M40-1Q43-11 48-17M51-3Q55-13 61-19M63-5Q69-13 74-17M76-7Q81-13 87-15" />
+              <path d="M31 0Q37 6 43 10M43-1Q48 7 57 11M55-3Q61 4 68 7M68-5Q74-1 81 0M81-8Q87-5 92-6" />
+            </g>
+            <path
+              d={shape}
+              fill="none"
+              stroke="#d9d9b9"
+              stroke-width=".65"
+              stroke-dasharray="23 83 37 200"
+              opacity=".42"
+            />
+          </g>
+        ))
+      }
+    </defs>
+    <g
+      transform={side === "right" ? "translate(260 0) scale(-1 1)" : undefined}
+    >
+      <!-- The tapered silhouette remains continuous where each petiole joins. -->
+      <path
+        d="M-20 634C45 553 113 462 109 360C105 268 70 207 96 52C73 208 108 270 106 361C111 462 40 555-24 631Z"
+        fill={`url(#${id}-stem)`}></path>
+      <path
+        d="M-20 631C45 552 112 460 108 360C104 270 72 207 96 52"
+        stroke="#b9b799"
+        stroke-width=".65"
+        opacity=".65"></path>
+      {
+        leaves.map(([x, y, angle, scale, variant], index) => (
+          <g
+            transform={`translate(${x} ${y}) rotate(${angle + (side === "right" ? ((index % 3) - 1) * 9 : 0)}) scale(${scale} ${scale * (index % 3 === 0 ? 0.84 : 1)})`}
+          >
+            <use
+              href={`#${id}-leaf-${variant}`}
+              opacity={index % 4 === 1 ? 0.78 : 1}
+            />
+          </g>
+        ))
+      }
+      <path d="M96 55Q99 40 105 32Q109 44 96 55" fill="#8e9b72"></path>
+    </g>
+  </svg>
+</div>

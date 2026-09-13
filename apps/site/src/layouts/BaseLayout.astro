@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import SiteMotion from "../components/SiteMotion.astro";
+import BotanicalBranch from "../components/BotanicalBranch.astro";
 
 interface Props {
   title: string;
@@ -186,89 +187,8 @@ const navItems = [
     </style>
   </head>
   <body>
-    <!-- Left Dynamic Botanical Foliage Overlay (Vestris Style) -->
-    <div class="ambient-foliage foliage-left" aria-hidden="true">
-      <svg
-        viewBox="0 0 200 450"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        class="foliage-svg"
-      >
-        <path
-          d="M10 20C40 80 80 120 130 180C160 220 170 290 140 370C120 420 80 440 30 450"
-          stroke="#2E4032"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-opacity="0.25"></path>
-        <!-- Leaves -->
-        <path
-          d="M40 70C65 50 110 55 130 75C110 95 65 95 40 70Z"
-          fill="#3D5943"
-          fill-opacity="0.18"></path>
-        <path
-          d="M75 110C105 90 150 95 170 120C150 140 100 140 75 110Z"
-          fill="#2E4032"
-          fill-opacity="0.22"></path>
-        <path
-          d="M110 160C140 140 185 145 200 175C175 195 130 195 110 160Z"
-          fill="#4A6750"
-          fill-opacity="0.16"></path>
-        <path
-          d="M135 230C165 210 195 220 205 250C180 270 145 265 135 230Z"
-          fill="#3D5943"
-          fill-opacity="0.2"></path>
-        <path
-          d="M140 300C170 285 190 300 195 330C170 345 145 335 140 300Z"
-          fill="#2E4032"
-          fill-opacity="0.17"></path>
-        <path
-          d="M100 370C130 360 150 375 150 405C125 415 105 400 100 370Z"
-          fill="#4A6750"
-          fill-opacity="0.15"></path>
-      </svg>
-    </div>
-
-    <!-- Right Dynamic Botanical Foliage Overlay (Vestris Style) -->
-    <div class="ambient-foliage foliage-right" aria-hidden="true">
-      <svg
-        viewBox="0 0 220 500"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        class="foliage-svg"
-      >
-        <path
-          d="M210 10C170 80 130 130 80 200C40 260 30 340 70 420C90 460 130 485 190 500"
-          stroke="#2E4032"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-opacity="0.25"></path>
-        <!-- Leaves -->
-        <path
-          d="M180 60C150 40 105 45 85 70C105 90 155 85 180 60Z"
-          fill="#3D5943"
-          fill-opacity="0.18"></path>
-        <path
-          d="M140 120C110 100 65 105 45 135C65 155 115 150 140 120Z"
-          fill="#2E4032"
-          fill-opacity="0.22"></path>
-        <path
-          d="M95 185C65 165 20 175 5 205C30 225 75 220 95 185Z"
-          fill="#4A6750"
-          fill-opacity="0.16"></path>
-        <path
-          d="M65 260C35 240 5 255 -5 285C20 305 55 295 65 260Z"
-          fill="#3D5943"
-          fill-opacity="0.2"></path>
-        <path
-          d="M60 340C35 330 10 345 5 375C30 390 55 375 60 340Z"
-          fill="#2E4032"
-          fill-opacity="0.18"></path>
-        <path
-          d="M100 410C75 405 55 425 55 455C80 465 100 445 100 410Z"
-          fill="#4A6750"
-          fill-opacity="0.15"></path>
-      </svg>
-    </div>
+    <BotanicalBranch side="left" />
+    <BotanicalBranch side="right" />
 
     <!-- Floating Pill Header -->
     <div class="header-wrapper">
