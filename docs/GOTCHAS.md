@@ -30,3 +30,5 @@
 - 2026-09-13 project-1 上游已更新为 `http://182.92.74.1:8080`，仍保留 `/api` 前缀；前述旧 IP/端口结论仅适用于历史服务器。新 `/docs/` 与 `/docs` 实测 404，但 `/api/auth/captcha` 返回有效验证码；应分别验证文档与业务接口，不凭文档页面判断接口可用性。
 
 - site 中文逐字动效不能把标点也独立做成可换行的 inline-block，否则手机端句号和后引号可能独占一行。当前将后置标点与前一个字绑定，并使用 text-wrap: balance；名言改动后需复查窄屏断行。
+
+- 首页名言“偶尔停很久”曾由 mouseenter 停止轮播定时器导致，鼠标停在文字区域就无限暂停，mouseleave 才重新计时。验收必须让真实鼠标停在轮播区域超过一个周期，不能仅在指针位于页面角落时检查自动播放；当前取消 hover 暂停，保留后台与减少动态效果暂停。回归：`python3 apps/site/scripts/check-quote-timing.py`（先 build 并运行 4325 preview，需独立 Python Playwright/Chromium）。

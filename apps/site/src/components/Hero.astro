@@ -127,7 +127,7 @@ const quotes = [
 
     let currentIndex = 0;
     let timer: number | null = null;
-    const INTERVAL_MS = 5200; // 入场约 1.2 秒，留出约 4 秒阅读
+    const INTERVAL_MS = 5200; // 保持换句周期；逐字过渡时长只由 CSS 控制
 
     function goToSlide(nextIndex: number) {
       if (nextIndex === currentIndex) return;
@@ -142,7 +142,7 @@ const quotes = [
     }
 
     function startAutoPlay() {
-      if (timer !== null) return;
+      if (timer !== null || document.hidden) return;
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       timer = window.setInterval(() => {
         goToSlide(currentIndex + 1);
@@ -166,8 +166,7 @@ const quotes = [
       if (document.hidden) stopAutoPlay();
       else startAutoPlay();
     });
-    root.addEventListener("mouseenter", stopAutoPlay);
-    root.addEventListener("mouseleave", startAutoPlay);
+    // 悬停在文字上继续轮播，避免无提示地无限暂停。
     root.addEventListener("focusin", stopAutoPlay);
     root.addEventListener("focusout", startAutoPlay);
 
@@ -598,21 +597,21 @@ const quotes = [
   }
   @media (prefers-reduced-motion: no-preference) {
     .quote-slide {
-      transition: opacity 0.45s ease;
+      transition: opacity 0.6s ease;
       transform: none;
     }
     .quote-char {
       opacity: 0;
       transform: translateY(0.55em) rotate(3deg);
       transition:
-        opacity 0.3s ease,
-        transform 0.45s var(--ease-out-spring);
+        opacity 0.4s ease,
+        transform 0.6s var(--ease-out-spring);
     }
     .quote-slide.is-active .quote-char {
       opacity: 1;
       transform: none;
-      transition-duration: 0.65s, 0.95s;
-      transition-delay: calc(var(--char) * 24ms);
+      transition-duration: 0.85s, 1.2s;
+      transition-delay: calc(var(--char) * 30ms);
     }
     html.hero-quote-loading .quote-char {
       opacity: 0;
