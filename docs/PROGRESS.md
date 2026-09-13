@@ -135,3 +135,5 @@
 - 2026-09-13 | Codex | 复现并修复首页名言鼠标悬停无限暂停：区域外正常、移入停住、移出恢复，字体与前台状态正常；取消 hover 暂停并略延长逐字过渡，换句仍为 5.2 秒；新增实际鼠标回归脚本先红后绿，build 与三档布局/减少动态效果验收通过；本地预览待用户审查、不推送 | `feature/site-quote-timing`
 
 - 2026-09-13 | Codex | 用户确认名言轮播修复与过渡时长版本 `f4625ee`，授权合并推送上线；按 --no-ff 合并，随后核验 Vercel 生产状态与正式域名资源 | `feature/site-quote-timing`
+
+- 2026-09-13 | Codex | 名言轮播修复上线验收完成：main@83abde9，Vercel 状态 Deployment has completed；www.aaronsite.top HTTP 200，线上两份 CSS 与本地审查构建逐字节一致；其他两个 app Skipped - Not affected，清理已合并分支 | `feature/site-quote-timing`
