@@ -26,3 +26,5 @@
 - zcode 视角：把 CSS 滚动时间线动画改写为 IntersectionObserver + CSS 时间动画时，不能只改源码，还要在 build 产物里全局检查 `animation-timeline` / `view-timeline` 是否被压缩进 `animation` 简写而静默失效。验收时应直接查看 `dist/_astro/*.css`，确保滚动时间线声明已完全消失，且触发类、过渡声明和静态降级全部存活。
 
 - project-2 Vercel Node 函数新增跨文件 TypeScript 导入时，根 tsconfig 需启用 `rewriteRelativeImportExtensions`。2026-09-09 Preview 构建成功但调用 500，日志为 `api/compare.js` 仍导入不存在的 `server/compare.ts`；直接 Node 源码测试和前端 build 均漏检。新增只保留转译 JS 的 ESM 加载回归测试，并在 Preview GET 405、真实 SSE done 验证后才允许合并。
+
+- 2026-09-13 project-1 上游已更新为 `http://182.92.74.1:8080`，仍保留 `/api` 前缀；前述旧 IP/端口结论仅适用于历史服务器。新 `/docs/` 与 `/docs` 实测 404，但 `/api/auth/captcha` 返回有效验证码；应分别验证文档与业务接口，不凭文档页面判断接口可用性。
