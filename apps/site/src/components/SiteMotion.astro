@@ -1,0 +1,162 @@
+<script>
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+  const fine = matchMedia("(hover: hover) and (pointer: fine)");
+  const leaves = document.querySelectorAll<HTMLElement>(".foliage-svg");
+  // One write per input frame; no permanent animation loop or scroll hijacking.
+  let frame = 0;
+  let x = 0;
+  let y = 0;
+  function paint() {
+    frame = 0;
+    leaves.forEach((leaf, i) => {
+      const gain = i === 0 ? 1 : -0.7;
+      leaf.style.translate = `${x * 18 * gain}px ${y * 10}px`;
+      leaf.style.rotate = `${x * 2 * gain}deg`;
+    });
+  }
+  window.addEventListener(
+    "pointermove",
+    (event) => {
+      if (reduced.matches || !fine.matches) return;
+      x = (event.clientX / innerWidth) * 2 - 1;
+      y = (event.clientY / innerHeight) * 2 - 1;
+      if (!frame) frame = requestAnimationFrame(paint);
+    },
+    { passive: true },
+  );
+  function reset() {
+    x = 0;
+    y = 0;
+    if (frame) cancelAnimationFrame(frame);
+    paint();
+  }
+  document.documentElement.addEventListener("pointerleave", reset);
+  reduced.addEventListener("change", reset);
+  fine.addEventListener("change", reset);
+
+  if (!reduced.matches && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add("motion-arrived");
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.08 },
+    );
+    document
+      .querySelectorAll<HTMLElement>(".project-card, .post-card-wrap")
+      .forEach((item) => {
+        item.classList.add("motion-waiting");
+        observer.observe(item);
+        item.addEventListener("focusin", () => {
+          item.classList.add("motion-arrived");
+          observer.unobserve(item);
+        });
+      });
+  }
+</script>
+
+<style is:global>
+  :root {
+    --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--color-accent-forest);
+    outline-offset: 5px;
+  }
+  .foliage-svg {
+    transition:
+      translate 0.45s var(--motion-ease),
+      rotate 0.6s var(--motion-ease);
+  }
+  /* The reading surface stays still. Only headings and individual entries arrive. */
+  .projects-page.animate-fade-in,
+  .posts-layout.animate-fade-in,
+  .posts-content.animate-fade-in,
+  .post-card-wrap.animate-fade-in,
+  .project-card.animate-fade-in {
+    animation: none;
+  }
+  .btn svg {
+    transition: translate 0.22s var(--motion-ease);
+  }
+  .btn:hover svg,
+  .btn:focus-visible svg {
+    translate: 3px 0;
+  }
+  .btn:active {
+    scale: 0.97;
+  }
+  .projects-container .project-card:hover,
+  .posts-list .post-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+  .post-card-link .post-title span {
+    background: linear-gradient(
+        var(--color-accent-forest),
+        var(--color-accent-forest)
+      )
+      left bottom / 0% 1px no-repeat;
+    transition: background-size 0.4s var(--motion-ease);
+  }
+  .post-card-link:hover .post-title span,
+  .post-card-link:focus-visible .post-title span {
+    background-size: 100% 1px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .site-header-pill {
+      animation: header-arrive 0.65s var(--motion-ease) both;
+    }
+    .project-card.motion-waiting {
+      opacity: 0;
+      translate: 0 28px;
+      scale: 0.985;
+      transition:
+        opacity 0.65s ease,
+        translate 0.85s var(--motion-ease),
+        scale 0.85s var(--motion-ease),
+        background 0.2s ease;
+    }
+    .post-card-wrap.motion-waiting {
+      opacity: 0;
+      translate: 24px 0;
+      transition:
+        opacity 0.5s ease,
+        translate 0.7s var(--motion-ease);
+    }
+    .motion-waiting.motion-arrived,
+    .motion-waiting:focus-within {
+      opacity: 1;
+      translate: 0 0;
+      scale: 1;
+    }
+  }
+  @keyframes header-arrive {
+    from {
+      opacity: 0;
+      translate: 0 -12px;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .foliage-svg {
+      translate: none !important;
+      rotate: none !important;
+    }
+    .motion-waiting {
+      opacity: 1;
+      translate: none;
+      scale: none;
+    }
+    .btn:active {
+      scale: none;
+    }
+  }
+</style>

@@ -28,3 +28,5 @@
 - project-2 Vercel Node 函数新增跨文件 TypeScript 导入时，根 tsconfig 需启用 `rewriteRelativeImportExtensions`。2026-09-09 Preview 构建成功但调用 500，日志为 `api/compare.js` 仍导入不存在的 `server/compare.ts`；直接 Node 源码测试和前端 build 均漏检。新增只保留转译 JS 的 ESM 加载回归测试，并在 Preview GET 405、真实 SSE done 验证后才允许合并。
 
 - 2026-09-13 project-1 上游已更新为 `http://182.92.74.1:8080`，仍保留 `/api` 前缀；前述旧 IP/端口结论仅适用于历史服务器。新 `/docs/` 与 `/docs` 实测 404，但 `/api/auth/captcha` 返回有效验证码；应分别验证文档与业务接口，不凭文档页面判断接口可用性。
+
+- site 中文逐字动效不能把标点也独立做成可换行的 inline-block，否则手机端句号和后引号可能独占一行。当前将后置标点与前一个字绑定，并使用 text-wrap: balance；名言改动后需复查窄屏断行。

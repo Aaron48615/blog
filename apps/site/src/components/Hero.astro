@@ -26,7 +26,7 @@ const quotes = [
 
 <section class="hero-container" aria-label="首页主要内容">
   <div class="quote-screen">
-    <!-- Centerpiece: Transparent Quotes Rotator (HOME-02: 4s stay, 1.2s crossfade) -->
+    <!-- Letter-led quote entrance with a quiet reading interval. -->
     <div
       class="quote-wrapper"
       id="quote-carousel"
@@ -41,7 +41,21 @@ const quotes = [
               data-index={index}
               aria-hidden={index === 0 ? "false" : "true"}
             >
-              <blockquote class="quote-text">“{item.quote}”</blockquote>
+              <blockquote class="quote-text" aria-label={`“${item.quote}”`}>
+                {(
+                  `“${item.quote}”`.match(
+                    /“?[^“”，。！？、；：][”，。！？、；：]*/gu,
+                  ) ?? []
+                ).map((char, i) => (
+                  <span
+                    class="quote-char"
+                    aria-hidden="true"
+                    style={`--char: ${i}`}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </blockquote>
               <cite class="quote-author">—— {item.author}</cite>
             </div>
           ))
@@ -113,7 +127,7 @@ const quotes = [
 
     let currentIndex = 0;
     let timer: number | null = null;
-    const INTERVAL_MS = 4000; // 用户确认：停留 4 秒
+    const INTERVAL_MS = 5200; // 入场约 1.2 秒，留出约 4 秒阅读
 
     function goToSlide(nextIndex: number) {
       if (nextIndex === currentIndex) return;
@@ -142,6 +156,16 @@ const quotes = [
       }
     }
 
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    reduced.addEventListener("change", () => {
+      document.documentElement.classList.remove("hero-quote-loading");
+      if (reduced.matches) stopAutoPlay();
+      else startAutoPlay();
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stopAutoPlay();
+      else startAutoPlay();
+    });
     root.addEventListener("mouseenter", stopAutoPlay);
     root.addEventListener("mouseleave", startAutoPlay);
     root.addEventListener("focusin", stopAutoPlay);
@@ -454,15 +478,14 @@ const quotes = [
      to .hero-intro when it scrolls into view, then this time-based stagger
      plays once. Items pre-hide only when JS is present (html.hero-js set
      inline during parse), so no-JS and reduced-motion users see static
-     content. 0.7s per item with a 0.24s step reproduces the old entry-range
-     rhythm (35% duration, 12% stagger). */
+     content. 0.7s per item with a 0.12s step keeps the two sides together. */
   @media (prefers-reduced-motion: no-preference) {
     .hero-desc {
-      --entry-offset: clamp(-180px, -16vw, -48px);
+      --entry-offset: clamp(-64px, -6vw, -24px);
     }
 
     .hero-actions {
-      --entry-offset: clamp(48px, 16vw, 180px);
+      --entry-offset: clamp(24px, 6vw, 64px);
     }
 
     html.hero-js .hero-desc > span,
@@ -477,11 +500,11 @@ const quotes = [
 
     html.hero-js .hero-intro.is-entered .hero-desc > span:nth-child(2),
     html.hero-js .hero-intro.is-entered .hero-actions > .btn:nth-child(2) {
-      animation-delay: 0.24s;
+      animation-delay: 0.12s;
     }
 
     html.hero-js .hero-intro.is-entered .hero-desc > span:nth-child(3) {
-      animation-delay: 0.48s;
+      animation-delay: 0.24s;
     }
 
     /* Keyboard focus must never land on an invisible action. */
@@ -563,8 +586,64 @@ const quotes = [
     }
 
     .quote-slide {
-      transition: opacity 0.1s ease !important;
+      transition: none !important;
       transform: none !important;
+    }
+  }
+  .quote-text {
+    text-wrap: balance;
+  }
+  .quote-char {
+    display: inline-block;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .quote-slide {
+      transition: opacity 0.45s ease;
+      transform: none;
+    }
+    .quote-char {
+      opacity: 0;
+      transform: translateY(0.55em) rotate(3deg);
+      transition:
+        opacity 0.3s ease,
+        transform 0.45s var(--ease-out-spring);
+    }
+    .quote-slide.is-active .quote-char {
+      opacity: 1;
+      transform: none;
+      transition-duration: 0.65s, 0.95s;
+      transition-delay: calc(var(--char) * 24ms);
+    }
+    html.hero-quote-loading .quote-char {
+      opacity: 0;
+      transform: translateY(0.55em);
+    }
+    .quote-author {
+      transition:
+        opacity 0.4s ease,
+        translate 0.65s var(--ease-out-spring);
+      opacity: 0;
+      translate: 12px 0;
+    }
+    .is-active .quote-author {
+      opacity: 1;
+      translate: 0 0;
+      transition-delay: 0.3s;
+    }
+    html.hero-js .hero-intro::before {
+      transform: scaleY(0);
+      transition: transform 0.8s var(--ease-out-spring);
+    }
+    html.hero-js .hero-intro.is-entered::before {
+      transform: scaleY(1);
+    }
+    @media (max-width: 640px) {
+      html.hero-js .hero-intro::before {
+        transform: scaleX(0);
+      }
+      html.hero-js .hero-intro.is-entered::before {
+        transform: scaleX(1);
+      }
     }
   }
 </style>
