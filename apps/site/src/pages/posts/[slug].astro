@@ -11,7 +11,29 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content, headings } = await render(post);
+const renderedPost = await render(post);
+// Move a leading preface into the article header while keeping its Markdown intact.
+const prefaceSection =
+  renderedPost.headings[0]?.depth === 2 &&
+  renderedPost.headings[0]?.text === "前言"
+    ? post.rendered?.html.match(
+        /^\s*<h2\b[^>]*>[\s\S]*?<\/h2>\s*([\s\S]*?)(?=<h2\b|$)/,
+      )
+    : null;
+const prefaceHtml = prefaceSection?.[1];
+const { Content, headings } = prefaceSection
+  ? await render({
+      ...post,
+      rendered: {
+        ...post.rendered,
+        html: post.rendered.html.slice(prefaceSection[0].length),
+        metadata: {
+          ...post.rendered.metadata,
+          headings: renderedPost.headings.slice(1),
+        },
+      },
+    })
+  : renderedPost;
 
 // Filter h2 and h3 for Table of Contents
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
@@ -135,10 +157,14 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
           <h1 class="article-title">{post.data.title}</h1>
 
           {
-            post.data.summary && (
-              <div class="article-lead">
-                <p>{post.data.summary}</p>
-              </div>
+            prefaceHtml ? (
+              <div class="article-lead" set:html={prefaceHtml} />
+            ) : (
+              post.data.summary && (
+                <div class="article-lead">
+                  <p>{post.data.summary}</p>
+                </div>
+              )
             )
           }
         </header>
@@ -527,8 +553,43 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
     line-height: 1.75;
   }
 
-  .article-lead p {
+  .article-lead :global(p) {
     margin: 0;
+  }
+
+  .article-lead :global(p + p) {
+    margin-top: 1rem;
+  }
+
+  .article-lead :global(a),
+  .article-body :global(a) {
+    color: #a34426;
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+    overflow-wrap: anywhere;
+    transition:
+      color 0.2s ease,
+      text-decoration-color 0.2s ease;
+  }
+
+  .article-lead :global(a strong),
+  .article-body :global(a strong) {
+    color: inherit;
+  }
+
+  .article-lead :global(a:hover),
+  .article-body :global(a:hover) {
+    color: #77331f;
+    text-decoration-color: currentColor;
+  }
+
+  .article-lead :global(a:focus-visible),
+  .article-body :global(a:focus-visible) {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 
   /* Mobile TOC Details */
