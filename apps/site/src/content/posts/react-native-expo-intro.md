@@ -1,5 +1,5 @@
 ---
-title: "React Native 和 Expo"
+title: "来认识一下React Native 和 Expo"
 date: 2026-10-21
 tags: ["React Native", "Expo"]
 summary: "最近正在学习React Native，打算在个人网站上连载一些学习文章，目的一个是做笔记，一个是分享学习进度。"
@@ -26,7 +26,7 @@ React Native用来开发跨端的app，语法和写法基本 React 相同，我�
 
 ### 你要准备什么？
 
-一台电脑，用来开发。一台手机，用来预览和调试，最好是苹果的。当然了，你有一个安卓设备一个苹果设备是最好的，这样两个平台都可以真机调试了。没有也没关系，**[RN官网](https://reactnative.dev/docs/set-up-your-environment)**上提供了安卓模拟器的安装教程，就是对网络环境有要求，请务必保证你的代理稳定，否则就要一遍又一遍的重装，做好心理准备。
+一台电脑，用来开发。一台手机，用来预览和调试，最好是苹果的。当然了，你有一个安卓设备一个苹果设备是最好的，这样两个平台都可以真机调试了。没有也没关系，[**RN官网**](https://reactnative.dev/docs/set-up-your-environment)上提供了安卓模拟器的安装教程，就是对网络环境有要求，请务必保证你的代理稳定，否则就要一遍又一遍的重装，做好心理准备。
 
 那为什么 RN 官网只给了安卓模拟器的安装教程呢？因为**苹果模拟器只能是 Mac 上安装 Xcode 才可以配置**，没有 Mac 的可以略过了。
 
@@ -36,7 +36,7 @@ React Native用来开发跨端的app，语法和写法基本 React 相同，我�
 
 苹果在**国区的 App Store** 就能下载到。
 
-安卓在 **Google Play** 可以下载到，国内网络环境的话，可以在**[APKPure](apkpure.com)**搜索安装，里面有安装教程。
+安卓在 **Google Play** 可以下载到，国内网络环境的话，可以在[**APKPure**](apkpure.com)搜索安装，里面有安装教程。
 
 ### 创建 Expo 项目
 
@@ -47,7 +47,7 @@ npx create-expo-app@latest
 
 这样会创建一个 SDK 57 的项目，按信息提示的安装所需的包，给项目起名，等待创建完成。
 
-如果你觉得刚才那种方式创建的项目，里面内置了很多东西，看了很懵，你可以用**空模板创建项目**，Expo 官方支持在创建项目的时候**[添加模板参数](https://docs.expo.dev/more/create-expo/#--template)**。
+如果你觉得刚才那种方式创建的项目，里面内置了很多东西，看了很懵，你可以用**空模板创建项目**，Expo 官方支持在创建项目的时候[**添加模板参数**](https://docs.expo.dev/more/create-expo/#--template)。
 
 ~~~
 npx create-expo-app@latest --template blank
