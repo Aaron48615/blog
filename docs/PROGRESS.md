@@ -151,3 +151,5 @@
 - 2026-09-13 | Codex | 用户确认名言首次入场修复 `dd51e26`，授权提交推送合并；按 --no-ff 合并 main 并推送触发生产部署，随后核验状态 | `feature/site-quote-first-entry`
 
 - 2026-09-13 | Codex | 首次逐字入场修复上线验收完成：main@c0906b3，Vercel Deployment has completed；正式首页 HTTP 200、两份线上 CSS 与本地审查构建逐字节一致；project-1/project-2 均 Skipped - Not affected；清理已合并分支 | `feature/site-quote-first-entry`
+
+- 2026-10-21 | Codex | 按用户要求将后续网站维护改为 Codex 统一负责，同步根规范、维护提示词、记忆索引和可选 reviewer 配置；取消旧 AI 地盘与固定交接，保留 feature 分支、技术决策、任务范围、验收及当前任务的合并/发布授权边界。修改前四份约束原文完整归档于 docs/archive/collaboration-policy/2026-10-21，记录来源提交 a490cf55d63542fb84fc9644231d32fec6b84572、SHA-256 清单和“恢复原来的协作约束”的恢复步骤；四份备份与来源提交逐字节一致，校验值、历史任务/决策保留、本地入口/链接及格式/diff 检查通过。仅修改文档与审查配置，由 Codex 自审，未改网站代码或运行 app 构建/业务测试；文档调整完成，待用户确认合并，不发布生产 | `feature/codex-site-maintenance-policy`

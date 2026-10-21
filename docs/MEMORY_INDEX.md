@@ -1,57 +1,50 @@
 # 记忆总目录
 
-> 作用：让所有 AI 快速定位项目记忆点。先看本目录，再跳转到对应分册的详细章节。
-> 维护要求：新增/修改记忆点时，必须同步更新本目录。
+> 作用：读取根 `AGENTS.md` 后，用本目录定位现行规范和项目记忆。
+> 维护要求：修改记忆入口时同步本目录；历史记录中的 AI 姓名不代表现行分工。
 
 ## 项目总纲
 
-| 主题          | 一句话摘要                                                                             | 详细位置                                  |
-| ------------- | -------------------------------------------------------------------------------------- | ----------------------------------------- |
-| 项目是什么    | 个人站 + 两个旧项目的 pnpm monorepo                                                    | `AGENTS.md` > 这是什么                    |
-| 技术栈与命令  | pnpm workspace、Astro、纯静态构建                                                      | `AGENTS.md` > 技术栈与命令                |
-| 部署方式      | Vercel，每个 app 一个 project，Root Directory 指向 `apps/<app名>`                      | `AGENTS.md` > 部署                        |
-| 四 AI 分工    | Codex=逻辑/结构/部署，Antigravity=视觉，OpenCode Go=内容/迁移/杂活，Claude Code=review | `AGENTS.md` > 协作规则                    |
-| 收工汇报格式  | 必须口头汇报：完成了什么、下一步可做什么、建议交给谁做                                 | `AGENTS.md` > 协作规则第 6 条             |
-| 记忆文档体系  | AGENTS.md 为总纲，docs/ 下为分册，所有 AI 共同维护                                     | `AGENTS.md` > 记忆文档体系                |
-| 防 AI 冲突    | 必须一人一分支：开工先 `git checkout -b feature/<任务名>`，禁止在 main 上直接改文件    | `AGENTS.md` > 防 AI 冲突工作流            |
-| 合并规则      | 用户或 reviewer 检查 diff 并验收后，用 `--no-ff` 合并到 main                           | `AGENTS.md` > 防 AI 冲突工作流 > 合并规则 |
-| 四 AI 主流程  | OpenCode 派发 → 执行者开发 → Claude Code 审查 → OpenCode 合并 → 继续派发               | `AGENTS.md` > 四 AI 协作主流程            |
-| 并发规则      | 同一时刻尽量只让一个 AI 工作、一个 AI 审查                                             | `AGENTS.md` > 四 AI 协作主流程 > 并发规则 |
-| ponytail 使用 | 默认编码任务不主动调用；仅用户明确说触发词时才使用                                     | `AGENTS.md` > Skill 使用规则              |
-| 踩坑记录      | pnpm 11 的 `allowBuilds` 必须写在根目录 `pnpm-workspace.yaml`                          | `AGENTS.md` > Gotchas                     |
-| 锁文件格式化  | `pnpm-lock.yaml` 交给 pnpm 序列化，不由 Prettier 格式化                                | `AGENTS.md` > Gotchas                     |
+| 主题             | 一句话摘要                                                                       | 详细位置                                                 |
+| ---------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| 项目是什么       | 个人站 + 两个旧项目的 pnpm monorepo                                              | `AGENTS.md` > 这是什么                                   |
+| 技术栈与命令     | 只用 pnpm，前端静态构建，project-2 的 Serverless 例外按既定范围保留              | `AGENTS.md` > 技术栈与命令                               |
+| 部署方式         | Vercel，每个 app 一个 project；main push 触发生产部署                            | `AGENTS.md` > 部署与授权                                 |
+| 当前维护职责     | 2026-10-21 起由 Codex 统一负责内容、视觉、功能、工程、验收和文档                 | `AGENTS.md` > 当前维护方式                               |
+| 原约束备份与恢复 | 用户要求“恢复原来的协作约束”时，按原文备份恢复协作规则，保留后续实现             | `docs/archive/collaboration-policy/2026-10-21/README.md` |
+| 开工与分支       | 先读规范和查工作区，再建或接续 feature 分支；禁止直接在 main 修改/提交           | `AGENTS.md` > 开工与分支规则                             |
+| 验收与收工       | Codex 完成相关验收及自审，更新任务/进度并汇报结果、边界和下一步                  | `AGENTS.md` > 验收与收工                                 |
+| 合并与发布       | 获得本次任务明确授权后由 Codex 用 --no-ff 合并并核验上线；独立审查按用户要求安排 | `AGENTS.md` > 合并规则                                   |
+| 并发规则         | 默认一个工作区一个写入任务；用户安排并行时隔离工作区和文件范围                   | `AGENTS.md` > 开工与分支规则                             |
+| Skill 使用       | ponytail 仅用户明确给出触发信号时使用                                            | `AGENTS.md` > Skill 使用规则                             |
+| 记忆文档体系     | 根规范为入口，各分册保存决策、任务、进度、踩坑、模板与索引                       | `AGENTS.md` > 记忆文档体系                               |
+| 踩坑记录         | pnpm 构建许可、锁文件、代理、动效、字体、部署及验证边界                          | `docs/GOTCHAS.md` 及各 app 的 `AGENTS.md`                |
 
 ## 决策记忆
 
-| 主题                      | 一句话摘要                                  | 详细位置            |
-| ------------------------- | ------------------------------------------- | ------------------- |
-| monorepo + pnpm workspace | 2026-08-25 已定                             | `docs/DECISIONS.md` |
-| 部署平台：Vercel          | 2026-08-25 已定                             | `docs/DECISIONS.md` |
-| AGENTS.md 为唯一记忆源    | 2026-08-25 已定                             | `docs/DECISIONS.md` |
-| 四 AI 分工                | 2026-08-25 已定                             | `docs/DECISIONS.md` |
-| 纯静态构建                | 2026-08-25 已定                             | `docs/DECISIONS.md` |
-| apps/site 用 Astro        | 2026-08-26 用户确认                         | `docs/DECISIONS.md` |
-| 旧项目源目录              | project-1=data-pilot，project-2=mobile-shop | `docs/DECISIONS.md` |
+| 主题                      | 一句话摘要                                                       | 详细位置                                                                      |
+| ------------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| monorepo + pnpm workspace | 2026-08-25 已定；docs 为独立 workspace                           | `docs/DECISIONS.md`                                                           |
+| 部署平台：Vercel          | 每个 app 一个 project                                            | `docs/DECISIONS.md`                                                           |
+| AGENTS.md 为唯一入口      | CLAUDE.md 只导入现行总纲                                         | `docs/DECISIONS.md`                                                           |
+| Codex 统一维护            | 2026-10-21 用户已确认，替代历史多 AI 地盘与固定交接流程          | `docs/DECISIONS.md`                                                           |
+| 原四 AI 分工              | 2026-08-25 的历史决策，原文保留于决策日志及协作约束归档          | `docs/DECISIONS.md`、`docs/archive/collaboration-policy/2026-10-21/README.md` |
+| 静态构建与代理例外        | 前端静态；project-2 商城/图片/共享 AI 使用限定的 Serverless 代理 | `docs/DECISIONS.md`                                                           |
+| apps/site 用 Astro        | 已由用户确认                                                     | `docs/DECISIONS.md`                                                           |
+| 旧项目源目录              | project-1=data-pilot，project-2=mobile-shop                      | `docs/DECISIONS.md`                                                           |
 
-## 任务记忆
+## 任务与进度
 
-| 主题             | 一句话摘要                            | 详细位置                  |
-| ---------------- | ------------------------------------- | ------------------------- |
-| Phase 1 任务列表 | site 脚手架、lint/format、Vercel 绑定 | `docs/TASKS.md` > Phase 1 |
-| Phase 2 任务列表 | 两个旧项目迁移                        | `docs/TASKS.md` > Phase 2 |
-| Phase 3 任务列表 | 视觉打磨、项目展示、关于页            | `docs/TASKS.md` > Phase 3 |
-| Phase 4 任务列表 | Lighthouse 走查、Gotchas 补充         | `docs/TASKS.md` > Phase 4 |
+| 主题                 | 一句话摘要                                                          | 详细位置                                         |
+| -------------------- | ------------------------------------------------------------------- | ------------------------------------------------ |
+| 当前维护方式调整     | Codex 统一维护、原约束备份及恢复入口                                | `docs/TASKS.md` > 当前维护方式调整（2026-10-21） |
+| Phase 1—4 与后续维护 | 脚手架、迁移、内容、视觉、性能及后续功能任务；旧 owner 记录保留历史 | `docs/TASKS.md`                                  |
+| 历次实施与部署       | 按时间记录实际完成内容、验证边界和分支/commit                       | `docs/PROGRESS.md`                               |
 
-## 进度记忆
+## 维护模板
 
-| 主题                  | 一句话摘要          | 详细位置           |
-| --------------------- | ------------------- | ------------------ |
-| 初始化 monorepo 骨架  | 2026-08-25 OpenCode | `docs/PROGRESS.md` |
-| site Astro 脚手架三页 | 2026-08-26 OpenCode | `docs/PROGRESS.md` |
-| 根目录格式化配置      | 2026-08-26 Codex    | `docs/PROGRESS.md` |
-
-## 派活模板
-
-| 主题                                               | 一句话摘要          | 详细位置          |
-| -------------------------------------------------- | ------------------- | ----------------- |
-| 给 Codex / Antigravity / Claude Code 的标准 prompt | 开场白 + 六段式结构 | `docs/PROMPTS.md` |
+| 主题           | 一句话摘要                                    | 详细位置                                                                    |
+| -------------- | --------------------------------------------- | --------------------------------------------------------------------------- |
+| Codex 维护任务 | 需求、范围、验收、提交与发布要求              | `docs/PROMPTS.md`                                                           |
+| 可选独立审查   | 用户要求时只读检查 diff；结果回到用户和 Codex | `docs/PROMPTS.md`、`.claude/agents/reviewer.md`                             |
+| 恢复原协作约束 | 明确恢复指令、校验和保留后续实现的边界        | `docs/PROMPTS.md`、`docs/archive/collaboration-policy/2026-10-21/README.md` |
