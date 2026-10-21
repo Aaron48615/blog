@@ -151,3 +151,5 @@
 - 2026-09-13 | Codex | 用户确认名言首次入场修复 `dd51e26`，授权提交推送合并；按 --no-ff 合并 main 并推送触发生产部署，随后核验状态 | `feature/site-quote-first-entry`
 
 - 2026-09-13 | Codex | 首次逐字入场修复上线验收完成：main@c0906b3，Vercel Deployment has completed；正式首页 HTTP 200、两份线上 CSS 与本地审查构建逐字节一致；project-1/project-2 均 Skipped - Not affected；清理已合并分支 | `feature/site-quote-first-entry`
+
+- 2026-10-21 | Codex | 按用户要求原文发布《React Native 和 Expo》，新增 /posts/react-native-expo-intro；仅将原一级标题用于站点标题并补齐文章元数据，其余正文与原稿逐字节一致，原始笔记 SHA-256 80b0ec0b9cbcccad9b04e2535f26d4418110b6052c1baf91924399337df8a536 未变。site build、列表/详情在 1280/375/320px 共 6 组浏览器检查、9 项目录目标、列表进入详情、手机目录展开/跳转和桌面/手机截图目检通过，无整页横向溢出，控制台零错误；代码块保留原文并可独立横向滚动。用户明确要求不修改内容，保留 APKPure 相对链接和原 Markdown 格式，未运行文章中的 Expo 命令或校订正文；待分支部署及授权合并后生产复验。原约束调整分支单独保留，本轮不合并 | `feature/publish-react-native-expo-intro`
