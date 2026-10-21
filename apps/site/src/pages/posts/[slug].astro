@@ -563,9 +563,9 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
 
   .article-lead :global(a),
   .article-body :global(a) {
-    color: var(--color-accent-forest);
+    color: #a34426;
     text-decoration: underline;
-    text-decoration-color: var(--color-accent-sage);
+    text-decoration-color: currentColor;
     text-decoration-thickness: 0.08em;
     text-underline-offset: 0.18em;
     overflow-wrap: anywhere;
@@ -581,13 +581,13 @@ const formattedDate = post.data.date.toLocaleDateString("zh-CN", {
 
   .article-lead :global(a:hover),
   .article-body :global(a:hover) {
-    color: var(--color-accent-forest-hover);
+    color: #77331f;
     text-decoration-color: currentColor;
   }
 
   .article-lead :global(a:focus-visible),
   .article-body :global(a:focus-visible) {
-    outline: 2px solid var(--color-accent-sage);
+    outline: 2px solid currentColor;
     outline-offset: 3px;
     border-radius: 2px;
   }
