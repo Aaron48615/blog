@@ -167,3 +167,5 @@
 - 2026-10-21 | Codex | 文章链接颜色已上线：按本次文章维护授权 --no-ff 合并 main@1a19f43 并推送，Vercel Production 成功；正式文章页 HTTP 200，线上两份 CSS 与本地验收构建逐字节一致。生产 1280/375px 真实浏览器复验通过，4 个链接、加粗文字及下划线均为 rgb(163,68,38)，无整页横向溢出，桌面/手机截图已保存；当前打开的文章标签页已刷新。仅追加本任务完成记录，原约束调整分支继续保留 | `feature/article-link-color` / main@1a19f43
 
 - 2026-10-21 | Codex | 用户确认新版协作约束并授权提交合并；接续原分支 2f7d3ff，同步 main@dfbba10 并合并保留双方任务/进度记录，文章内容与陶土色链接代码相对当前 main 无差异。四份原文备份再次与来源提交 a490cf55d63542fb84fc9644231d32fec6b84572 及当前 main 的旧约束逐字节核对，SHA-256 四项通过；备份文件不改写，恢复说明和入口保留。现行职责、维护模板、索引与可选 reviewer 一致，由 Codex 自审，检查文档格式、本地链接、历史记录和改动范围；本轮仅提交协作约束及其记录，不运行 app 构建或业务测试，按用户授权合并 main 后核对远端与自动部署状态 | `feature/codex-site-maintenance-policy`
+
+- 2026-10-21 | Codex | 新版协作约束已按用户授权 --no-ff 合并并推送 main@b41b4e7，远端 SHA 与本地一致；旧约束四份原文与 SHA-256 清单完整保存在 Git 中，合并后校验仍全部通过，恢复入口与说明可用。根规范变化触发三个 app 自动重新部署，GitHub/Vercel 均报告 Production success / Deployment has completed；首页和文章页 HTTP 200，文章标题与已确认配色对应的 CSS 文件保持不变。此轮仅修改协作规范、模板、索引、可选 reviewer 和任务/进度记录，app 代码与构建配置无差异；未扩展为两个旧项目的业务功能验收。本次仅追加完成记录并清理已合并分支 | `feature/codex-site-maintenance-policy` / main@b41b4e7
