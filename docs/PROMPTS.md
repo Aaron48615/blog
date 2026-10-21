@@ -1,164 +1,41 @@
-# 派活提示词模板
+# 网站维护提示词模板
 
-用法：总控（OpenCode）或用户本人把对应模板复制给对应 AI，替换 `<尖括号>` 部分。
-核心原则：**完整项目上下文只给总控；工人只拿"一个任务 + 地盘边界 + 验收标准"。**
-永远不要对工人说"继续这个项目"——那会让它误以为自己是主导。
+自 2026-10-21 起，用户直接向 Codex 提出维护需求。下面的模板用于补充范围、验收和发布要求，不要求用户每次完整复制。当前职责与分支规则见根 `AGENTS.md`；原多 AI 派活模板保存在 `docs/archive/collaboration-policy/2026-10-21/PROMPTS.md.original`，仅作归档参考。
 
-## 固定提示词（所有执行者）
+## 交给 Codex 的维护任务
 
-```
-第一句必须先切分支。进入 ~/personal-hub 后执行：
+```text
+读取 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md、docs/GOTCHAS.md 和最近的 docs/PROGRESS.md，以及目标 app 的规范。
+你负责本仓库的网站维护，可处理本次任务所需的内容、视觉、动效、功能、工程、测试和文档，无需按旧 AI 地盘分工转交。
 
-git checkout main
-git pull origin main
-git checkout -b feature/<任务名>
+本次任务：<具体需求>
+范围与限制：<目标 app/页面/文件，以及必须保留的行为>
+验收标准：<可观察、可复验的结果>
+提交与发布要求：<按当次要求填写；未明确授权合并/上线时只提交推送 feature 分支>
 
-如果你发现自己在 main 分支上，立刻停止，执行上面三句后再继续。
-
-然后读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md、docs/GOTCHAS.md。
-严禁在 main 分支上直接修改文件。
-收工前必须：git status 确认只提交了自己改的文件，更新 docs/TASKS.md 和 docs/PROGRESS.md，再 push 分支。
-最后由用户或 Claude Code review 后用 --no-ff 合并到 main。
+先检查需求前提和工作区。来源不明的未提交改动不得自行处置；新任务从最新 main 建立 feature/<任务名>，接续任务使用原任务分支。
+登记任务，由你完成实现、相关验收和自审，同步 TASKS/PROGRESS；必要时更新决策、踩坑和索引。
+汇报实际完成内容、验证结果与边界、分支/commit 和下一步。自审应如实标明；只有用户安排独立审查时才转交其他 reviewer。
+用户已明确授权的合并/发布步骤由你继续完成，不重复询问；没有这项授权时提供具体结果供确认。
 ```
 
-## OpenCode Go (Qwen 3.7 Plus) — 内容/迁移/杂活
+## 用户要求独立审查时
 
-```
-【强制】进入 ~/personal-hub 后，第一句执行：
-git checkout main && git pull origin main && git checkout -b feature/<任务名>
-如果你在 main 上，立刻停止，切 feature 分支。
-
-读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md、docs/GOTCHAS.md。
-你是本仓库的内容/迁移/杂活工人，只负责：页面内容填充、文案、旧项目迁移、各种杂项。
-不许动：视觉样式（Antigravity 地盘）、逻辑/结构/部署（Codex 地盘）。
-
-本次任务：<从 TASKS.md 原样摘>
-验收标准：<从 TASKS.md 原样摘>
-
-要求：
-- 严禁在 main 上修改任何文件。
-- 只改自己任务范围内的文件。
-- 完成后 git status 检查，更新 docs/TASKS.md 状态和 docs/PROGRESS.md 流水。
-- push feature/<任务名> 分支，不要私自 merge。
-- 写一段给 Claude Code 的审查提示词由用户转发。
+```text
+读取 AGENTS.md、docs/DECISIONS.md、docs/TASKS.md 和 docs/GOTCHAS.md。
+仅审查 <feature/分支名> 相对当前 main 的改动，不改代码、不切分支、不提交、不合并。
+使用 git diff main...<feature/分支名> 检查任务范围、行为正确性、错误处理、安全、相关验收证据与文档同步。
+现行维护职责归 Codex，不再以“样式必须归 Antigravity”等已归档分工判断越界。
+输出有证据的问题、对应文件/位置、影响及是否建议合并，明确未验证的内容；没有问题时如实说明。
+审查结果交给用户和 Codex，后续修复或已获授权的合并由 Codex 继续处理。
 ```
 
-## Codex (GPT) — 逻辑/结构/部署
+## 恢复原来的协作约束
 
-```
-【强制】进入 ~/personal-hub 后，第一句执行：
-git checkout main && git pull origin main && git checkout -b feature/<任务名>
-如果你在 main 上，立刻停止，切 feature 分支。
-
-读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md、docs/GOTCHAS.md。
-你是本仓库的逻辑主力，只负责：目录结构、路由、数据获取、构建与部署脚本。
-不许动：视觉样式、组件样式、动效（Antigravity 地盘）。
-
-本次任务：<从 TASKS.md 原样摘>
-验收标准：<从 TASKS.md 原样摘>
-
-要求：
-- 在 feature/<任务名> 分支开发，不推 main。
-- 完成后更新 docs/TASKS.md 状态和 docs/PROGRESS.md 流水。
-- push 分支，写一段给 Claude Code 的审查提示词由用户转发。
-```
-
-## zcode (GLM 5.3 Flash) — 逻辑/工程实现替补
-
-```
-【强制】进入 ~/personal-hub 后，第一句执行：
-git checkout main && git pull origin main && git checkout -b feature/<任务名>
-如果你在 main 上，立刻停止，切 feature 分支。
-
-读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md、docs/GOTCHAS.md。
-你是本仓库的工程实现工人，负责：逻辑/结构/部署/前端工程任务的执行，尤其是 Codex 额度不足或任务排不开时顶上的任务。
-不许动：视觉样式、组件样式、动效（Antigravity 地盘）。
-
-本次任务：<从 TASKS.md 原样摘>
-验收标准：<从 TASKS.md 原样摘>
-
-要求：
-- 在 feature/<任务名> 分支开发，不推 main。
-- 只改自己任务范围内的文件。
-- 完成后 git status 检查，更新 docs/TASKS.md 状态和 docs/PROGRESS.md 流水。
-- push 分支，写一段给 Claude Code 的审查提示词由用户转发。
-```
-
-## Antigravity (Gemini) — 视觉工人
-
-```
-【强制】进入 ~/personal-hub 后，第一句执行：
-git checkout main && git pull origin main && git checkout -b feature/<任务名>
-如果你在 main 上，立刻停止，切 feature 分支。
-
-读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md、docs/GOTCHAS.md。
-你是本仓库的视觉工人，只负责：组件样式、动效、响应式、配色排版。
-不许动：路由、数据获取逻辑、构建与部署配置。
-
-本次任务：<视觉任务描述>
-验收标准：<如 Lighthouse 性能 ≥90、用户目检通过>
-注意：docs/DECISIONS.md 里已定案的配色/技术决策不许推翻，有异议先提出。
-
-要求：
-- 在 feature/<任务名> 分支开发，不推 main。
-- 完成后更新 docs/TASKS.md 状态和 docs/PROGRESS.md 流水。
-- push 分支，写一段给 Claude Code 的审查提示词由用户转发。
-```
-
-## 执行者收工后 → 给 Claude Code 的审查提示词
-
-```
-读 AGENTS.md、docs/DECISIONS.md、docs/TASKS.md、docs/GOTCHAS.md。
-你是本仓库的专职 reviewer，只审查、不写代码。
-请审查分支：<feature/分支名>
-
-审查清单：
-1. 执行 diff：git diff main...<feature/分支名>
-2. 是否违反 AGENTS.md 协作规则或 DECISIONS.md 已定决策
-3. 是否越界改了别人地盘的文件（样式归 Antigravity、逻辑/结构/部署归 Codex、内容/迁移/杂活归 OpenCode Go）
-4. 是否有明显 bug、类型错误、安全问题
-5. 验收标准是否达成（可运行相关命令验证）
-6. docs/TASKS.md 和 docs/PROGRESS.md 是否同步更新
-
-输出要求：
-- 问题清单（按严重程度高/中/低分级）
-- 结论：【通过】或【不通过】
-- 如果通过：写一段“给 OpenCode 的完成汇报提示词”，由用户复制给 OpenCode
-- 如果不通过：说明退回给谁（原执行者修复 / OpenCode 重新评估）
-```
-
-## Claude Code 审查通过后应输出的完成汇报模板（由用户复制给 OpenCode）
-
-```
-To: OpenCode（总控）
-From: Claude Code（reviewer）
-
-任务：<任务名>
-分支：<feature/分支名>
-执行者：<AI 名>
-
-审查结果：通过
-验收情况：<跑过哪些命令、结果如何>
-合并建议：可以合并到 main，请 OpenCode 或用户执行以下命令：
-  git checkout main
-  git pull origin main
-  git merge --no-ff <feature/分支名>
-  git push
-  git branch -d <feature/分支名>
-  git push origin --delete <feature/分支名>
-
-下一步可选项：
-1. <下一个任务 A> → 交给 <AI 名>
-2. <下一个任务 B> → 交给 <AI 名>
-3. <其他>
-
-请 OpenCode 确认合并并继续派发下一个任务。
-```
-
-## OpenCode — 总控台（在 ~/personal-hub 启动的会话）
-
-```
-读 AGENTS.md、docs/TASKS.md、docs/DECISIONS.md、docs/GOTCHAS.md、docs/PROGRESS.md。
-你是总控：拆任务、派任务、验收、合并。
-从 TASKS.md 顶部"待用户确认"或下一个 [ ] 任务继续。
+```text
+恢复原来的协作约束。
+默认使用 docs/archive/collaboration-policy/2026-10-21/ 中的原文备份，先读取 README.md 并验证 SHA256SUMS。
+按 README 恢复现行约束和相关入口，保留之后的网站实现、技术决策与历史记录，不做整仓回滚。
+在 feature 分支完成恢复，同步决策、任务/进度和索引，检查恢复内容与备份的对应关系后提交推送。
+本要求授权执行约束恢复；合并到 main 和生产发布仍按当前任务的明确授权处理。
 ```

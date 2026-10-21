@@ -152,6 +152,8 @@
 
 - 2026-09-13 | Codex | 首次逐字入场修复上线验收完成：main@c0906b3，Vercel Deployment has completed；正式首页 HTTP 200、两份线上 CSS 与本地审查构建逐字节一致；project-1/project-2 均 Skipped - Not affected；清理已合并分支 | `feature/site-quote-first-entry`
 
+- 2026-10-21 | Codex | 按用户要求将后续网站维护改为 Codex 统一负责，同步根规范、维护提示词、记忆索引和可选 reviewer 配置；取消旧 AI 地盘与固定交接，保留 feature 分支、技术决策、任务范围、验收及当前任务的合并/发布授权边界。修改前四份约束原文完整归档于 docs/archive/collaboration-policy/2026-10-21，记录来源提交 a490cf55d63542fb84fc9644231d32fec6b84572、SHA-256 清单和“恢复原来的协作约束”的恢复步骤；四份备份与来源提交逐字节一致，校验值、历史任务/决策保留、本地入口/链接及格式/diff 检查通过。仅修改文档与审查配置，由 Codex 自审，未改网站代码或运行 app 构建/业务测试；文档调整完成，待用户确认合并，不发布生产 | `feature/codex-site-maintenance-policy`
+
 - 2026-10-21 | Codex | 按用户要求原文发布《React Native 和 Expo》，新增 /posts/react-native-expo-intro；仅将原一级标题用于站点标题并补齐文章元数据，其余正文与原稿逐字节一致，原始笔记 SHA-256 80b0ec0b9cbcccad9b04e2535f26d4418110b6052c1baf91924399337df8a536 未变。site build、列表/详情在 1280/375/320px 共 6 组浏览器检查、9 项目录目标、列表进入详情、手机目录展开/跳转和桌面/手机截图目检通过，无整页横向溢出，控制台零错误；代码块保留原文并可独立横向滚动。用户明确要求不修改内容，保留 APKPure 相对链接和原 Markdown 格式，未运行文章中的 Expo 命令或校订正文；待分支部署及授权合并后生产复验。原约束调整分支单独保留，本轮不合并 | `feature/publish-react-native-expo-intro`
 
 - 2026-10-21 | Codex | React Native / Expo 原文发布完成：Preview@318fa1b 部署成功但匿名访问受保护；按用户检查通过后合并的授权，以 --no-ff 合并 main@f931865 并推送，Vercel Production 成功。正式域名 https://www.aaronsite.top/posts/react-native-expo-intro 可访问，首页/文章列表/新文章/原文章/项目页均 HTTP 200；线上正文与本地审查构建一致，两份 CSS 逐字节一致，列表新文章置顶。线上 1280/375px 真实浏览器复验均无整页横向溢出，9 项目录与 3 个代码块正常，无页面脚本错误；原始笔记 SHA-256 再核对未变，APKPure 相对链接和 Markdown 格式按要求保留，未运行文中命令或验真机；其他两 app 均 Skipped - Not affected。仅合并文章任务，约束调整分支继续保留；本次追加发布记录并收尾 | `feature/publish-react-native-expo-intro` / main@f931865
@@ -163,3 +165,5 @@
 - 2026-10-21 | Codex | 按用户反馈提高文章链接颜色辨识度：仅将引言/正文链接由深绿改为陶土橙褐色 #A34426，悬停 #77331F，下划线与键盘焦点边框跟随文字颜色，保留 strong 继承。未改文章内容、链接地址、布局或全站配色。build、格式/diff 检查通过，1280/375px 真实浏览器颜色断言和截图目检通过，4 个链接及加粗文字均为 rgb(163,68,38)，悬停为 rgb(119,51,31)，Tab/Shift+Tab 焦点边框可见，无横向溢出；计算正文/引言底色上的对比度为 5.80/4.94。沿用本次文章维护授权合并发布，待生产复验；约束调整分支不合并 | `feature/article-link-color`
 
 - 2026-10-21 | Codex | 文章链接颜色已上线：按本次文章维护授权 --no-ff 合并 main@1a19f43 并推送，Vercel Production 成功；正式文章页 HTTP 200，线上两份 CSS 与本地验收构建逐字节一致。生产 1280/375px 真实浏览器复验通过，4 个链接、加粗文字及下划线均为 rgb(163,68,38)，无整页横向溢出，桌面/手机截图已保存；当前打开的文章标签页已刷新。仅追加本任务完成记录，原约束调整分支继续保留 | `feature/article-link-color` / main@1a19f43
+
+- 2026-10-21 | Codex | 用户确认新版协作约束并授权提交合并；接续原分支 2f7d3ff，同步 main@dfbba10 并合并保留双方任务/进度记录，文章内容与陶土色链接代码相对当前 main 无差异。四份原文备份再次与来源提交 a490cf55d63542fb84fc9644231d32fec6b84572 及当前 main 的旧约束逐字节核对，SHA-256 四项通过；备份文件不改写，恢复说明和入口保留。现行职责、维护模板、索引与可选 reviewer 一致，由 Codex 自审，检查文档格式、本地链接、历史记录和改动范围；本轮仅提交协作约束及其记录，不运行 app 构建或业务测试，按用户授权合并 main 后核对远端与自动部署状态 | `feature/codex-site-maintenance-policy`

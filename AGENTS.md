@@ -1,176 +1,100 @@
-# 项目总规范（所有 AI 开工前必读）
+# 项目维护规范（所有 AI 开工前必读）
 
-## 核心红线（违反 = 返工）
+## 当前维护方式
 
-1. **第一句先切分支**。进入仓库后先执行：
-   ```bash
-   git checkout main && git pull origin main && git checkout -b feature/<任务名>
-   ```
-   然后才读文件、才改代码。顺序不能反。
-2. **严禁在 `main` 分支上直接改文件、提交、push。** 所有代码和文档改动必须在 feature 分支完成。
-3. **只改自己任务范围内的文件**。默认地盘：
-   - 视觉/样式/动效 → Antigravity (Gemini)
-   - 逻辑/结构/部署 → Codex (GPT)；Codex 额度不足或任务排不开时，可由 zcode (GLM 5.3 Flash) 替补
-   - 内容页/迁移/杂活/工程实现替补 → OpenCode Go（Qwen 3.7 Plus）/ zcode (GLM 5.3 Flash)
-   - 总控/派活/合并 → OpenCode（Kimi K2.7 code）
-   - 审查 → Claude Code（只 review，不写代码）
-4. **收工前必须更新 `docs/TASKS.md` 任务状态 + `docs/PROGRESS.md` 追加一行**（日期、AI 名、做了什么、分支/commit）。
+自 2026-10-21 起，按用户明确要求，本仓库的网站维护默认由 **Codex** 统一承担，涵盖 `apps/site`、`apps/project-1`、`apps/project-2` 的内容、视觉、样式、动效、功能、结构、测试、文档及部署相关工作。Codex 负责理解需求、检查前提、实施、验收、自审和汇报；获得本次任务的合并或发布授权后，也由 Codex 完成合并与上线核验。用户直接向 Codex 提出维护需求，无需经过 OpenCode 派活、Claude Code 固定审查或在多个 AI 之间转发提示词。
+
+原来的 AI 地盘划分和固定交接流程已归档，不再限制 Codex 修改视觉、内容或其他维护文件。其他 AI 仅在用户明确安排时参与，并以当次任务范围为准。历史任务、审计和进度中的负责人记录保留原样，不能据此推断仍有文件被占用或有任务需要自动执行；接续旧任务时应核实当前状态。
+
+用户当前明确指令优先；仓库内的现行约束以本文件及 `docs/DECISIONS.md` 中后续已确认的相关决策为准。历史协作分工由 2026-10-21 的决策替代，原有技术、产品和部署决策继续保留；如需变更尚未获用户授权的既定决策，先记录提议并确认。
+
+## 原约束备份与恢复
+
+原协作约束完整保存在 [`docs/archive/collaboration-policy/2026-10-21/`](docs/archive/collaboration-policy/2026-10-21/README.md)，包含本次修改前的 `AGENTS.md`、`docs/PROMPTS.md`、`docs/MEMORY_INDEX.md` 和 `.claude/agents/reviewer.md` 原文，以及来源提交和 SHA-256 校验清单。`.original` 文件仅作归档参考，不是现行指令，不得格式化或覆盖这些原始备份。
+
+以后用户明确说 **“恢复原来的协作约束”** 或同义要求时，默认按该目录的恢复说明还原原协作规则，并同步现行入口、决策和任务/进度记录。恢复只调整协作约束，保留之后的网站代码、技术决策和历史记录；不得用整仓回滚代替约束恢复。用户的恢复要求已授权执行这次约束调整，不必再次确认是否恢复；合并及生产发布仍按当次授权处理。
 
 ## 这是什么
 
 个人网站 + 两个旧项目的 monorepo，pnpm workspace 管理。
 
-- `apps/site` — 个人网站（Astro，暂定）
+- `apps/site` — 个人网站（Astro）
 - `apps/project-1` — 旧项目 1（前端 + 第三方后端 API）
 - `apps/project-2` — 旧项目 2（前端 + 第三方后端 API）
 
 ## 技术栈与命令
 
-- 包管理：**只用 pnpm**，不要用 npm/yarn
-- 安装依赖：`pnpm install`
-- 开发：`pnpm --filter <app名> dev`
-- 构建：`pnpm --filter <app名> build`
+- 包管理：**只用 pnpm**，不要用 npm/yarn。
+- 安装依赖：`pnpm install`。
+- 开发：`pnpm --filter <app名> dev`。
+- 构建：`pnpm --filter <app名> build`。
 - 前端构建产物必须能纯静态部署，业务后端使用第三方 API。例外：project-2 按用户 2026-08-27 的部署及 AI 任务要求允许 Vercel Serverless 商城/图片/共享 AI 代理，范围见 `docs/DECISIONS.md`。
 
-## 部署
+## 部署与授权
 
-- 平台：Vercel。每个 app 对应一个 Vercel project，Root Directory 指向 `apps/<app名>`
-- main 分支 push 即部署生产环境；feature 分支自动生成预览环境
+- 平台：Vercel。每个 app 对应一个 Vercel project，Root Directory 指向 `apps/<app名>`。
+- `main` 分支 push 即部署生产环境；feature 分支自动生成预览环境。
+- Codex 统一维护是职责安排，合并到 `main`、推送 `main` 或主动触发生产重部署仍需用户对当前任务的明确授权。用户已在当前任务中授权的步骤直接执行，不重复请求确认；“仅本地”“不推送”“先看效果”等限制必须遵守。
+- 获得发布授权后，由 Codex 检查部署状态和目标页面/接口，区分构建通过、部署成功与线上业务验收，不以其中一项代替全部结果。
 
-## 协作规则（违反 = 返工）
+## 开工与分支规则
 
-1. 开工前必读 `docs/TASKS.md`（认领任务、标 owner）、`docs/DECISIONS.md`（遵守已定决策）和 `docs/GOTCHAS.md`（规避已知踩坑）。
-2. 一个任务一个分支：`feature/<任务名>`，不直接推 main。详细流程见下节。
-3. 同一时间一个文件只允许一个 AI 修改。地盘划分见【核心红线】第 3 条。
-4. 已定决策不允许私自推翻；要改，先在 `docs/DECISIONS.md` 提新条目并等人确认。
-5. **收工汇报格式**：每个 AI 完成当前任务后，必须口头向用户汇报三件事——**完成了什么**、**下一步可以做什么**、**建议交给谁做**。不准只写“做完了”。
+1. 先读取 `AGENTS.md`、`docs/TASKS.md`、`docs/DECISIONS.md`、`docs/GOTCHAS.md` 和最近的 `docs/PROGRESS.md`；修改 app 前还要读取该目录的 `AGENTS.md` 及相关说明。
+2. 先检查任务的关键前提、目标和证据。发现错误假设、范围冲突或重要信息缺失时直接说明；能在现有授权下确定的实现细节自行处理，只有影响结果的关键信息缺失时才询问。
+3. **任何切分支、pull 或修改之前，先执行 `git status --short` 和 `git branch --show-current`。** 来源不明或属于其他任务的未提交改动不得提交、丢弃或自行 stash；如果无法隔离当前任务，先说明具体冲突并询问归属。继续本次任务时可保留已确认属于自己的改动。
+4. 代码和文档改动都必须在独立的 `feature/<任务名>` 分支完成，严禁在 `main` 上直接修改或提交。工作区干净且开始新任务时执行：
 
-## 防 AI 冲突工作流（必须严格执行）
+   ```bash
+   git checkout main
+   git pull --ff-only origin main
+   git checkout -b feature/<任务名>
+   ```
 
-> 历史教训：多个 AI 同时在同一个 working tree 上直接改文件，会导致改动混在一起、作者不明、难以 review。以下流程用于避免这种情况。
+   接续已存在的任务时使用该任务分支，不重复创建分支或强行切回 `main`。只读检查无需新建分支。
 
-### 开工前（第一句就做，顺序不能反）
+5. 开始实施前在 `docs/TASKS.md` 登记或更新当前任务，标明 owner、范围和验收标准。只改本次任务必要的文件，不因统一维护而扩大需求。
+6. 同一工作区默认只推进一个写入任务。若用户安排其他 AI 并行，应使用独立 worktree/checkout，明确文件范围，避免共用工作区切分支及同时修改任务/进度文档；不得擅自覆盖其他人的工作。
+
+## 验收与收工
+
+Codex 完成实现后检查 diff、任务范围、功能回归、错误与安全问题以及文档一致性。按实际改动运行相关构建、类型检查、测试或浏览器验收；纯文档变更检查格式、链接、内容和 diff 即可。样式与动效需验证实际页面和必要的响应式/减少动态效果场景；已有规则和踩坑继续适用。自审须如实标明，不能声称已由独立 reviewer 审查。
+
+收工前必须更新 `docs/TASKS.md` 当前任务状态，并在 `docs/PROGRESS.md` 追加日期、AI 名、实际完成内容、验证边界和分支/commit。必要时追加 `docs/GOTCHAS.md`，修改记忆入口时同步 `docs/MEMORY_INDEX.md`；只更新与本次任务有关的条目，保留历史记录。
+
+提交前执行 `git status`、`git diff --stat` 和 `git diff --check`，确认只有本次任务的改动；用明确文件路径暂存，避免无差别收进其他改动。提交使用中文说明，例如 `git commit -m "docs: 调整网站维护约束"`。默认提交并推送 feature 分支；用户要求仅本地或暂不提交/推送时，以用户要求为准。
+
+汇报应说明完成了什么、如何验证、尚未验证或尚待确认的内容，以及下一步。后续工作默认仍由 Codex 接续，无需为了符合旧格式而转交其他 AI。需要用户确认合并时，提供已完成的具体结果和可检查的分支/diff。
+
+## 合并规则
+
+Codex 自审和相关验收通过、且用户已明确授权本次任务合并后，由 Codex 执行；不再强制交给 Claude Code 或 OpenCode。若用户要求独立审查，先完成该审查。合并前检查工作区干净、远端状态和待合并差异；若 `main` 已更新，处理差异并重跑受影响的验收。
+
+使用 `--no-ff` 保留任务分支历史：
 
 ```bash
 git checkout main
-git pull origin main
-git checkout -b feature/<任务名>
+git pull --ff-only origin main
+git merge --no-ff feature/<任务名>
+git push origin main
 ```
 
-**如果你发现自己在 `main` 分支上，立刻停止，执行上面三句后再继续。**
-
-- 开工前先看 `docs/TASKS.md`，确认任务 owner 是自己、且目标文件没有被别的 AI 占用。
-- 如果发现自己的 working tree 里已经有未提交改动（`git status` 不干净），**立即停止**，先问用户这些改动属于谁，不要擅自提交。
-
-### 工作中
-
-- **只改自己任务范围内的文件**。
-- **不要改 `main` 分支，不要在 `main` 上直接 `git add && git commit`。**
-- 如果需要改记忆文档（`docs/TASKS.md`、`docs/PROGRESS.md` 等），只改自己任务相关的条目。
-
-### 收工前
-
-```bash
-git status          # 确认只提交了自己改的文件
-git diff --stat     # 确认改动范围合理
-git add -A
-git commit -m "<type>: <中文描述>"
-git push -u origin feature/<任务名>
-```
-
-- **不允许私自 merge 到 main**。分支必须由用户或 Claude Code review 通过，再由 OpenCode 或用户执行合并。
-- 如果任务涉及多个 app 或跨层改动，提交前先跑相关验收命令（如 `pnpm format`、`pnpm --filter <app> build`）。
-
-### 合并规则
-
-1. 用户或指定 reviewer 检查分支 diff。
-2. 确认无冲突、验收通过。
-3. 使用 `--no-ff` 合并到 main，保留分支历史：
-   ```bash
-   git checkout main
-   git pull origin main
-   git merge --no-ff feature/<任务名>
-   git push
-   git branch -d feature/<任务名>
-   git push origin --delete feature/<任务名>
-   ```
+确认远端合并成功且完成必要的上线核验后，可删除本次任务已合并的本地与远端 feature 分支。遇到冲突不得用强推或覆盖其他改动处理；先定位冲突并在当前授权范围内解决。
 
 ## Skill 使用规则
 
 - **ponytail**：仅当用户明确说出触发词时才调用。触发词包括 `ponytail`、`lazy mode`、`be lazy`、`simplest solution`、`minimal solution`、`yagni`、`do less`、`shortest path`，或用户明确抱怨 over-engineering / bloat / boilerplate / unnecessary dependencies。
 - 默认编码任务**不主动使用 ponytail**。如果用户没有给出上述任何信号，按正常工程化方式实现。
 
-## 四 AI 协作主流程（OpenCode 总控）
+## 记忆文档体系
 
-本流程用于把“谁该干什么、谁审查、谁合并”规范化，避免多 AI 同时乱改同一个 working tree。
+- **`AGENTS.md`**：项目维护规范和唯一入口，记录现行职责、技术约束、分支流程和恢复入口。
+- **`docs/DECISIONS.md`**：已确认的技术/产品/流程决策；后续变更追加新条目并说明替代关系，保留旧记录。
+- **`docs/TASKS.md`**：任务状态、owner、范围和验收标准。
+- **`docs/PROGRESS.md`**：按时间记录实际完成内容、验证边界和分支/commit。
+- **`docs/GOTCHAS.md`**：已知踩坑与复用经验，开工前必读。
+- **`docs/MEMORY_INDEX.md`**：现行规范和记忆分册索引。
+- **`docs/PROMPTS.md`**：Codex 维护、可选独立审查和恢复原约束的提示词模板。
+- **`docs/archive/collaboration-policy/2026-10-21/`**：原协作约束的只读备份、校验清单与恢复说明。
+- **`CLAUDE.md`**：仅以 `@AGENTS.md` 导入现行入口，不另存一套规则。
 
-### 角色
-
-- **OpenCode（总控）**：查看进度、审查状态、写派活提示词，由用户转发给执行者。
-- **Codex / Antigravity / OpenCode Go（执行者）**：各自在独立 feature 分支上完成任务。
-- **Claude Code（审查员）**：只 review，不写新功能；审查通过后代为汇报给 OpenCode。
-- **用户（决策者）**：在每个关键节点确认或转发提示词。
-
-### 流程
-
-1. **OpenCode 派发**
-   - OpenCode 读取 `AGENTS.md`、`docs/TASKS.md`、`docs/DECISIONS.md`、`docs/GOTCHAS.md`、`docs/PROGRESS.md` 和分支状态。
-   - OpenCode 写一段派活提示词，用户复制给对应的执行者。
-
-2. **执行者开工**
-   - 执行者收到提示词后，第一句执行：
-     ```bash
-     git checkout main
-     git pull origin main
-     git checkout -b feature/<任务名>
-     ```
-   - 执行者读 `AGENTS.md`、`docs/TASKS.md`、`docs/DECISIONS.md`、`docs/GOTCHAS.md`，开始工作。
-
-3. **执行者收工并推送**
-   - 完成任务后，执行者更新 `docs/TASKS.md` 和 `docs/PROGRESS.md`。
-   - 执行者 commit、push feature 分支。
-   - 执行者写一段**给 Claude Code 的审查提示词**，用户复制给 Claude Code。
-
-4. **Claude Code 审查**
-   - 同一时刻只审查一个 feature 分支。
-   - 审查内容：代码质量、是否改了不该改的文件、验收是否通过、记忆文档是否同步。
-   - **通过**：Claude Code 写一段**给 OpenCode 的完成汇报提示词**，用户复制给 OpenCode。
-   - **不通过**：小问题退回原执行者修复；大方向问题由 OpenCode 重新评估。
-
-5. **合并到 main**
-   - OpenCode 收到完成汇报后，执行合并（或告诉用户如何合并）：
-     ```bash
-     git checkout main
-     git pull origin main
-     git merge --no-ff feature/<任务名>
-     git push
-     git branch -d feature/<任务名>
-     git push origin --delete feature/<任务名>
-     ```
-
-6. **继续派发**
-   - OpenCode 更新总进度，继续派发下一个任务。
-
-### 并发规则
-
-- **同一时刻尽量只让一个 AI 工作、一个 AI 审查**。
-- 例如：Antigravity 在 `feature/site-visual` 工作时，Codex 不要同时开工新分支；等 Antigravity 分支进入 Claude Code 审查阶段，再派 Codex 做下一个任务。
-- 如果必须并行，必须确保两个任务修改的文件完全不重叠，且各自独立分支。
-
-## 记忆文档体系（所有 AI 共同维护）
-
-本项目采用“一总纲 + 多分册”的正式记忆文档结构：
-
-- **AGENTS.md（本文档）**：项目记忆总纲和唯一入口。任何 AI 进入项目时首先读取此文件；它包含规范、分工、命令，以及下方记忆分册的索引。为保持根文件稳定，高频进度、决策和踩坑不直接堆在本文档。
-- **docs/DECISIONS.md**：决策记忆。所有已经拍板的技术/产品/流程决策必须记录在此；推翻决策必须先新增条目并等人确认。
-- **docs/TASKS.md**：任务记忆。当前所有任务的状态、owner、验收标准。开工前认领，收工前更新。
-- **docs/PROGRESS.md**：进度记忆。按时间线记录每次谁做了什么、对应哪个分支/commit，便于回溯。
-- **docs/GOTCHAS.md**：踩坑记忆。所有 AI 开工前必读；完成任务后把新发现的可复用坑追加到该文件，不再追加到根 `AGENTS.md`。
-- **docs/PROMPTS.md**：派活模板记忆。给 Codex / Antigravity / Claude Code 的标准化 prompt 模板。
-- **CLAUDE.md**：仅作为 AGENTS.md 的入口（`@AGENTS.md`），本身不存放新内容。
-
-所有 AI 在修改代码的同时，必须同步维护上述文档；代码改动与记忆文档不同步视为未完成。
-
-## Gotchas（踩坑入口）
-
-完整踩坑记录已迁移到 `docs/GOTCHAS.md`，所有 AI 开工前必须读取；完工后如有新的可复用踩坑，只追加到该分册，保持根 `AGENTS.md` 稳定。
+代码改动与相关任务/进度文档必须同步。历史审计、设计文档和进度里的 AI 姓名用于记录当时事实，不覆盖本文件的现行职责安排。
