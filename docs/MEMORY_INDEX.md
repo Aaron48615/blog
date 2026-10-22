@@ -10,6 +10,7 @@
 | 项目是什么       | 个人站 + 两个旧项目的 pnpm monorepo                                              | `AGENTS.md` > 这是什么                                   |
 | 技术栈与命令     | 只用 pnpm，前端静态构建，project-2 的 Serverless 例外按既定范围保留              | `AGENTS.md` > 技术栈与命令                               |
 | 部署方式         | Vercel，每个 app 一个 project；main push 触发生产部署                            | `AGENTS.md` > 部署与授权                                 |
+| 文章发布与更新   | 原文直接放、完整前言放标题下；发布请求授权检查通过后合并 main 并核验生产         | `AGENTS.md` > 文章发布与更新（2026-10-22）               |
 | 当前维护职责     | 2026-10-21 起由 Codex 统一负责内容、视觉、功能、工程、验收和文档                 | `AGENTS.md` > 当前维护方式                               |
 | 原约束备份与恢复 | 用户要求“恢复原来的协作约束”时，按原文备份恢复协作规则，保留后续实现             | `docs/archive/collaboration-policy/2026-10-21/README.md` |
 | 开工与分支       | 先读规范和查工作区，再建或接续 feature 分支；禁止直接在 main 修改/提交           | `AGENTS.md` > 开工与分支规则                             |
@@ -28,6 +29,7 @@
 | 部署平台：Vercel          | 每个 app 一个 project                                            | `docs/DECISIONS.md`                                                           |
 | AGENTS.md 为唯一入口      | CLAUDE.md 只导入现行总纲                                         | `docs/DECISIONS.md`                                                           |
 | Codex 统一维护            | 2026-10-21 用户已确认，替代历史多 AI 地盘与固定交接流程          | `docs/DECISIONS.md`                                                           |
+| 文章发布流程              | 2026-10-22 用户确认原文保留、前言位置及检查通过后合并发布        | `docs/DECISIONS.md`                                                           |
 | 原四 AI 分工              | 2026-08-25 的历史决策，原文保留于决策日志及协作约束归档          | `docs/DECISIONS.md`、`docs/archive/collaboration-policy/2026-10-21/README.md` |
 | 静态构建与代理例外        | 前端静态；project-2 商城/图片/共享 AI 使用限定的 Serverless 代理 | `docs/DECISIONS.md`                                                           |
 | apps/site 用 Astro        | 已由用户确认                                                     | `docs/DECISIONS.md`                                                           |
@@ -43,8 +45,9 @@
 
 ## 维护模板
 
-| 主题           | 一句话摘要                                    | 详细位置                                                                    |
-| -------------- | --------------------------------------------- | --------------------------------------------------------------------------- |
-| Codex 维护任务 | 需求、范围、验收、提交与发布要求              | `docs/PROMPTS.md`                                                           |
-| 可选独立审查   | 用户要求时只读检查 diff；结果回到用户和 Codex | `docs/PROMPTS.md`、`.claude/agents/reviewer.md`                             |
-| 恢复原协作约束 | 明确恢复指令、校验和保留后续实现的边界        | `docs/PROMPTS.md`、`docs/archive/collaboration-policy/2026-10-21/README.md` |
+| 主题           | 一句话摘要                                     | 详细位置                                                                    |
+| -------------- | ---------------------------------------------- | --------------------------------------------------------------------------- |
+| Codex 维护任务 | 需求、范围、验收、提交与发布要求               | `docs/PROMPTS.md`                                                           |
+| 文章发布与更新 | 原文、前言位置、合并前检查和生产核验的既定流程 | `docs/PROMPTS.md`                                                           |
+| 可选独立审查   | 用户要求时只读检查 diff；结果回到用户和 Codex  | `docs/PROMPTS.md`、`.claude/agents/reviewer.md`                             |
+| 恢复原协作约束 | 明确恢复指令、校验和保留后续实现的边界         | `docs/PROMPTS.md`、`docs/archive/collaboration-policy/2026-10-21/README.md` |
